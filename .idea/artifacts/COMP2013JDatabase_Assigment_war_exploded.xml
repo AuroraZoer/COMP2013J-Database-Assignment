@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="COMP2013JDatabase-Assigment:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/COMP2013JDatabase_Assigment_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="COMP2013JDatabase-Assigment/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="COMP2013JDatabase-Assigment" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

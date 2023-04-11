@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="6987de80-44e6-4cec-b034-e376af7c6864" name="Changes" comment="git init" />
     <option name="SHOW_DIALOG" value="false" />
