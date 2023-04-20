@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ArtifactsWorkspaceSettings">
-    <artifacts-to-build>
-      <artifact name="COMP2013JDatabase-Assigment:war exploded" />
-    </artifacts-to-build>
-  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6987de80-44e6-4cec-b034-e376af7c6864" name="Changes" comment="Developer Documentation">
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/Tomcat_9_0_73.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/602a5376-96d2-4dea-b074-c846c3e5bac3/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/602a5376-96d2-4dea-b074-c846c3e5bac3/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/602a5376-96d2-4dea-b074-c846c3e5bac3/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/602a5376-96d2-4dea-b074-c846c3e5bac3/storage_v2/_src_/schema/sys.zb4BAA.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/dadb20c8-763e-4826-8e86-830ae898c9ee.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/dadb20c8-763e-4826-8e86-830ae898c9ee.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/COMP2013JDatabase_Assigment_war_exploded/checkLogin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/COMP2013JDatabase_Assigment_war_exploded/checkLogin.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/COMP2013JDatabase_Assigment_war_exploded/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/COMP2013JDatabase_Assigment_war_exploded/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/COMP2013JDatabase_Assigment_war_exploded/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/COMP2013JDatabase_Assigment_war_exploded/login.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/COMP2013JDatabase_Assigment_war_exploded/userMain.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/COMP2013JDatabase_Assigment_war_exploded/userMain.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/checkLogin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/checkLogin.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/userMain.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/userMain.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,33 +32,12 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <favorite-branches>
-      <branch-storage>
-        <map>
-          <entry type="LOCAL">
-            <value>
-              <list>
-                <branch-info repo="$PROJECT_DIR$" source="test" />
-                <branch-info repo="$PROJECT_DIR$" source="zzy" />
-              </list>
-            </value>
-          </entry>
-        </map>
-      </branch-storage>
-    </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="session" />
+        <entry key="$PROJECT_DIR$" value="test" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="LogFilters">
-    <option name="FILTER_ERRORS" value="false" />
-    <option name="FILTER_WARNINGS" value="false" />
-    <option name="FILTER_INFO" value="true" />
-    <option name="FILTER_DEBUG" value="true" />
-    <option name="CUSTOM_FILTER" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -198,8 +176,6 @@
       <workItem from="1681795906297" duration="4384000" />
       <workItem from="1681800496085" duration="1566000" />
       <workItem from="1681804073364" duration="4753000" />
-      <workItem from="1681955826220" duration="3415000" />
-      <workItem from="1681967420358" duration="387000" />
     </task>
     <task id="LOCAL-00001" summary="git init">
       <created>1681203413340</created>
