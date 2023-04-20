@@ -8,29 +8,53 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 
+<%--session dealing--%>
+<%--no session--%>
 <%
-    String useraccount = request.getParameter("username");
-    String password = request.getParameter("password");
-    if (!UserDAO.existUser(useraccount)){
+    if (session.isNew()){
         response.sendRedirect("login.jsp");
     }
-
-
-    User user = UserDAO.getUser(useraccount, password);
-    session.setAttribute("user", user);
-    String uid = UserDAO.getUid(user);
-    String description = UserDAO.getDescription(user);
 %>
+
+<%--fake session--%>
+<%
+    if (session.getAttribute("login")!="true"){
+        response.sendRedirect("login.jsp");
+    }
+%>
+
+<%--recv account&password--%>
+<%
+    String account = request.getParameter("account");
+    String password = request.getParameter("password");
+%>
+
+<%--check the data to database--%>
+<%--account not exist--%>
+<%
+
+%>
+
+<%--password false--%>
+<%
+
+%>
+
+<%--添加用户session--%>
+<%
+    session.setAttribute("uid", "10000001");
+%>
+
+<%--跳转usermain--%>
+<%
+    response.sendRedirect("userMain.jsp");
+%>
+
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
-<form action="userMain.jsp" method="get">
-    <input type="hidden" name="username" value="<%=username%>">
-    <input type="hidden" name="uid" value="<%=uid%>">
-    <input type="hidden" name="msg" value="<%=description%>">
-
-</form>
+404
 </body>
 </html>

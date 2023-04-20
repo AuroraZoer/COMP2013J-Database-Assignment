@@ -7,6 +7,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%--Set session--%>
+<%
+    session.setAttribute("login", "true");
+    session.setMaxInactiveInterval(1800);
+%>
+
 <html>
 <head>
     <title>Login</title>

@@ -6,7 +6,50 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%String uid = request.getParameter("uid");%>
+
+<%--no session--%>
+<%
+    if (session.isNew()){
+        response.sendRedirect("login.jsp");
+    }
+%>
+
+<%--fake session--%>
+<%
+    if (session.getAttribute("login")!="true"){
+        response.sendRedirect("login.jsp");
+    }
+%>
+
+<%--session outdate--%>
+<%
+    if (session.getMaxInactiveInterval()<0){
+        response.sendRedirect("login.jsp");
+    }
+%>
+
+<%--update session--%>
+<%
+    session.setMaxInactiveInterval(1800);
+%>
+
+<%--recv user msg--%>
+<%
+    String uid = (String)session.getAttribute("uid");
+%>
+
+<%--check uid--%>
+<%
+    if (uid==null){
+        response.sendRedirect("login.jsp");
+    }
+%>
+
+<%--generate user data--%>
+<%
+
+%>
+
 <html>
 <head>
     <title><%=request.getParameter("username")%></title>
@@ -14,10 +57,9 @@
 <body>
 <div>
     用户名：<%=request.getParameter("username")%><br>
-    uid：<%=request.getParameter("uid")%><br>
+    uid：<%=uid%><br>
     信息：<%=request.getParameter("msg")%>
 </div>
 
-收藏夹：<%=UserDAO.getSCJ(uid)%>
 </body>
 </html>
