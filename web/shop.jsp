@@ -28,12 +28,14 @@
 
 <%--recv session msg--%>
 <%
-    String num;
+    String login_status = (String) session.getAttribute("need_login");
+    String uid = (String) session.getAttribute("uid");
+
 %>
 
 <%--check session msg--%>
 <%
-
+    Boolean need_login = login_status.equals("false");
 %>
 
 <%--session invalid--%>
