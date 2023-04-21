@@ -14,10 +14,16 @@
     }
 %>
 
+<%--recv session msg--%>
+<%
+    String uid = (String)session.getAttribute("uid");
+    String login_status = (String) session.getAttribute("login_status")
+%>
+
 <%--session outdate--%>
 <%
     if (session.getMaxInactiveInterval()<0){
-        session.setAttribute("need_login", "true");
+        session.setAttribute("login_status", "true");
     }
 %>
 
@@ -26,16 +32,31 @@
     session.setMaxInactiveInterval(1800);
 %>
 
-<%--wrong session--%>
+<%--recv parameters--%>
 <%
-    if (session.getAttribute("need_login")=="true"){
-        response.sendRedirect("login.jsp");
-    }
+
 %>
 
-<%--recv user msg--%>
+<%--parameters react--%>
 <%
-    String uid = (String)session.getAttribute("uid");
+
+%>
+
+<%--check parameters invalid--%>
+<%
+
+%>
+
+<%--change session msg by param--%>
+<%
+    
+%>
+
+<%--check session msg--%>
+<%
+    if (login_status == "false"){
+        response.sendRedirect("login.jsp");
+    }
 %>
 
 <%--check uid--%>
@@ -54,9 +75,7 @@
     }
 %>
 
-<%--generate user data--%>
-<%
-%>
+<%--pre-action--%>
 
 <html>
 <head>
@@ -72,7 +91,9 @@
 
 <div>
     <form action="login.jsp">
-        <input type="hidden" name="delete_session" value="true">
+        <%
+            session.setAttribute("login_status", "false");
+        %>
         <button type="submit">退出登录</button>
     </form>
 </div>

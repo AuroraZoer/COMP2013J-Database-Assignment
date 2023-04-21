@@ -52,7 +52,7 @@
     if (uid==null){uid="null";}
 %>
 
-<%--change session msg--%>
+<%--change session msg by param--%>
 <%
     if (account.equals("admin")&&password.equals("")){login_status="true";}
 %>
