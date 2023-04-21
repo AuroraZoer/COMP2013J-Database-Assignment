@@ -10,10 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6987de80-44e6-4cec-b034-e376af7c6864" name="Changes" comment="Developer Documentation">
-      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/COMP2013JDatabase_Assigment_war_exploded/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/COMP2013JDatabase_Assigment_war_exploded/login.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/COMP2013JDatabase_Assigment_war_exploded/userMain.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/COMP2013JDatabase_Assigment_war_exploded/userMain.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/COMP2013JDatabase-Assigment.iml" beforeDir="false" afterPath="$PROJECT_DIR$/COMP2013JDatabase-Assigment.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/checkLogin.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/login.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/userMain.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
