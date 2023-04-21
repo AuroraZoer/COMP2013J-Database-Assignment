@@ -6,6 +6,66 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%--no session--%>
+<%
+    if (session.isNew()){
+        response.sendRedirect("login.jsp");
+    }
+%>
+
+<%--session outdate--%>
+<%
+    if (session.getMaxInactiveInterval()<0){
+        session.setAttribute("need_login", "true");
+    }
+%>
+
+<%--sessionn update--%>
+<%
+    session.setMaxInactiveInterval(1800);
+%>
+
+<%--recv session msg--%>
+<%
+    String login_status = (String) session.getAttribute("need_login");
+    String uid = (String) session.getAttribute("uid");
+
+%>
+
+<%--check session msg--%>
+<%
+    Boolean need_login = login_status.equals("false");
+%>
+
+<%--session invalid--%>
+<%
+
+%>
+
+<%--recv parameters--%>
+<%
+
+%>
+
+<%--check parameters--%>
+<%
+
+%>
+
+<%--parameter invalid--%>
+<%
+
+%>
+
+<%--add new session--%>
+<%
+    session.setAttribute("referenced", "shop.jsp");
+%>
+
+
+
+
 <html>
 <head>
     <title>Shop</title>
