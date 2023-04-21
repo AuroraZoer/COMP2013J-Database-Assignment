@@ -10,7 +10,6 @@
 <%--no session--%>
 <%
     if (session.isNew()){
-        session.setAttribute("need_login", "true");
         response.sendRedirect("login.jsp");
     }
 %>
