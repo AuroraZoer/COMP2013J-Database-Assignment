@@ -7,10 +7,60 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%--recv parameters--%>
+<%--no session--%>
+<%
+    if (session.isNew()){
+        response.sendRedirect("login.jsp");
+    }
+%>
+
+<%--session outdate--%>
+<%
+    if (session.getMaxInactiveInterval()<0){
+        session.setAttribute("need_login", "true");
+    }
+%>
+
+<%--sessionn update--%>
+<%
+    session.setMaxInactiveInterval(1800);
+%>
+
+<%--recv session msg--%>
 <%
     String num;
 %>
+
+<%--check session msg--%>
+<%
+
+%>
+
+<%--session invalid--%>
+<%
+
+%>
+
+<%--recv parameters--%>
+<%
+
+%>
+
+<%--check parameters--%>
+<%
+
+%>
+
+<%--parameter invalid--%>
+<%
+
+%>
+
+<%--add new session--%>
+<%
+    session.setAttribute("referenced", "shop.jsp");
+%>
+
 
 
 
