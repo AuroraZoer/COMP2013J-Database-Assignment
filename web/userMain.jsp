@@ -17,7 +17,7 @@
 <%--recv session msg--%>
 <%
     String uid = (String)session.getAttribute("uid");
-    String login_status = (String) session.getAttribute("login_status")
+    String login_status = (String) session.getAttribute("login_status");
 %>
 
 <%--session outdate--%>
