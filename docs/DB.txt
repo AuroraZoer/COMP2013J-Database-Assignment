@@ -1,0 +1,3 @@
+# Create a user "dnb" with password "password"
+# this will be used by the JDBCTool class to access the database.
+CREATE USER 'dnb'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
