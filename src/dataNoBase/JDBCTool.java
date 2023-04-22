@@ -9,6 +9,7 @@ public class JDBCTool {
 
     private static final String userName = "dnb";
     private static final String passWord = "password";
+    private static final String dbName = "cmp";
     public static Connection getConnection(String url, String dbname, String username, String password) {
         Connection conn = null;
         try {
@@ -20,7 +21,7 @@ public class JDBCTool {
         return conn;
     }
 
-    public static Connection getConnection(String dbName) {
+    public static Connection getConnection() {
         return JDBCTool.getConnection("localhost", dbName, userName, passWord);
     }
 
