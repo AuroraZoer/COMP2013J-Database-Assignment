@@ -19,7 +19,7 @@
 <%--recv session msg--%>
 <%
     String uid = (String)session.getAttribute("uid");
-    String login_status = (String) session.getAttribute("login_status")
+    String login_status = (String) session.getAttribute("login_status");
 %>
 
 <%--session outdate--%>
@@ -82,14 +82,22 @@
 <html>
 <head>
     <title>Shop</title>
+    <script type="text/javascript" language="javascript">
+        document.getElementById("select_button").onclick = function (){
+        //     onclick事件
+            
+        }
+    </script>
+
+
+
 </head>
 <body>
 
 <div class="whole">
     <div class="left_box">
         <div class="left_box_item">
-            
-            
+
         </div>
     </div>
     
@@ -97,13 +105,15 @@
         <div class="top_box">
             <div class="search_box">
                 <form action="shop.jsp">
-                    <input type="search" name="keyword">
+                    <label>
+                        <input type="search" name="keyword">
+                    </label>
                 </form>
             </div>
             
             <div class="select">
-                <button>
-                <img src="/img/select_icon.jpg" alt="筛选" height="50", width="50">
+                <button id="select_button">
+                <img src="/img/select_icon.jpg" alt="筛选" height="50" width="50">
                 </button>
             </div>
         </div>
