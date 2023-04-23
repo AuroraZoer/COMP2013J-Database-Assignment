@@ -14,10 +14,16 @@
     }
 %>
 
+<%--recv session msg--%>
+<%
+    String uid = (String)session.getAttribute("uid");
+    String login_status = (String) session.getAttribute("login_status")
+%>
+
 <%--session outdate--%>
 <%
     if (session.getMaxInactiveInterval()<0){
-        session.setAttribute("need_login", "true");
+        session.setAttribute("login_status", "true");
     }
 %>
 
@@ -26,41 +32,51 @@
     session.setMaxInactiveInterval(1800);
 %>
 
-<%--recv session msg--%>
-<%
-    String login_status = (String) session.getAttribute("need_login");
-    String uid = (String) session.getAttribute("uid");
-
-%>
-
-<%--check session msg--%>
-<%
-    Boolean need_login = login_status.equals("false");
-%>
-
-<%--session invalid--%>
-<%
-
-%>
-
 <%--recv parameters--%>
 <%
 
 %>
 
-<%--check parameters--%>
+<%--parameters react--%>
 <%
 
 %>
 
-<%--parameter invalid--%>
+<%--check parameters invalid--%>
 <%
 
 %>
 
-<%--add new session--%>
+<%--change session msg by param--%>
 <%
-    session.setAttribute("referenced", "shop.jsp");
+
+%>
+
+<%--check session msg--%>
+<%
+    if (uid == null){
+        login_status = "false";
+    }
+%>
+
+<%--check uid--%>
+<%
+    if (uid==null){
+        session.setAttribute("need_login", "true");
+    }
+%>
+
+<%--need_login--%>
+<%
+    String session_id = session.getAttribute("need_login")==null?"null":(String)session.getAttribute("need_login");
+    if (session_id.equals("true")){
+        response.sendRedirect("login.jsp");
+    }
+%>
+
+<%--pre-action--%>
+<%
+
 %>
 
 
