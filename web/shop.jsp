@@ -10,14 +10,14 @@
 <%--no session--%>
 <%
     if (session.isNew()){
-        response.sendRedirect("login.jsp");
+        session.setAttribute("login_status", "true");
     }
 %>
 
 <%--session outdate--%>
 <%
     if (session.getMaxInactiveInterval()<0){
-        session.setAttribute("need_login", "true");
+        session.setAttribute("login_status", "true");
     }
 %>
 
@@ -28,7 +28,7 @@
 
 <%--recv session msg--%>
 <%
-    String login_status = (String) session.getAttribute("need_login");
+    String login_status = (String) session.getAttribute("login_status");
     String uid = (String) session.getAttribute("uid");
 
 %>
@@ -55,7 +55,7 @@
 
 <%--parameter invalid--%>
 <%
-
+    
 %>
 
 <%--add new session--%>
@@ -71,6 +71,33 @@
     <title>Shop</title>
 </head>
 <body>
+
+<div class="whole">
+    <div class="left_box">
+        <div class="left_box_item">
+            
+            
+        </div>
+    </div>
+    
+    <div class="mid_box">
+        <div class="top_box">
+            <div class="search_box">
+                <form action="shop.jsp">
+                    <input type="search" name="keyword" value="">
+                </form>
+            </div>
+        </div>
+        
+    </div>
+    
+    
+    
+    
+</div>
+
+
+
 
 </body>
 </html>
