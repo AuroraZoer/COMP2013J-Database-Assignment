@@ -54,8 +54,8 @@
 
 <%--check session msg--%>
 <%
-    if (login_status == "false"){
-        response.sendRedirect("login.jsp");
+    if (uid == null){
+        login_status = "false";
     }
 %>
 
@@ -69,13 +69,15 @@
 <%--need_login--%>
 <%
     String session_id = session.getAttribute("need_login")==null?"null":(String)session.getAttribute("need_login");
-    Boolean need_login = session_id.equals("true");
-    if (need_login){
+    if (session_id.equals("true")){
         response.sendRedirect("login.jsp");
     }
 %>
 
 <%--pre-action--%>
+<%
+
+%>
 
 <html>
 <head>

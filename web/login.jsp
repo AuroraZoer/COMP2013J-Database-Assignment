@@ -62,15 +62,15 @@
 
 %>
 
+<%--pre-action--%>
+<%
+    Boolean need_login = !login_status.equals("true");
+%>
+
 <%--add session--%>
 <%
     session.setAttribute("login_status", login_status);
     session.setAttribute("uid", uid);
-%>
-
-<%--pre-action--%>
-<%
-    Boolean need_login = !login_status.equals("true");
 %>
 
 <html>
