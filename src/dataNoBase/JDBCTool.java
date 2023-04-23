@@ -7,9 +7,9 @@ import java.sql.SQLException;
 
 public class JDBCTool {
 
-    private static final String userName = "dnb";
-    private static final String passWord = "password";
-    private static final String dbName = "cmp";
+    private static final String userName = "Zoe";
+    private static final String passWord = "7BybPneSwJHjzLRk";
+    private static final String dbName = "zoe";
     public static Connection getConnection(String url, String dbname, String username, String password) {
         Connection conn = null;
         try {
@@ -22,7 +22,7 @@ public class JDBCTool {
     }
 
     public static Connection getConnection() {
-        return JDBCTool.getConnection("localhost", dbName, userName, passWord);
+        return JDBCTool.getConnection("42.193.97.229", dbName, userName, passWord);
     }
 
 

@@ -3,19 +3,19 @@
 #this will be used by the JDBCTool class to access the database.
 CREATE USER 'dnb'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
 #create the commodity management platform database:
-CREATE DATABASE cmp;
-#grant editing privilege on the CMP database to our account:
-GRANT ALL ON cmp.* TO 'dnb'@'localhost' WITH GRANT OPTION;
+CREATE DATABASE zoe;
+#grant editing privilege on the zoe database to our account:
+GRANT ALL ON zoe.* TO 'dnb'@'localhost' WITH GRANT OPTION;
 
 #these commands will delete all tables
-USE cmp;
+USE zoe;
 DROP TABLE user;
 DROP TABLE account;
 DROP TABLE commodity;
 DROP TABLE sale;
 
 #the following can be executed by the new account
-USE cmp;
+USE zoe;
 CREATE TABLE user(
     uid INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
