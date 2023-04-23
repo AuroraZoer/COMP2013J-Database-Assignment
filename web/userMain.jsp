@@ -97,7 +97,7 @@
 <div>
     <form action="userMain.jsp">
         <%
-            session.setAttribute("login_status", "false");
+            session.setAttribute("login_status", "true");
         %>
         <button type="submit">退出登录</button>
     </form>
@@ -107,7 +107,7 @@
     <form action="shop.jsp">
         <div>
             <button>
-                <img src="shop.jsp" alt="商店">
+                <img src="img/shop.jpg" alt="商店" height="50", width="50">
             </button>
         </div>
     </form>

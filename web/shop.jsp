@@ -36,18 +36,23 @@
 
 <%--recv parameters--%>
 <%
-    
-%>
-
-<%--parameters react--%>
-<%
-
+    String select = request.getParameter("select");
 %>
 
 <%--check parameters invalid--%>
 <%
-
+    if (select==null){
+        select = "null";
+    }
 %>
+
+<%--parameters react--%>
+<%
+    if (select.equals("true")){
+
+    }
+%>
+
 
 <%--change session msg by param--%>
 <%
@@ -69,7 +74,7 @@
 <%--pre-action--%>
 <%
     if (!login_status.equals("true")){
-        response.sendRedirect("");
+        response.sendRedirect("login.jsp");
     }
 %>
 
@@ -112,9 +117,12 @@
             </div>
             
             <div class="select">
-                <button id="select_button">
-                <img src="/img/select_icon.jpg" alt="筛选" height="50" width="50">
+                <form action="shop.jsp" method="post">
+                    <input type="hidden" name="select" value="true">
+                <button id="select_button" type="submit">
+                <img src="img/select_icon.jpg" alt="筛选" height="50" width="50">
                 </button>
+                </form>
             </div>
         </div>
         
@@ -124,7 +132,6 @@
     
     
 </div>
-
 
 
 
