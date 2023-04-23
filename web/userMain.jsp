@@ -34,7 +34,7 @@
 
 <%--recv parameters--%>
 <%
-
+    String jump = request.getParameter("url");
 %>
 
 <%--parameters react--%>
@@ -44,7 +44,9 @@
 
 <%--check parameters invalid--%>
 <%
-
+    if (jump==null){
+        jump = "null";
+    }
 %>
 
 <%--change session msg by param--%>
@@ -66,11 +68,19 @@
 
 <%--pre-action--%>
 <%
-    String session_id = session.getAttribute("need_login")==null?"null":(String)session.getAttribute("need_login");
-    if (session_id.equals("true")){
+    if (!login_status.equals("true")){
         response.sendRedirect("login.jsp");
     }
 %>
+
+<%--页面事件--%>
+<%--========================================================================================================================================--%>
+
+<%--check parameters--%>
+<%
+    
+%>
+
 
 <html>
 <head>
@@ -85,12 +95,23 @@
 
 
 <div>
-    <form action="login.jsp">
+    <form action="userMain.jsp">
         <%
             session.setAttribute("login_status", "false");
         %>
         <button type="submit">退出登录</button>
     </form>
+</div>
+
+<div>
+    <form action="shop.jsp">
+        <div>
+            <button>
+                <img src="shop.jsp" alt="商店">
+            </button>
+        </div>
+    </form>
+
 </div>
 </body>
 </html>
