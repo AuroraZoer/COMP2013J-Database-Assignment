@@ -7,6 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%--session事件--%>
+<%--=========================================================================================================================================--%>
 <%--no session--%>
 <%
     if (session.isNew()){
@@ -34,11 +36,7 @@
 
 <%--recv parameters--%>
 <%
-
-    String login_status = (String) session.getAttribute("login_status");
-    String uid = (String) session.getAttribute("uid");
-
-
+    
 %>
 
 <%--parameters react--%>
@@ -63,15 +61,20 @@
     }
 %>
 
-<%--check uid--%>
+<%--change session--%>
 <%
-
+    session.setAttribute("referenced", "shop.jsp");
 %>
 
 <%--pre-action--%>
 <%
-
+    if (!login_status.equals("true")){
+        response.sendRedirect("");
+    }
 %>
+
+<%--页面事件--%>
+<%--========================================================================================================================================--%>
 
 
 
@@ -94,8 +97,14 @@
         <div class="top_box">
             <div class="search_box">
                 <form action="shop.jsp">
-                    <input type="search" name="keyword" value="">
+                    <input type="search" name="keyword">
                 </form>
+            </div>
+            
+            <div class="select">
+                <button>
+                <img src="/img/select_icon.jpg" alt="筛选" height="50", width="50">
+                </button>
             </div>
         </div>
         
