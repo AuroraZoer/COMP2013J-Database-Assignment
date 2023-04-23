@@ -1,0 +1,37 @@
+.top_box{
+    height: 30%;
+    width: 100%;
+}
+
+.left_box{
+    width: 30%;
+}
+
+.outer_search_box{
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 40%;
+    font-size: 100%;
+    font-family: "Times New Roman", serif;
+    background: gray;
+}
+
+.mid_box{
+    background: white;
+}
+
+.inner_search_box{
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border-radius: 25px;
+    background: white;
+}
+
