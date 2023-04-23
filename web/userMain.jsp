@@ -59,24 +59,17 @@
     }
 %>
 
-<%--check uid--%>
+<%--change session--%>
 <%
-    if (uid==null){
-        session.setAttribute("login_status", "true");
-    }
+    session.setAttribute("referenced", "userMain.jsp");
 %>
 
-<%--need_login--%>
+<%--pre-action--%>
 <%
     String session_id = session.getAttribute("need_login")==null?"null":(String)session.getAttribute("need_login");
     if (session_id.equals("true")){
         response.sendRedirect("login.jsp");
     }
-%>
-
-<%--pre-action--%>
-<%
-
 %>
 
 <html>
