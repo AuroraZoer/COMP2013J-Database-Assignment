@@ -37,6 +37,7 @@
 <%--recv parameters--%>
 <%
     String select = request.getParameter("select");
+    String keyword = request.getParameter("keyword");
 %>
 
 <%--check parameters invalid--%>
@@ -44,12 +45,18 @@
     if (select==null){
         select = "null";
     }
+    if (keyword==null){
+        keyword = "";
+    }
 %>
 
 <%--parameters react--%>
 <%
     if (select.equals("true")){
 
+    }
+    if (!keyword.equals("")){
+//        ask mysql
     }
 %>
 
@@ -68,7 +75,7 @@
 
 <%--change session--%>
 <%
-    session.setAttribute("referenced", "shop.jsp");
+    session.setAttribute("referenced", "shop");
 %>
 
 <%--pre-action--%>
@@ -87,6 +94,7 @@
 <html>
 <head>
     <title>Shop</title>
+    <link rel="stylesheet" href="css/shop.css">
     <script type="text/javascript" language="javascript">
         document.getElementById("select_button").onclick = function (){
         //     onclick事件
@@ -108,12 +116,17 @@
     
     <div class="mid_box">
         <div class="top_box">
-            <div class="search_box">
-                <form action="shop.jsp">
-                    <label>
-                        <input type="search" name="keyword">
-                    </label>
-                </form>
+            <div class="outer_search_box">
+                <div class="inner_search_box">
+                    <form action="shop.jsp">
+                        <label>
+                            <input type="search" name="keyword" width="300px" height="50px" spellcheck="false" placeholder="请输入你的商品">
+                        </label>
+                        <button type="submit">
+                            <img src="img/search_icon.png" alt="搜索"， width="50px" height="50px">
+                        </button>
+                    </form>
+                </div>
             </div>
             
             <div class="select">
