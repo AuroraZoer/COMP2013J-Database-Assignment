@@ -62,7 +62,7 @@
 <%--check uid--%>
 <%
     if (uid==null){
-        session.setAttribute("need_login", "true");
+        session.setAttribute("login_status", "true");
     }
 %>
 

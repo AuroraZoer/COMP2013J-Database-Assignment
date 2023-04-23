@@ -10,7 +10,7 @@
 <%--no session--%>
 <%
     if (session.isNew()){
-        response.sendRedirect("login.jsp");
+        session.setAttribute("login_status", "true");
     }
 %>
 
@@ -34,6 +34,10 @@
 
 <%--recv parameters--%>
 <%
+
+    String login_status = (String) session.getAttribute("login_status");
+    String uid = (String) session.getAttribute("uid");
+
 
 %>
 
@@ -61,17 +65,7 @@
 
 <%--check uid--%>
 <%
-    if (uid==null){
-        session.setAttribute("need_login", "true");
-    }
-%>
 
-<%--need_login--%>
-<%
-    String session_id = session.getAttribute("need_login")==null?"null":(String)session.getAttribute("need_login");
-    if (session_id.equals("true")){
-        response.sendRedirect("login.jsp");
-    }
 %>
 
 <%--pre-action--%>
@@ -87,6 +81,33 @@
     <title>Shop</title>
 </head>
 <body>
+
+<div class="whole">
+    <div class="left_box">
+        <div class="left_box_item">
+            
+            
+        </div>
+    </div>
+    
+    <div class="mid_box">
+        <div class="top_box">
+            <div class="search_box">
+                <form action="shop.jsp">
+                    <input type="search" name="keyword" value="">
+                </form>
+            </div>
+        </div>
+        
+    </div>
+    
+    
+    
+    
+</div>
+
+
+
 
 </body>
 </html>
