@@ -110,6 +110,11 @@
 <div class="whole">
     <div class="left_box">
         <div class="left_box_item">
+            <span>item1</span><br>
+            <span>item2</span><br>
+            <span>item3</span><br>
+            <span>item4</span><br>
+            <span>item5</span><br>
 
         </div>
     </div>
@@ -141,6 +146,21 @@
         
     </div>
     
+    
+<%--    用户界面--%>
+    <div>
+        <a href="userMain.jsp">
+            <img src="img/user_icon.jpg" alt="用户" height="50" width="50">
+        </a>
+    </div>
+
+<%--    购物车--%>
+
+    <div>
+        <a href="shopping_car.jsp">
+            <img src="img/shopping_car.jpg" alt="购物车" height="50" width="50">
+        </a>
+    </div>
     
     
     
