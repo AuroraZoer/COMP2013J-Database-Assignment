@@ -34,7 +34,7 @@
 
 <%--recv parameters--%>
 <%
-    String jump = request.getParameter("url");
+    String user_logout = request.getParameter("user_logout");
 %>
 
 <%--parameters react--%>
@@ -44,8 +44,8 @@
 
 <%--check parameters invalid--%>
 <%
-    if (jump==null){
-        jump = "null";
+    if (user_logout!=null){
+        session.setAttribute("login_status", false);
     }
 %>
 
@@ -95,10 +95,8 @@
 
 
 <div>
-    <form action="userMain.jsp">
-        <%
-            session.setAttribute("login_status", "true");
-        %>
+    <form action="userMain.jsp" method="post">
+        <input type="hidden" name="user_logout">
         <button type="submit">退出登录</button>
     </form>
 </div>

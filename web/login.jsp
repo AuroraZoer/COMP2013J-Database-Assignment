@@ -113,7 +113,7 @@ need_login:<%=need_login%><br>
 <%
     session.setAttribute("uid", uid);
     session.setAttribute("login_status", "true");
-    response.sendRedirect("userMain.jsp");
+    response.sendRedirect("shop.jsp");
 %>
 
 <%
