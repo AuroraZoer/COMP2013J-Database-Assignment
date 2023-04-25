@@ -82,27 +82,5 @@ CREATE TABLE `transaction`(
 
  ### Insert data
 
-```mysql
-#add example entries for each
-INSERT INTO account (aid, login, password)
-VALUES
-    (Null, "JPotter@hotmail.com", "123456"),
-    (Null, "LilyP@gmail.com", "654321");
-INSERT INTO user (uid, name, account)
-VALUES
-    (Null, "Lily Potter", "LilyP@gmail.com"),
-    (Null, "James Potter", "JPotter@hotmail.com");
 
-INSERT INTO commodity (cid, itemName, type, price, stock)
-VALUES
-    (Null, "Potato", "Vegetables", 15.45, 300),
-    (Null, "Tomato", "Fruit", 19.99, 100);
-INSERT INTO sale (id, tid, time, cid, quantity, soldFor)
-VALUES
-    (NULL, 1,'2023-04-22T20:09:09', 1, 5, 77.25), # buys potato
-    (NULL, 1,'2023-04-22T20:09:09', 2, 10, 199.90); # buys tomato
-INSERT INTO transaction (tid, time, total)
-VALUES
-    (NULL, '2023-04-22T20:10:12', 277.15);
-```
 
