@@ -17,8 +17,8 @@
 ```mysql
 #these commands will delete all tables
 USE zoe;
-DROP TABLE user;
-DROP TABLE account;
+DROP TABLE `user`;
+DROP TABLE `admin`;
 DROP TABLE commodity;
 DROP TABLE sale;
 ```
@@ -27,18 +27,29 @@ DROP TABLE sale;
 
 ```mysql
 USE zoe;
-CREATE TABLE user(
-    uid INT NOT NULL AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
-    account VARCHAR(100) NOT NULL,
-    PRIMARY KEY(uid)
-    );
-CREATE TABLE account(
-    aid INT NOT NULL AUTO_INCREMENT,
-    login VARCHAR(100) NOT NULL,
-    password VARCHAR(100) NOT NULL,
-    PRIMARY KEY(aid)
-    );
+
+CREATE TABLE `user` (
+	`uid` INT ( 11 ) NOT NULL AUTO_INCREMENT,
+	`username` VARCHAR ( 100 ) NOT NULL,
+	`password` VARCHAR ( 100 ) NOT NULL,
+	`email` VARCHAR ( 255 ) NOT NULL,
+	`create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY ( `uid` ),
+	UNIQUE KEY `username_unique` ( `username` ),
+UNIQUE KEY `email_unique` ( `email` ) 
+) ENGINE = INNODB DEFAULT CHARSET = utf8;
+
+CREATE TABLE `admin` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `admin_name` VARCHAR(255) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `admin_name_unique` (`admin_name`),
+  UNIQUE KEY `email_unique` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 # representing the commodity stored in warehouses.
 CREATE TABLE commodity(
     cid INT NOT NULL AUTO_INCREMENT,
@@ -57,7 +68,7 @@ CREATE TABLE sale(
     soldFor FLOAT NOT NULL,
     PRIMARY KEY(id)
     );
-CREATE TABLE transaction(
+CREATE TABLE `transaction`(
     tid INT NOT NULL AUTO_INCREMENT,
     time DATETIME NOT NULL,
     total FLOAT NOT NULL,
