@@ -25,6 +25,21 @@ body {
     width: 100%;
 }
 
+.radio_box {
+    width: 300px;
+    height: 30px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.left_box {
+    float: left;
+}
+
+.right_box{
+    float: right;
+}
+
 input[type="text"],
 input[type="password"] {
     display: block;
