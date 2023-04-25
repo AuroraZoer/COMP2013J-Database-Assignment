@@ -1,4 +1,5 @@
-<%@ page import="dataNoBase.UserDAO" %><%--
+<%@ page import="dataNoBase.UserDAO" %>
+<%@ page import="dataNoBase.AdminDAO" %><%--
   Created by IntelliJ IDEA.
   User: 张子毅
   Date: 2023/4/18
@@ -56,9 +57,15 @@
 <%--change session msg by param--%>
 <%
 //    调用数据库
-    if (UserDAO.isPasswordCorrect(username, password)){
-        login_status="true";
+    if (user_type.equals("user")) {
+        if (UserDAO.isPasswordCorrect(username, password)) {
+            login_status = "true";
+        }
     }
+    if (user_type.equals("admin")){
+        if (AdminDAO.isPasswordCorrect(username, password)) {
+            login_status = "true";
+        }
 //    connect to database
 //    String uid = UserDAO.getUID();
 //    test
