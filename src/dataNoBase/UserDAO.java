@@ -42,4 +42,23 @@ public class UserDAO {
         }
         return users;
     }
+
+    public boolean isPasswordCorrect(String inputUsername, String inputPassword) {
+        String sql = "SELECT password FROM user WHERE username = ?";
+        try (Connection conn = JDBCTool.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, inputUsername);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    String storedPassword = rs.getString("password");
+                    return storedPassword.equals(inputPassword);
+                } else {
+                    return false; // 用户名不存在
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
