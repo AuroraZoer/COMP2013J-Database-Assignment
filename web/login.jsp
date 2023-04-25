@@ -55,9 +55,9 @@
 <%--change session msg by param--%>
 <%
 //    调用数据库
-//    if (UserDAO.isPasswordCorrect(account, password)){
-//        login_status="true";
-//    }
+    if (UserDAO.isPasswordCorrect(account, password)){
+        login_status="true";
+    }
 
 //    test
 //    if (!account.equals("null")&&!password.equals("null")){
@@ -99,18 +99,20 @@ account:<%=account%><br>
 password:<%=password%><br>
 uid:<%=uid%><br>
 need_login:<%=need_login%><br>
-<div class="login_box">
-    <form action="login.jsp" method="post">
-        <label class="account_box">
-            <input type="text" name="account" size="30" maxlength="20">
-        </label><br>
-        <label class="password_box">
-            <input type="password" name="password" size="30" maxlength="20">
-        </label><br>
-        <input type="hidden" name="uid" value="admin">
-        <input type="submit" name="submit" value="提交">
-    </form>
-</div>
+<div class="container"> <!-- 添加这个div -->
+    <div class="login_box">
+        <form action="login.jsp" method="post">
+            <label class="account_box">
+                <input type="text" name="account" size="30" maxlength="20">
+            </label><br>
+            <label class="password_box">
+                <input type="password" name="password" size="30" maxlength="20">
+            </label><br>
+            <input type="hidden" name="uid" value="admin">
+            <input type="submit" name="submit" value="提交">
+        </form>
+    </div>
+</div> <!-- 结束这个div -->
 
 
 <%--if not need_login--%>

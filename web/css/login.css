@@ -1,6 +1,66 @@
-/*.login_box{*/
-/*    margin: 25%;*/
-/*    border: 20px solid yellow;*/
-/*    padding: 30px;*/
-/*    width: 500px;*/
-/*}*/
+/* login.css */
+
+/* 通用样式 */
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('../img/background.jpg'); /* 添加这行代码 */
+    background-size: cover; /* 添加这行代码，以确保背景图片覆盖整个页面 */
+    background-position: center; /* 添加这行代码，以确保背景图片居中显示 */
+    background-repeat: no-repeat; /* 添加这行代码，以确保背景图片不重复 */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.login_box {
+    background-color: rgba(255, 255, 255, 0.8); /* 修改这行代码，0.8是透明度 */
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+}
+
+input[type="text"],
+input[type="password"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    outline: none;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 100%;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+/* 响应式样式 */
+@media (max-width: 480px) {
+    .login_box {
+        padding: 15px;
+    }
+}
