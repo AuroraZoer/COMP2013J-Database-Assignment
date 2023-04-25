@@ -9,7 +9,7 @@ import java.util.List;
 
 public class UserDAO {
 
-    public void insertUser(User user) {
+    public static void insertUser(User user) {
         String sql = "INSERT INTO user (username, password, email) VALUES (?, ?, ?)";
         try (Connection conn = JDBCTool.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -22,7 +22,7 @@ public class UserDAO {
         }
     }
 
-    public List<User> getAllUsers() {
+    public static List<User> getAllUsers() {
         String sql = "SELECT * FROM user";
         List<User> users = new ArrayList<>();
         try (Connection conn = JDBCTool.getConnection();
@@ -43,7 +43,7 @@ public class UserDAO {
         return users;
     }
 
-    public boolean isPasswordCorrect(String inputUsername, String inputPassword) {
+    public static boolean isPasswordCorrect(String inputUsername, String inputPassword) {
         String sql = "SELECT password FROM user WHERE username = ?";
         try (Connection conn = JDBCTool.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

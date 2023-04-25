@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AdminDAO {
 
-    public void insertAdmin(Admin admin) {
+    public static void insertAdmin(Admin admin) {
         String sql = "INSERT INTO admin (admin_name, password, email) VALUES (?, ?, ?)";
         try (Connection conn = JDBCTool.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -21,7 +21,7 @@ public class AdminDAO {
         }
     }
 
-    public List<Admin> getAllAdmins() {
+    public static List<Admin> getAllAdmins() {
         String sql = "SELECT * FROM admin";
         List<Admin> admins = new ArrayList<>();
         try (Connection conn = JDBCTool.getConnection();
