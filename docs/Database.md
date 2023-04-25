@@ -40,12 +40,12 @@ UNIQUE KEY `email_unique` ( `email` )
 ) ENGINE = INNODB DEFAULT CHARSET = utf8;
 
 CREATE TABLE `admin` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `aid` INT(11) NOT NULL AUTO_INCREMENT,
   `admin_name` VARCHAR(255) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
   `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`aid`),
   UNIQUE KEY `admin_name_unique` (`admin_name`),
   UNIQUE KEY `email_unique` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
