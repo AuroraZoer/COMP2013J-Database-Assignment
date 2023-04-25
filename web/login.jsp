@@ -33,21 +33,21 @@
 
 <%--recv parameters--%>
 <%
-    String account = request.getParameter("account");
+    String username = request.getParameter("username");
     String password = request.getParameter("password")==null?"null":request.getParameter("password");
     String uid = request.getParameter("uid")==null?"null":request.getParameter("uid");
 %>
 
 <%--parameters react--%>
 <%
-    if (account==null){login_status="false";}
+    if (username==null){login_status="false";}
     if (password==null){login_status="false";}
     if (uid==null){login_status="false";}
 %>
 
 <%--check parameters invalid--%>
 <%
-    if (account==null){account="null";}
+    if (username==null){username="null";}
     if (password==null){password="null";}
     if (uid==null){uid="null";}
 %>
@@ -55,12 +55,12 @@
 <%--change session msg by param--%>
 <%
 //    调用数据库
-    if (UserDAO.isPasswordCorrect(account, password)){
+    if (UserDAO.isPasswordCorrect(username, password)){
         login_status="true";
     }
 
 //    test
-//    if (!account.equals("null")&&!password.equals("null")){
+//    if (!username.equals("null")&&!password.equals("null")){
 //        login_status = "true";
 //    }
 %>
@@ -95,15 +95,15 @@
     if (need_login){
 %>
 
-account:<%=account%><br>
+username:<%=username%><br>
 password:<%=password%><br>
 uid:<%=uid%><br>
 need_login:<%=need_login%><br>
 <div class="container"> <!-- 添加这个div -->
     <div class="login_box">
         <form action="login.jsp" method="post">
-            <label class="account_box">
-                <input type="text" name="account" size="30" maxlength="20">
+            <label class="username_box">
+                <input type="text" name="username" size="30" maxlength="20">
             </label><br>
             <label class="password_box">
                 <input type="password" name="password" size="30" maxlength="20">
