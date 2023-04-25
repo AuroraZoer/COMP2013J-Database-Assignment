@@ -54,9 +54,15 @@
 
 <%--change session msg by param--%>
 <%
-    if (UserDAO.isPasswordCorrect()){
-        login_status=true;
-    }
+//    调用数据库
+//    if (UserDAO.isPasswordCorrect(account, password)){
+//        login_status="true";
+//    }
+
+//    test
+//    if (!account.equals("null")&&!password.equals("null")){
+//        login_status = "true";
+//    }
 %>
 
 <%--check session msg--%>
