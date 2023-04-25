@@ -99,20 +99,24 @@ username:<%=username%><br>
 password:<%=password%><br>
 uid:<%=uid%><br>
 need_login:<%=need_login%><br>
-<div class="container"> <!-- 添加这个div -->
+<div class="container">
     <div class="login_box">
         <form action="login.jsp" method="post">
-            <label class="username_box">用户名:
+            <label class="username_box">Username:
                 <input type="text" name="username" size="30" maxlength="20">
             </label><br>
-            <label class="password_box">密码:
+            <label class="password_box">Password:
                 <input type="password" name="password" size="30" maxlength="20">
             </label><br>
             <input type="hidden" name="uid" value="admin">
-            <input type="submit" name="submit" value="Submit">
+            <label class="user_type_box">Login as:</label>
+            <label class="user_type_box"><input type="radio" name="user_type" value="user" checked> User</label>
+            <label class="user_type_box"><input type="radio" name="user_type" value="admin"> Admin</label>
+            <br>
+            <input type="submit" name="submit" value="Login">
         </form>
     </div>
-</div> <!-- 结束这个div -->
+</div>
 
 
 <%--if not need_login--%>
