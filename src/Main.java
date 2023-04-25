@@ -1,4 +1,5 @@
 import dataNoBase.JDBCTool;
+import dataNoBase.User;
 
 import java.sql.Connection;
 import java.sql.SQLException;
