@@ -34,22 +34,23 @@
 <%--recv parameters--%>
 <%
     String username = request.getParameter("username");
-    String password = request.getParameter("password")==null?"null":request.getParameter("password");
-    String uid = request.getParameter("uid")==null?"null":request.getParameter("uid");
+    String password = request.getParameter("password");
+    String user_type = request.getParameter("user_type");
 %>
 
 <%--parameters react--%>
 <%
     if (username==null){login_status="false";}
     if (password==null){login_status="false";}
-    if (uid==null){login_status="false";}
+    if (user_type==null){login_status="false";}
 %>
 
 <%--check parameters invalid--%>
 <%
     if (username==null){username="null";}
     if (password==null){password="null";}
-    if (uid==null){uid="null";}
+    if (user_type==null){user_type="null";}
+    if (!user_type.equals("admin")&&!user_type.equals("user")){login_status="null";}
 %>
 
 <%--change session msg by param--%>
@@ -58,11 +59,10 @@
     if (UserDAO.isPasswordCorrect(username, password)){
         login_status="true";
     }
-
+//    connect to database
+//    String uid = UserDAO.getUID();
 //    test
-//    if (!username.equals("null")&&!password.equals("null")){
-//        login_status = "true";
-//    }
+    String uid = "001";
 %>
 
 <%--check session msg--%>
@@ -108,11 +108,17 @@ need_login:<%=need_login%><br>
             <label class="password_box">Password:
                 <input type="password" name="password" size="30" maxlength="20">
             </label><br>
+
+            <div class="radio_box">
+                <div class="left_box">
+                    <label><input type="radio" id="customer" name="user_type" value="customer">User</label>
+                </div>
+                <div class="right_box">
+                    <label><input type="radio" id="admin" name="user_type" value="admin">Admin</label>
+                </div>
+
+            </div>
             <input type="hidden" name="uid" value="admin">
-            <label class="user_type_box">Login as:</label>
-            <label class="user_type_box"><input type="radio" name="user_type" value="user" checked> User</label>
-            <label class="user_type_box"><input type="radio" name="user_type" value="admin"> Admin</label>
-            <br>
             <input type="submit" name="submit" value="Login">
         </form>
     </div>
@@ -124,7 +130,7 @@ need_login:<%=need_login%><br>
 }else {
 %>
 
-<%--redirect userMain.jsp--%>
+<%--redirect shop.jsp--%>
 <%
     session.setAttribute("uid", uid);
     session.setAttribute("login_status", "true");
