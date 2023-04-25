@@ -102,14 +102,14 @@ need_login:<%=need_login%><br>
 <div class="container"> <!-- 添加这个div -->
     <div class="login_box">
         <form action="login.jsp" method="post">
-            <label class="username_box">
+            <label class="username_box">用户名:
                 <input type="text" name="username" size="30" maxlength="20">
             </label><br>
-            <label class="password_box">
+            <label class="password_box">密码:
                 <input type="password" name="password" size="30" maxlength="20">
             </label><br>
             <input type="hidden" name="uid" value="admin">
-            <input type="submit" name="submit" value="提交">
+            <input type="submit" name="submit" value="Submit">
         </form>
     </div>
 </div> <!-- 结束这个div -->
