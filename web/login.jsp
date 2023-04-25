@@ -1,4 +1,4 @@
-<%--
+<%@ page import="dataNoBase.UserDAO" %><%--
   Created by IntelliJ IDEA.
   User: 张子毅
   Date: 2023/4/18
@@ -54,7 +54,9 @@
 
 <%--change session msg by param--%>
 <%
-    if (account.equals("admin")&&password.equals("")){login_status="true";}
+    if (UserDAO.isPasswordCorrect()){
+        login_status=true;
+    }
 %>
 
 <%--check session msg--%>
@@ -77,6 +79,7 @@
 
 <html>
 <head>
+    <link rel="stylesheet" href="css/login.css">
     <title>Login</title>
 </head>
 <body>
@@ -90,7 +93,7 @@ account:<%=account%><br>
 password:<%=password%><br>
 uid:<%=uid%><br>
 need_login:<%=need_login%><br>
-<div>
+<div class="login_box">
     <form action="login.jsp" method="post">
         <label class="account_box">
             <input type="text" name="account" size="30" maxlength="20">
