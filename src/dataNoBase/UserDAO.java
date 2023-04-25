@@ -30,7 +30,7 @@ public class UserDAO {
              ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 User user = new User();
-                user.setId(rs.getInt("id"));
+                user.setId(rs.getInt("uid"));
                 user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
                 user.setEmail(rs.getString("email"));

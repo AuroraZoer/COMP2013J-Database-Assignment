@@ -29,7 +29,7 @@ public class AdminDAO {
              ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 Admin admin = new Admin();
-                admin.setId(rs.getInt("id"));
+                admin.setId(rs.getInt("aid"));
                 admin.setAdminName(rs.getString("admin_name"));
                 admin.setPassword(rs.getString("password"));
                 admin.setEmail(rs.getString("email"));
