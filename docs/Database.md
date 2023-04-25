@@ -51,15 +51,19 @@ CREATE TABLE `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # representing the commodity stored in warehouses.
-CREATE TABLE commodity(
+CREATE TABLE `categories` (
+    name VARCHAR(100) NOT NULL UNIQUE PRIMARY KEY
+);
+CREATE TABLE `commodity` (
     cid INT NOT NULL AUTO_INCREMENT,
     itemName VARCHAR(100) NOT NULL,
-    type VARCHAR(100) NOT NULL,
+    category VARCHAR(100) NOT NULL,
     price FLOAT NOT NULL,
     stock INT NOT NULL,
-    PRIMARY KEY(cid)
-    );
-CREATE TABLE sale(
+    PRIMARY KEY(cid),
+    FOREIGN KEY (category) REFERENCES categories(name)
+);
+CREATE TABLE `sale` (
     id INT NOT NULL AUTO_INCREMENT,
     tid INT NOT NULL,
     time DATETIME NOT NULL,

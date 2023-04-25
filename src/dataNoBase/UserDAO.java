@@ -61,4 +61,18 @@ public class UserDAO {
             return false;
         }
     }
+
+    public static void deleteUserByUsername(String username) {
+        String sql = "DELETE FROM user WHERE username = ?";
+        try (Connection conn = JDBCTool.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, username);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 }
