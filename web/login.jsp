@@ -51,21 +51,22 @@
     if (username==null){username="null";}
     if (password==null){password="null";}
     if (user_type==null){user_type="null";}
-    if (!user_type.equals("admin")&&!user_type.equals("user")){login_status="null";}
+    if (!user_type.equals("admin")&&!user_type.equals("customer")){login_status="null";}
 %>
 
 <%--change session msg by param--%>
 <%
 //    调用数据库
-    if (user_type.equals("user")) {
+    if (user_type.equals("customer")) {
         if (UserDAO.isPasswordCorrect(username, password)) {
             login_status = "true";
         }
     }
-    if (user_type.equals("admin")){
+    if (user_type.equals("admin")) {
         if (AdminDAO.isPasswordCorrect(username, password)) {
             login_status = "true";
         }
+    }
 //    connect to database
 //    String uid = UserDAO.getUID();
 //    test
