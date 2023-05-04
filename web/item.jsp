@@ -18,6 +18,7 @@
 <%
   String uid = (String)session.getAttribute("uid");
   String login_status = (String) session.getAttribute("login_status");
+  String referenced = (String) session.getAttribute("referenced");
 %>
 
 <%--session outdate--%>
@@ -72,7 +73,7 @@
     response.sendRedirect("login.jsp");
   }
   session.setAttribute("referenced", "item");
-  
+
 %>
 <html>
 <head>
@@ -80,5 +81,22 @@
 </head>
 <body>
   this is Item
+  <div>
+    <form action="shop.jsp">
+      <button type="submit">
+        <img src="img/shop.jpg" alt="商城">
+      </button>
+    </form>
+  </div>
+
+  <div>
+    <form action="shopping_car.jsp">
+      <button type="submit">
+        <img src="img/shopping_car.jpg" alt="购物车">
+      </button>
+    </form>
+  </div>
+
+
 </body>
 </html>
