@@ -71,7 +71,7 @@
   if (!login_status.equals("true")){
     response.sendRedirect("login.jsp");
   }
-
+  session.setAttribute("referenced", "item");
   
 %>
 <html>

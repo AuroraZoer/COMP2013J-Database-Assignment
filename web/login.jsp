@@ -88,6 +88,7 @@
 <%--pre-action--%>
 <%
     Boolean need_login = !login_status.equals("true");
+    session.setAttribute("referenced", "login");
 %>
 
 
