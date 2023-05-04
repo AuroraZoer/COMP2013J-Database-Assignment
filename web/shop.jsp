@@ -83,6 +83,7 @@
     if (!login_status.equals("true")){
         response.sendRedirect("login.jsp");
     }
+    session.setAttribute("referenced", "shop");
 %>
 
 <%--页面事件--%>
