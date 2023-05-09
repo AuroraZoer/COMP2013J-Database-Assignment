@@ -38,6 +38,8 @@
 <%
     String select = request.getParameter("select");
     String keyword = request.getParameter("keyword");
+    String page_str = request.getParameter("page_num");
+    int page_int = 0;
 %>
 
 <%--check parameters invalid--%>
@@ -47,6 +49,16 @@
     }
     if (keyword==null){
         keyword = "";
+    }
+    if (page_str==null){
+        page_str = "0";
+    }
+    try{
+        page_int = Integer.parseInt(page_str);
+    }catch (Exception e){
+    }finally {
+//        访问数据库
+        out.print(page_int);
     }
 %>
 
@@ -129,7 +141,7 @@
                             <input type="search" name="keyword" width="300px" height="50px" spellcheck="false" placeholder="请输入你的商品">
                         </label>
                         <button type="submit">
-                            <img src="img/search_icon.png" alt="搜索"， width="50px" height="50px">
+                            <img src="img/search_icon.png" alt="搜索" width="50px" height="50px">
                         </button>
                     </form>
                 </div>
