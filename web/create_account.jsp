@@ -19,6 +19,7 @@
 <%
   String login_status = (String) session.getAttribute("login_status");
   String uid = (String) session.getAttribute("uid");
+  String referenced = (String) session.getAttribute("referenced");
 %>
 
 <%--session outdate--w22
@@ -36,7 +37,8 @@
 <%
   String username = request.getParameter("username");
   String password = request.getParameter("password");
-  String user_type = request.getParameter("user_type");
+  String user_type = request.getParameter("usertype");
+  String confirm = request.getParameter("confirm");
 %>
 
 <%--parameters react--%>
@@ -44,6 +46,7 @@
   if (username==null){login_status="false";}
   if (password==null){login_status="false";}
   if (user_type==null){login_status="false";}
+  if (confirm==null){login_status="false";}
 %>
 
 <%--check parameters invalid--%>
@@ -82,6 +85,33 @@
     <title>Create Your Account!</title>
 </head>
 <body>
+<div class="container">
+  <div class="login_box">
+    <form action="create_account.jsp" method="post">
+      <label class="username_box">Username:
+        <input type="text" name="username" size="30" maxlength="20">
+      </label><br>
+      <label class="password_box">Password:
+        <input type="password" name="password" size="30" maxlength="20">
+      </label><br>
+      <label class="password_box">Confirm your passowrd:
+        <input type="password" name="password" size="30" maxlength="20">
+      </label><br>
 
+<%--      <div class="radio_box">--%>
+<%--        <div class="left_box">--%>
+<%--          <label><input type="radio" id="customer" name="user_type" value="customer">User</label>--%>
+<%--        </div>--%>
+<%--        <div class="right_box">--%>
+<%--          <label><input type="radio" id="admin" name="user_type" value="admin">Admin</label>--%>
+<%--        </div>--%>
+
+<%--      </div>--%>
+      <input type="hidden" name="uid" value="admin">
+      <input type="hidden" name="user_type" value="user">
+      <input type="submit" name="submit" value="sign up">
+    </form>
+  </div>
+</div>
 </body>
 </html>
