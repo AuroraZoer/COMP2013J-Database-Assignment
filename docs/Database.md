@@ -19,8 +19,10 @@
 USE zoe;
 DROP TABLE `user`;
 DROP TABLE `admin`;
-DROP TABLE commodity;
-DROP TABLE sale;
+DROP TABLE `commodity`;
+DROP TABLE `sale`;
+DROP TABLE `transaction`;
+
 ```
 
 ### Create tables
@@ -74,13 +76,43 @@ CREATE TABLE `sale` (
     );
 CREATE TABLE `transaction`(
     tid INT NOT NULL AUTO_INCREMENT,
-    time DATETIME NOT NULL,
+    uid INT NOT NULL,
+    cid INT NOT NULL,
+    quantity INT NOT NULL,
     total FLOAT NOT NULL,
-    PRIMARY KEY(tid)
-    );
+    is_paid BOOLEAN NOT NULL DEFAULT 0,
+    PRIMARY KEY(tid),
+    FOREIGN KEY(uid) REFERENCES user(uid),
+    FOREIGN KEY(cid) REFERENCES commodity(cid)
+);
+
 ```
 
  ### Insert data
 
+```
+INSERT INTO `categories` (`name`) VALUES
+('Books'),
+('Electronics'),
+('Clothing'),
+('Home & Kitchen'),
+('Sports & Outdoors');
 
+INSERT INTO `commodity` (`itemName`, `category`, `price`, `stock`) VALUES
+('Book 1', 'Books', 19.99, 100),
+('Book 2', 'Books', 29.99, 80),
+
+('Electronics 1', 'Electronics', 199.99, 50),
+('Electronics 2', 'Electronics', 299.99, 40),
+
+('Clothing 1', 'Clothing', 39.99, 200),
+('Clothing 2', 'Clothing', 49.99, 180),
+
+('Home & Kitchen 1', 'Home & Kitchen', 99.99, 30),
+('Home & Kitchen 2', 'Home & Kitchen', 119.99, 20),
+
+
+('Sports & Outdoors 1', 'Sports & Outdoors', 49.99, 100),
+('Sports & Outdoors 2', 'Sports & Outdoors', 59.99, 90);
+```
 
