@@ -18,7 +18,7 @@
 <%--recv session msg--%>
 <%
   String login_status = (String) session.getAttribute("login_status");
-  String uid = (String) session.getAttribute("uid")wwwwwwwwadddwwwwwwwwawa22222
+  String uid = (String) session.getAttribute("uid");
 %>
 
 <%--session outdate--w22
