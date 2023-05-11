@@ -18,6 +18,7 @@ USE zoe;
 DROP TABLE `user`;
 DROP TABLE `admin`;
 DROP TABLE `commodity`;
+DROP TABLE `categories`;
 DROP TABLE `sale`;
 DROP TABLE `transaction`;
 
