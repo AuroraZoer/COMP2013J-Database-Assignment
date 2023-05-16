@@ -44,7 +44,7 @@
 <%
   String username = request.getParameter("username");
   String password = request.getParameter("password");
-  String user_type = request.getParameter("usertype");
+  String user_type = request.getParameter("user_type");
   String confirm = request.getParameter("confirm");
   String email = request.getParameter("email");
 %>
@@ -55,7 +55,7 @@
   if (password==null){login_status="false";}
   if (user_type==null){login_status="false";}
   if (confirm==null){login_status="false";}
-  if (confirm==null){login_status="false";}
+  if (email==null){login_status="false";}
 %>
 
 <%--check parameters invalid--%>
@@ -89,8 +89,7 @@
 
 <%--pre-action--%>
 <%
-  Boolean need_login = !login_status.equals("true");
-  if (!need_login){
+  if (login_status.equals("true")){
     User user = new User(1,username,password,email,new Timestamp(new java.util.Date().getTime()));
     UserDAO.insertUser(user);
 //    the bug may occur when MYSQL fail to insert user while jsp already use the user data.
@@ -121,10 +120,20 @@
       <label class="password_box">Confirm Password:
         <input type="password" name="confirm" size="30" maxlength="20">
       </label><br>
-      <input type="hidden" name="uid" value="admin">
+      <input type="hidden" name="user_type" value="user">
       <input type="submit" name="submit" value="sign up">
     </form>
   </div>
 </div>
+<%=referenced%> <br>
+<%=login_status%> <br>
+<%=user_type%> <br>
+<%=username%> <br>
+<%=email%> <br>
+<%=confirm%>
+
+
+
+
 </body>
 </html>
