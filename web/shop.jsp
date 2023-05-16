@@ -63,7 +63,7 @@
 
     }
     try{
-        category_num = Integer.parseInt(page_str);
+        category_num = Integer.parseInt(category_str);
     }catch (NumberFormatException e){
 
     }
@@ -374,8 +374,9 @@
 
     <div class="next_page">
         <form action="shop.jsp">
-            <input type="hidden" name="category_num" value="<%=category_num+1%>">
+            <input type="hidden" name="category_num" value="<%=category_num%>">
             <input type="hidden" name="page_num" value="<%=page_num+1%>">
+            <input type="hidden" name="keyword" value="<%=keyword%>">
             <input type="submit" value="next page">
         </form>
     </div>
