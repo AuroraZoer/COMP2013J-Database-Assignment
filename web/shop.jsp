@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: 张子毅
   Date: 2023/4/21
@@ -38,8 +38,7 @@
 <%
     String select = request.getParameter("select");
     String keyword = request.getParameter("keyword");
-    String page_str = request.getParameter("page_num");
-    int page_int = 0;
+    String page_num = request.getParameter("page_num");
 %>
 
 <%--check parameters invalid--%>
@@ -50,20 +49,15 @@
     if (keyword==null){
         keyword = "";
     }
-    if (page_str==null){
-        page_str = "0";
-    }
-    try{
-        page_int = Integer.parseInt(page_str);
-    }catch (Exception e){
-    }finally {
-//        访问数据库
-        out.print(page_int);
+    if (page_num==null){
+        page_num = "0";
     }
 %>
 
 <%--parameters react--%>
 <%
+//    ArrayList<Item> items = Shop.hot();
+
     if (select.equals("true")){
 
     }
@@ -101,6 +95,9 @@
 <%--页面事件--%>
 <%--========================================================================================================================================--%>
 
+<%
+    if (keyword==null)
+%>
 
 
 
