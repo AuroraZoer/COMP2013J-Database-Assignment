@@ -127,45 +127,36 @@
         }
     </style>
 
+
 </head>
 <body>
 
 <div class="whole">
     <div class="left_box">
         <div class="left_box_item">
-            <form action="#">
-                <a href="shop.jsp">
-                    <span id="cate0"><%=categories.get(0).getName()%></span><br>
-                </a>
-                <input type="hidden" name="category_num" value="cate0">
+            <form action="shop.jsp">
+                <input type="hidden" name="category_num" value="0">
+                <button type="submit"><span id="cate0"><%=categories.get(0).getName()%></span><br></button>
             </form>
 
-            <form action="#">
-                <a href="shop.jsp">
-                    <span id="cate1"><%=categories.get(1).getName()%></span><br>
-                </a>
-                <input type="hidden" name="category_num" value="cate1">
+            <form action="shop.jsp">
+                <input type="hidden" name="category_num" value="1">
+                <button type="submit"><span id="cate1"><%=categories.get(1).getName()%></span><br></button>
             </form>
 
-            <form action="#">
-                <a href="shop.jsp">
-                    <span id="cate2"><%=categories.get(2).getName()%></span><br>
-                </a>
-                <input type="hidden" name="category_num" value="cate2">
-        </form>
-
-            <form action="#">
-                <a href="shop.jsp">
-                    <span id="cate3"><%=categories.get(3).getName()%></span><br>
-                </a>
-                <input type="hidden" name="category_num" value="cate3">
+            <form action="shop.jsp">
+                <input type="hidden" name="category_num" value="2">
+                <button type="submit"><span id="cate2"><%=categories.get(2).getName()%></span><br></button>
             </form>
 
-            <form action="#">
-                <a href="shop.jsp">
-                    <span id="cate4"><%=categories.get(4).getName()%></span><br>
-                </a>
-                <input type="hidden" name="category_num" value="cate4">
+            <form action="shop.jsp">
+                <input type="hidden" name="category_num" value="3">
+                <button type="submit"><span id="cate3"><%=categories.get(3).getName()%></span><br></button>
+            </form>
+
+            <form action="shop.jsp">
+                <input type="hidden" name="category_num" value="4">
+                <button type="submit"><span id="cate4"><%=categories.get(4).getName()%></span><br></button>
             </form>
 
         </div>
@@ -206,6 +197,9 @@
     </div>
     
     <div class="main_box">
+<%--        test--%>
+        <%=category_num%> <br>
+    <%=page_num%> <br>
         <div class="item_box" id="item_box1">
             <div class="item_left_box" id="item_left_box1">
 <%--                <img src="" alt="">--%>
@@ -376,6 +370,14 @@
 
         </div>
 
+    </div>
+
+    <div class="next_page">
+        <form action="shop.jsp">
+            <input type="hidden" name="category_num" value="<%=category_num+1%>">
+            <input type="hidden" name="page_num" value="<%=page_num+1%>">
+            <input type="submit" value="next page">
+        </form>
     </div>
     
 </div>
