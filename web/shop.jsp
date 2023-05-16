@@ -56,8 +56,6 @@
 
 <%--parameters react--%>
 <%
-//    ArrayList<Item> items = Shop.hot();
-
     if (select.equals("true")){
 
     }
@@ -172,7 +170,74 @@
         </a>
     </div>
     
-    
+    <div class="main_box">
+        <div class="item_box" id="item_box1">
+            <div class="item_left_box">
+<%--                <img src="" alt="">--%>
+            </div>
+            <div class="item_mid_box">
+                <div class="item_top_box"></div>
+                <div class="item_mid_box"></div>
+                <div class="item_bottom_box"></div>
+            </div>
+            <div class="item_right_box"></div>
+        </div>
+        <div class="item_box" id="item_box2">
+            <div class="item_left_box"></div>
+            <div class="item_mid_box"></div>
+            <div class="item_right_box"></div>
+
+        </div>
+        <div class="item_box" id="item_box3">
+            <div class="item_left_box"></div>
+            <div class="item_mid_box"></div>
+            <div class="item_right_box"></div>
+
+        </div>
+        <div class="item_box" id="item_box4">
+            <div class="item_left_box"></div>
+            <div class="item_mid_box"></div>
+            <div class="item_right_box"></div>
+
+        </div>
+        <div class="item_box" id="item_box5">
+            <div class="item_left_box"></div>
+            <div class="item_mid_box"></div>
+            <div class="item_right_box"></div>
+
+        </div>
+        <div class="item_box" id="item_box6">
+            <div class="item_left_box"></div>
+            <div class="item_mid_box"></div>
+            <div class="item_right_box"></div>
+
+        </div>
+        <div class="item_box" id="item_box7">
+            <div class="item_left_box"></div>
+            <div class="item_mid_box"></div>
+            <div class="item_right_box"></div>
+
+        </div>
+        <div class="item_box" id="item_box8">
+            <div class="item_left_box"></div>
+            <div class="item_mid_box"></div>
+            <div class="item_right_box"></div>
+
+        </div>
+        <div class="item_box" id="item_box9">
+            <div class="item_left_box"></div>
+            <div class="item_mid_box"></div>
+            <div class="item_right_box"></div>
+
+        </div>
+        <div class="item_box" id="item_box10">
+            <div class="item_left_box"></div>
+            <div class="item_mid_box"></div>
+            <div class="item_right_box"></div>
+
+        </div>
+
+    </div>
     
 </div>
 
