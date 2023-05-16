@@ -1,6 +1,8 @@
 <%@ page import="dataNoBase.UserDAO" %>
 <%@ page import="dataNoBase.AdminDAO" %>
-<%@ page import="dataNoBase.User" %><%--
+<%@ page import="dataNoBase.User" %>
+<%@ page import="java.sql.Timestamp" %>
+<%@ page import="java.sql.Date" %><%--
   Created by IntelliJ IDEA.
   User: 张子毅
   Date: 2023/4/18
@@ -79,7 +81,6 @@
 <%--change session--%>
 <%
     session.setAttribute("login_status", login_status);
-    session.setAttribute("user", user);
     session.setAttribute("referenced", "login.jsp");
 %>
 
@@ -138,7 +139,7 @@ need_login:<%=need_login%><br>
 
 <%--redirect shop.jsp--%>
 <%
-    session.setAttribute("user", user);
+    session.setAttribute("user", new User(1,"zoe","123456","xxx@xxx", new Timestamp(new java.util.Date().getTime())));
     session.setAttribute("login_status", "true");
     response.sendRedirect("shop.jsp");
 %>
