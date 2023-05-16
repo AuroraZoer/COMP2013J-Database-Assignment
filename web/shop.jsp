@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: 张子毅
   Date: 2023/4/21
@@ -38,8 +38,7 @@
 <%
     String select = request.getParameter("select");
     String keyword = request.getParameter("keyword");
-    String page_str = request.getParameter("page_num");
-    int page_int = 0;
+    String page_num = request.getParameter("page_num");
 %>
 
 <%--check parameters invalid--%>
@@ -50,15 +49,8 @@
     if (keyword==null){
         keyword = "";
     }
-    if (page_str==null){
-        page_str = "0";
-    }
-    try{
-        page_int = Integer.parseInt(page_str);
-    }catch (Exception e){
-    }finally {
-//        访问数据库
-        out.print(page_int);
+    if (page_num==null){
+        page_num = "0";
     }
 %>
 
@@ -101,6 +93,9 @@
 <%--页面事件--%>
 <%--========================================================================================================================================--%>
 
+<%
+    if (keyword==null)
+%>
 
 
 
@@ -175,7 +170,178 @@
         </a>
     </div>
     
-    
+    <div class="main_box">
+        <div class="item_box" id="item_box1">
+            <div class="item_left_box" id="item_left_box1">
+<%--                <img src="" alt="">--%>
+            </div>
+            <div class="item_mid_box" id="item_mid_box1">
+                <div class="item_top_box" id="item_top_box1">
+
+                </div>
+                <div class="item_bottom_box" id="item_bottom_box">
+
+                </div>
+            </div>
+            <div class="item_right_box" id="item_right_box1">
+
+            </div>
+        </div>
+        <div class="item_box" id="item_box2">
+            <div class="item_left_box" id="item_left_box2">
+                <%--                <img src="" alt="">--%>
+            </div>
+            <div class="item_mid_box" id="item_mid_box2">
+                <div class="item_top_box" id="item_top_box2">
+
+                </div>
+                <div class="item_bottom_box" id="item_bottom_box2">
+
+                </div>
+            </div>
+            <div class="item_right_box" id="item_right_box2">
+
+            </div>
+
+        </div>
+        <div class="item_box" id="item_box3">
+            <div class="item_left_box" id="item_left_box3">
+                <%--                <img src="" alt="">--%>
+            </div>
+            <div class="item_mid_box" id="item_mid_box3">
+                <div class="item_top_box" id="item_top_box3">
+
+                </div>
+                <div class="item_bottom_box" id="item_bottom_box3">
+
+                </div>
+            </div>
+            <div class="item_right_box" id="item_right_box3">
+
+            </div>
+
+        </div>
+        <div class="item_box" id="item_box4">
+            <div class="item_left_box" id="item_left_box4">
+                <%--                <img src="" alt="">--%>
+            </div>
+            <div class="item_mid_box" id="item_mid_box4">
+                <div class="item_top_box" id="item_top_box4">
+
+                </div>
+                <div class="item_bottom_box" id="item_bottom_box4">
+
+                </div>
+            </div>
+            <div class="item_right_box" id="item_right_box4">
+
+            </div>
+
+        </div>
+        <div class="item_box" id="item_box5">
+            <div class="item_left_box" id="item_left_box5">
+                <%--                <img src="" alt="">--%>
+            </div>
+            <div class="item_mid_box" id="item_mid_box5">
+                <div class="item_top_box" id="item_top_box5">
+
+                </div>
+                <div class="item_bottom_box" id="item_bottom_box5">
+
+                </div>
+            </div>
+            <div class="item_right_box" id="item_right_box5">
+
+            </div>
+
+        </div>
+        <div class="item_box" id="item_box6">
+            <div class="item_left_box" id="item_left_box6">
+                <%--                <img src="" alt="">--%>
+            </div>
+            <div class="item_mid_box" id="item_mid_box6">
+                <div class="item_top_box" id="item_top_box6">
+
+                </div>
+                <div class="item_bottom_box" id="item_bottom_box6">
+
+                </div>
+            </div>
+            <div class="item_right_box" id="item_right_box6">
+
+            </div>
+
+        </div>
+        <div class="item_box" id="item_box7">
+            <div class="item_left_box" id="item_left_box7">
+                <%--                <img src="" alt="">--%>
+            </div>
+            <div class="item_mid_box" id="item_mid_box7">
+                <div class="item_top_box" id="item_top_box7">
+
+                </div>
+                <div class="item_bottom_box" id="item_bottom_box7">
+
+                </div>
+            </div>
+            <div class="item_right_box" id="item_right_box7">
+
+            </div>
+
+        </div>
+        <div class="item_box" id="item_box8">
+            <div class="item_left_box" id="item_left_box8">
+                <%--                <img src="" alt="">--%>
+            </div>
+            <div class="item_mid_box" id="item_mid_box8">
+                <div class="item_top_box" id="item_top_box8">
+
+                </div>
+                <div class="item_bottom_box" id="item_bottom_box8">
+
+                </div>
+            </div>
+            <div class="item_right_box" id="item_right_box8">
+
+            </div>
+
+        </div>
+        <div class="item_box" id="item_box9">
+            <div class="item_left_box" id="item_left_box9">
+                <%--                <img src="" alt="">--%>
+            </div>
+            <div class="item_mid_box" id="item_mid_box9">
+                <div class="item_top_box" id="item_top_box9">
+
+                </div>
+                <div class="item_bottom_box" id="item_bottom_box9">
+
+                </div>
+            </div>
+            <div class="item_right_box" id="item_right_box9">
+
+            </div>
+
+        </div>
+        <div class="item_box" id="item_box10">
+            <div class="item_left_box" id="item_left_box10">
+                <%--                <img src="" alt="">--%>
+            </div>
+            <div class="item_mid_box" id="item_mid_box10">
+                <div class="item_top_box" id="item_top_box10">
+
+                </div>
+                <div class="item_bottom_box" id="item_bottom_box10">
+
+                </div>
+            </div>
+            <div class="item_right_box" id="item_right_box10">
+
+            </div>
+
+        </div>
+
+    </div>
     
 </div>
 
