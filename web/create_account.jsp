@@ -11,7 +11,7 @@
 <%--no session--%>
 <%
   if (session.isNew()){
-    session.setAttribute("login_status", "false");
+    session.setAttribute("login_status", "true");
   }
 %>
 
@@ -22,7 +22,8 @@
   String referenced = (String) session.getAttribute("referenced");
 %>
 
-<%--session outdate--w22
+<%--session outdate--%>
+<%
   if (session.getMaxInactiveInterval()<0){
     login_status = "false";
   }
@@ -54,7 +55,7 @@
   if (username==null){username="null";}
   if (password==null){password="null";}
   if (user_type==null){user_type="null";}
-  if (!user_type.equals("admin")&&!user_type.equals("user")){login_status="null";}
+  if (!user_type.equals("user")){login_status="null";}
 %>
 
 <%--change session msg by param--%>
@@ -64,19 +65,27 @@
 
 <%--check session msg--%>
 <%
-
+  if (!referenced.equals("login")){
+    login_status = "false";
+  }
 %>
 
 <%--change session--%>
 <%
   session.setAttribute("login_status", login_status);
   session.setAttribute("uid", uid);
-  session.setAttribute("referenced", "login.jsp");
+  session.setAttribute("referenced", "create_account");
 %>
 
 <%--pre-action--%>
 <%
   Boolean need_login = !login_status.equals("true");
+  if (!need_login){
+    session.setAttribute("uid", uid);
+    session.setAttribute("username", username);
+    session.setAttribute("type", user_type);
+    response.sendRedirect("shop.jsp");
+  }
 %>
 
 
@@ -97,16 +106,6 @@
       <label class="password_box">Confirm your passowrd:
         <input type="password" name="password" size="30" maxlength="20">
       </label><br>
-
-<%--      <div class="radio_box">--%>
-<%--        <div class="left_box">--%>
-<%--          <label><input type="radio" id="customer" name="user_type" value="customer">User</label>--%>
-<%--        </div>--%>
-<%--        <div class="right_box">--%>
-<%--          <label><input type="radio" id="admin" name="user_type" value="admin">Admin</label>--%>
-<%--        </div>--%>
-
-<%--      </div>--%>
       <input type="hidden" name="uid" value="admin">
       <input type="hidden" name="user_type" value="user">
       <input type="submit" name="submit" value="sign up">
