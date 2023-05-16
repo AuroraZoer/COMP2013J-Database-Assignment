@@ -1,4 +1,4 @@
-<%--
+<%@ page import="dataNoBase.User" %><%--
   Created by IntelliJ IDEA.
   User: 张子毅
   Date: 2023/4/24
@@ -16,7 +16,7 @@
 
 <%--recv session msg--%>
 <%
-  String uid = (String)session.getAttribute("uid");
+  User user = (User) session.getAttribute("user");
   String login_status = (String) session.getAttribute("login_status");
   String referenced = (String) session.getAttribute("referenced");
 %>
