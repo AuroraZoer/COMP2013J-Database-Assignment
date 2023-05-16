@@ -52,6 +52,7 @@
     }
     if (delete_account!=null && delete_account.equals("true")){
         UserDAO.deleteUserByUsername(username);
+        response.sendRedirect("login.jsp");
     }
 %>
 
