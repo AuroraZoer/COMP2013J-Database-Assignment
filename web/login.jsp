@@ -117,6 +117,8 @@
     if (need_login) {
 %>
 <div class="container">
+    <h1>COMP2013J Databases and Info Sys</h1>
+    <h2>Group3 Assignment</h2>
     <div class="login_box">
         <form action="login.jsp" method="post">
             <label class="username_box">Username:
