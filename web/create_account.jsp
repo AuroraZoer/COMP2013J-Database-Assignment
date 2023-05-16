@@ -1,4 +1,8 @@
-<%@ page import="dataNoBase.User" %><%--
+
+<%@ page import="dataNoBase.UserDAO" %>
+<%@ page import="dataNoBase.User" %>
+<%@ page import="java.sql.Timestamp" %><%--
+
   Created by IntelliJ IDEA.
   User: 张子毅
   Date: 2023/4/25
@@ -40,6 +44,7 @@
   String password = request.getParameter("password");
   String user_type = request.getParameter("usertype");
   String confirm = request.getParameter("confirm");
+  String email = request.getParameter("email");
 %>
 
 <%--parameters react--%>
@@ -47,6 +52,7 @@
   if (username==null){login_status="false";}
   if (password==null){login_status="false";}
   if (user_type==null){login_status="false";}
+  if (confirm==null){login_status="false";}
   if (confirm==null){login_status="false";}
 %>
 
@@ -56,6 +62,7 @@
   if (password==null){password="null";}
   if (user_type==null){user_type="null";}
   if (confirm==null){confirm = "null";}
+  if (email==null){email = "";}
 %>
 
 <%--change session msg by param--%>
@@ -83,7 +90,10 @@
 <%
   Boolean need_login = !login_status.equals("true");
   if (!need_login){
-    session.setAttribute("uid", uid);
+    User user = new User(1,username,password,email,new Timestamp(new java.util.Date().getTime()));
+    UserDAO.insertUser(user);
+//    the bug may occur when MYSQL fail to insert user while jsp already use the user data.
+    session.setAttribute("user", user);
     response.sendRedirect("shop.jsp");
   }
 %>
@@ -98,6 +108,9 @@
 <div class="container">
   <div class="login_box">
     <form action="create_account.jsp" method="post">
+      <label class="username_box">Email:
+        <input type="text" name="email" size="40" maxlength="20">
+      </label><br>
       <label class="username_box">Username:
         <input type="text" name="username" size="30" maxlength="20">
       </label><br>
