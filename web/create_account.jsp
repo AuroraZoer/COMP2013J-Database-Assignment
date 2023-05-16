@@ -40,6 +40,7 @@
   String password = request.getParameter("password");
   String user_type = request.getParameter("usertype");
   String confirm = request.getParameter("confirm");
+  String email = request.getParameter("email");
 %>
 
 <%--parameters react--%>
@@ -47,6 +48,7 @@
   if (username==null){login_status="false";}
   if (password==null){login_status="false";}
   if (user_type==null){login_status="false";}
+  if (confirm==null){login_status="false";}
   if (confirm==null){login_status="false";}
 %>
 
@@ -56,6 +58,7 @@
   if (password==null){password="null";}
   if (user_type==null){user_type="null";}
   if (confirm==null){confirm = "null";}
+  if (email==null){email = "";}
 %>
 
 <%--change session msg by param--%>
@@ -98,6 +101,9 @@
 <div class="container">
   <div class="login_box">
     <form action="create_account.jsp" method="post">
+      <label class="username_box">Email:
+        <input type="text" name="email" size="40" maxlength="20">
+      </label><br>
       <label class="username_box">Username:
         <input type="text" name="username" size="30" maxlength="20">
       </label><br>
