@@ -13,7 +13,7 @@
 
 <%--no session--%>
 <%
-    if (session.isNew()){
+    if (session.isNew()) {
         session.setAttribute("login_status", "false");
     }
 %>
@@ -25,7 +25,7 @@
 
 <%--session outdate--%>
 <%
-    if (session.getMaxInactiveInterval()<0){
+    if (session.getMaxInactiveInterval() < 0) {
         login_status = "false";
     }
 %>
@@ -45,22 +45,36 @@
 
 <%--parameters react--%>
 <%
-    if (username==null){login_status="false";}
-    if (password==null){login_status="false";}
-    if (user_type==null){login_status="false";}
+    if (username == null) {
+        login_status = "false";
+    }
+    if (password == null) {
+        login_status = "false";
+    }
+    if (user_type == null) {
+        login_status = "false";
+    }
 %>
 
 <%--check parameters invalid--%>
 <%
-    if (username==null){username="null";}
-    if (password==null){password="null";}
-    if (user_type==null){user_type="null";}
-    if (!user_type.equals("admin")&&!user_type.equals("customer")){login_status="null";}
+    if (username == null) {
+        username = "null";
+    }
+    if (password == null) {
+        password = "null";
+    }
+    if (user_type == null) {
+        user_type = "null";
+    }
+    if (!user_type.equals("admin") && !user_type.equals("customer")) {
+        login_status = "null";
+    }
 %>
 
 <%--change session msg by param--%>
 <%
-//    调用数据库
+    //    调用数据库
     if (user_type.equals("customer")) {
         if (UserDAO.isPasswordCorrect(username, password)) {
             login_status = "true";
@@ -100,12 +114,8 @@
 
 <%--if need_login--%>
 <%
-    if (need_login){
+    if (need_login) {
 %>
-
-username:<%=username%><br>
-password:<%=password%><br>
-need_login:<%=need_login%><br>
 <div class="container">
     <div class="login_box">
         <form action="login.jsp" method="post">
@@ -134,7 +144,7 @@ need_login:<%=need_login%><br>
 
 <%--if not need_login--%>
 <%
-}else {
+} else {
 %>
 
 <%--redirect shop.jsp--%>
