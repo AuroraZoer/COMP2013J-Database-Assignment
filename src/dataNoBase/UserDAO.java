@@ -43,6 +43,30 @@ public class UserDAO {
         return users;
     }
 
+    public static User getUserByUsername(String username) {
+        String sql = "SELECT * FROM user WHERE username = ?";
+        try (Connection conn = JDBCTool.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, username);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    User user = new User();
+                    user.setId(rs.getInt("uid"));
+                    user.setUsername(rs.getString("username"));
+                    user.setPassword(rs.getString("password"));
+                    user.setEmail(rs.getString("email"));
+                    user.setCreateTime(rs.getTimestamp("create_time"));
+                    return user;
+                } else {
+                    return null; // 用户名不存在
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static boolean isPasswordCorrect(String inputUsername, String inputPassword) {
         String sql = "SELECT password FROM user WHERE username = ?";
         try (Connection conn = JDBCTool.getConnection();
@@ -72,7 +96,6 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
-
 
 
 }
