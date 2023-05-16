@@ -1,4 +1,6 @@
-<%--
+<%@ page import="dataNoBase.UserDAO" %>
+<%@ page import="dataNoBase.User" %>
+<%@ page import="java.sql.Timestamp" %><%--
   Created by IntelliJ IDEA.
   User: 张子毅
   Date: 2023/4/25
@@ -86,7 +88,10 @@
 <%
   Boolean need_login = !login_status.equals("true");
   if (!need_login){
-    session.setAttribute("uid", uid);
+    User user = new User(1,username,password,email,new Timestamp(new java.util.Date().getTime()));
+    UserDAO.insertUser(user);
+//    the bug may occur when MYSQL fail to insert user while jsp already use the user data.
+    session.setAttribute("user", user);
     response.sendRedirect("shop.jsp");
   }
 %>
