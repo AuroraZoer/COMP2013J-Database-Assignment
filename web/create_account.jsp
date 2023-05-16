@@ -108,9 +108,6 @@
 <div class="container">
   <div class="login_box">
     <form action="create_account.jsp" method="post">
-      <label class="username_box">Email:
-        <input type="text" name="email" size="40" maxlength="20">
-      </label><br>
       <label class="username_box">Username:
         <input type="text" name="username" size="30" maxlength="20">
       </label><br>
@@ -119,6 +116,9 @@
       </label><br>
       <label class="password_box">Confirm Password:
         <input type="password" name="confirm" size="30" maxlength="20">
+      </label><br>
+      <label class="username_box">Email:
+        <input type="text" name="email" size="40" maxlength="20">
       </label><br>
       <input type="hidden" name="user_type" value="user">
       <input type="submit" name="submit" value="sign up">
