@@ -130,6 +130,7 @@ need_login:<%=need_login%><br>
             <input type="hidden" name="uid" value="admin">
             <input type="submit" name="submit" value="Login">
         </form>
+        <a href="create_account.jsp">Click to create an account</a>
     </div>
 </div>
 
