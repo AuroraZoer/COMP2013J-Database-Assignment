@@ -11,7 +11,7 @@
 <%--no session--%>
 <%
   if (session.isNew()){
-    session.setAttribute("login_status", "false");
+    session.setAttribute("login_status", "true");
   }
 %>
 
@@ -19,9 +19,11 @@
 <%
   String login_status = (String) session.getAttribute("login_status");
   String uid = (String) session.getAttribute("uid");
+  String referenced = (String) session.getAttribute("referenced");
 %>
 
-<%--session outdate--w22
+<%--session outdate--%>
+<%
   if (session.getMaxInactiveInterval()<0){
     login_status = "false";
   }
@@ -36,7 +38,8 @@
 <%
   String username = request.getParameter("username");
   String password = request.getParameter("password");
-  String user_type = request.getParameter("user_type");
+  String user_type = request.getParameter("usertype");
+  String confirm = request.getParameter("confirm");
 %>
 
 <%--parameters react--%>
@@ -44,6 +47,7 @@
   if (username==null){login_status="false";}
   if (password==null){login_status="false";}
   if (user_type==null){login_status="false";}
+  if (confirm==null){login_status="false";}
 %>
 
 <%--check parameters invalid--%>
@@ -51,29 +55,37 @@
   if (username==null){username="null";}
   if (password==null){password="null";}
   if (user_type==null){user_type="null";}
-  if (!user_type.equals("admin")&&!user_type.equals("user")){login_status="null";}
 %>
 
 <%--change session msg by param--%>
 <%
-
+  if (!user_type.equals("user")){login_status="false";}
+  if (!confirm.equals(password)){login_status = "false";}
 %>
 
 <%--check session msg--%>
 <%
-
+  if (!referenced.equals("login")){
+    login_status = "false";
+  }
 %>
 
 <%--change session--%>
 <%
   session.setAttribute("login_status", login_status);
   session.setAttribute("uid", uid);
-  session.setAttribute("referenced", "login.jsp");
+  session.setAttribute("referenced", "create_account");
 %>
 
 <%--pre-action--%>
 <%
   Boolean need_login = !login_status.equals("true");
+  if (!need_login){
+    session.setAttribute("uid", uid);
+    session.setAttribute("username", username);
+    session.setAttribute("type", user_type);
+    response.sendRedirect("shop.jsp");
+  }
 %>
 
 
@@ -82,6 +94,23 @@
     <title>Create Your Account!</title>
 </head>
 <body>
-
+<div class="container">
+  <div class="login_box">
+    <form action="create_account.jsp" method="post">
+      <label class="username_box">Username:
+        <input type="text" name="username" size="30" maxlength="20">
+      </label><br>
+      <label class="password_box">Password:
+        <input type="password" name="password" size="30" maxlength="20">
+      </label><br>
+      <label class="password_box">Confirm your passowrd:
+        <input type="password" name="password" size="30" maxlength="20">
+      </label><br>
+      <input type="hidden" name="uid" value="admin">
+      <input type="hidden" name="user_type" value="user">
+      <input type="submit" name="submit" value="sign up">
+    </form>
+  </div>
+</div>
 </body>
 </html>
