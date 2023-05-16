@@ -1,8 +1,6 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="dataNoBase.Category" %>
 <%@ page import="java.util.List" %>
-<%@ page import="dataNoBase.CategoryDAO" %>
-<%@ page import="dataNoBase.User" %><%--
+<%@ page import="dataNoBase.*" %><%--
   Created by IntelliJ IDEA.
   User: 张子毅
   Date: 2023/4/21
@@ -42,8 +40,8 @@
 <%
     String select = request.getParameter("select");
     String keyword = request.getParameter("keyword");
-    String page_num = request.getParameter("page_num");
-    String category_num = request.getParameter("category_num");
+    String page_str = request.getParameter("page_num");
+    String category_str = request.getParameter("category_num");
 %>
 
 <%--check parameters invalid--%>
@@ -54,8 +52,20 @@
     if (keyword==null){
         keyword = "";
     }
-    if (page_num==null){
-        page_num = "0";
+    if (page_str==null) {
+        page_str = "0";
+    }
+    int page_num = 0;
+    int category_num = 0;
+    try{
+        page_num = Integer.parseInt(page_str);
+    }catch (NumberFormatException e){
+
+    }
+    try{
+        category_num = Integer.parseInt(page_str);
+    }catch (NumberFormatException e){
+
     }
 %>
 
@@ -101,10 +111,9 @@
 <%--初始化--%>
 <%
     List<Category> categories = CategoryDAO.getAllCategories();
+    List<Commodity> commodities = CommodityDAO.getCommoditiesByCategory(categories.get(category_num).getName(), page_num);
 %>
-<script type="text/javascript" language="JavaScript">
-    // if ()
-</script>
+
 
 
 
@@ -112,7 +121,11 @@
 <head>
     <title>Shop</title>
     <link rel="stylesheet" href="css/shop.css">
-
+    <style>
+        #cate<%=category_num%> {
+        /*    高亮显示span*/
+        }
+    </style>
 
 </head>
 <body>
@@ -120,11 +133,40 @@
 <div class="whole">
     <div class="left_box">
         <div class="left_box_item">
-            <span>item1</span><br>
-            <span>item2</span><br>
-            <span>item3</span><br>
-            <span>item4</span><br>
-            <span>item5</span><br>
+            <form action="#">
+                <a href="shop.jsp">
+                    <span id="cate0"><%=categories.get(0).getName()%></span><br>
+                </a>
+                <input type="hidden" name="category_num" value="cate0">
+            </form>
+
+            <form action="#">
+                <a href="shop.jsp">
+                    <span id="cate1"><%=categories.get(1).getName()%></span><br>
+                </a>
+                <input type="hidden" name="category_num" value="cate1">
+            </form>
+
+            <form action="#">
+                <a href="shop.jsp">
+                    <span id="cate2"><%=categories.get(2).getName()%></span><br>
+                </a>
+                <input type="hidden" name="category_num" value="cate2">
+        </form>
+
+            <form action="#">
+                <a href="shop.jsp">
+                    <span id="cate3"><%=categories.get(3).getName()%></span><br>
+                </a>
+                <input type="hidden" name="category_num" value="cate3">
+            </form>
+
+            <form action="#">
+                <a href="shop.jsp">
+                    <span id="cate4"><%=categories.get(4).getName()%></span><br>
+                </a>
+                <input type="hidden" name="category_num" value="cate4">
+            </form>
 
         </div>
     </div>
@@ -142,15 +184,6 @@
                         </button>
                     </form>
                 </div>
-            </div>
-            
-            <div class="select">
-                <form action="shop.jsp" method="post">
-                    <input type="hidden" name="select" value="true">
-                <button id="select_button" type="submit">
-                <img src="img/select_icon.jpg" alt="筛选" height="50" width="50">
-                </button>
-                </form>
             </div>
         </div>
         
