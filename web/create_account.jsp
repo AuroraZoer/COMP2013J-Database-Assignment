@@ -21,9 +21,11 @@
 
 <%--recv session msg--%>
 <%
-  String login_status = (String) session.getAttribute("login_status");
-  User user = (User) session.getAttribute("user");
+//  String login_status = (String) session.getAttribute("login_status");
+//  User user = (User) session.getAttribute("user");
   String referenced = (String) session.getAttribute("referenced");
+  String login_status = "true";
+
 %>
 
 <%--session outdate--%>
@@ -42,7 +44,7 @@
 <%
   String username = request.getParameter("username");
   String password = request.getParameter("password");
-  String user_type = request.getParameter("usertype");
+  String user_type = request.getParameter("user_type");
   String confirm = request.getParameter("confirm");
   String email = request.getParameter("email");
 %>
@@ -53,7 +55,7 @@
   if (password==null){login_status="false";}
   if (user_type==null){login_status="false";}
   if (confirm==null){login_status="false";}
-  if (confirm==null){login_status="false";}
+  if (email==null){login_status="false";}
 %>
 
 <%--check parameters invalid--%>
@@ -72,7 +74,7 @@
 
 <%--check session msg--%>
 <%
-  if (!referenced.equals("login")){
+  if (!referenced.equals("create_account")){
     login_status = "false";
     if (!user_type.equals("user")){login_status="false";}
     if (!confirm.equals(password)){login_status = "false";}
@@ -82,14 +84,12 @@
 <%--change session--%>
 <%
   session.setAttribute("login_status", login_status);
-  session.setAttribute("uid", uid);
   session.setAttribute("referenced", "create_account");
 %>
 
 <%--pre-action--%>
 <%
-  Boolean need_login = !login_status.equals("true");
-  if (!need_login){
+  if (login_status.equals("true")){
     User user = new User(1,username,password,email,new Timestamp(new java.util.Date().getTime()));
     UserDAO.insertUser(user);
 //    the bug may occur when MYSQL fail to insert user while jsp already use the user data.
@@ -120,10 +120,20 @@
       <label class="password_box">Confirm Password:
         <input type="password" name="confirm" size="30" maxlength="20">
       </label><br>
-      <input type="hidden" name="uid" value="admin">
+      <input type="hidden" name="user_type" value="user">
       <input type="submit" name="submit" value="sign up">
     </form>
   </div>
 </div>
+<%=referenced%> <br>
+<%=login_status%> <br>
+<%=user_type%> <br>
+<%=username%> <br>
+<%=email%> <br>
+<%=confirm%>
+
+
+
+
 </body>
 </html>

@@ -1,5 +1,8 @@
 <%@ page import="dataNoBase.UserDAO" %>
-<%@ page import="dataNoBase.AdminDAO" %><%--
+<%@ page import="dataNoBase.AdminDAO" %>
+<%@ page import="dataNoBase.User" %>
+<%@ page import="java.sql.Timestamp" %>
+<%@ page import="java.sql.Date" %><%--
   Created by IntelliJ IDEA.
   User: 张子毅
   Date: 2023/4/18
@@ -37,6 +40,7 @@
     String username = request.getParameter("username");
     String password = request.getParameter("password");
     String user_type = request.getParameter("user_type");
+    User user;
 %>
 
 <%--parameters react--%>
@@ -67,10 +71,6 @@
             login_status = "true";
         }
     }
-//    connect to database
-//    String uid = UserDAO.getUID();
-//    test
-    String uid = "001";
 %>
 
 <%--check session msg--%>
@@ -81,7 +81,6 @@
 <%--change session--%>
 <%
     session.setAttribute("login_status", login_status);
-    session.setAttribute("uid", uid);
     session.setAttribute("referenced", "login.jsp");
 %>
 
@@ -106,7 +105,6 @@
 
 username:<%=username%><br>
 password:<%=password%><br>
-uid:<%=uid%><br>
 need_login:<%=need_login%><br>
 <div class="container">
     <div class="login_box">
@@ -127,7 +125,6 @@ need_login:<%=need_login%><br>
                 </div>
 
             </div>
-            <input type="hidden" name="uid" value="admin">
             <input type="submit" name="submit" value="Login">
         </form>
         <a href="create_account.jsp">Click to create an account</a>
@@ -142,7 +139,7 @@ need_login:<%=need_login%><br>
 
 <%--redirect shop.jsp--%>
 <%
-    session.setAttribute("uid", uid);
+    session.setAttribute("user", new User(1,"zoe","123456","xxx@xxx", new Timestamp(new java.util.Date().getTime())));
     session.setAttribute("login_status", "true");
     response.sendRedirect("shop.jsp");
 %>

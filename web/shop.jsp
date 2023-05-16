@@ -1,7 +1,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="dataNoBase.Category" %>
 <%@ page import="java.util.List" %>
-<%@ page import="static dataNoBase.CategoryDAO" %>
+<%@ page import="dataNoBase.CategoryDAO" %>
 <%@ page import="dataNoBase.User" %><%--
   Created by IntelliJ IDEA.
   User: 张子毅
@@ -77,7 +77,7 @@
 
 <%--check session msg--%>
 <%
-    if (uid == null){
+    if (user == null){
         login_status = "false";
     }
 %>
