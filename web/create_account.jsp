@@ -21,9 +21,11 @@
 
 <%--recv session msg--%>
 <%
-  String login_status = (String) session.getAttribute("login_status");
-  User user = (User) session.getAttribute("user");
+//  String login_status = (String) session.getAttribute("login_status");
+//  User user = (User) session.getAttribute("user");
   String referenced = (String) session.getAttribute("referenced");
+  String login_status = "true";
+
 %>
 
 <%--session outdate--%>
@@ -72,7 +74,7 @@
 
 <%--check session msg--%>
 <%
-  if (!referenced.equals("login")){
+  if (!referenced.equals("create_account")){
     login_status = "false";
     if (!user_type.equals("user")){login_status="false";}
     if (!confirm.equals(password)){login_status = "false";}
@@ -82,7 +84,6 @@
 <%--change session--%>
 <%
   session.setAttribute("login_status", login_status);
-  session.setAttribute("uid", uid);
   session.setAttribute("referenced", "create_account");
 %>
 
