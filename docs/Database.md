@@ -98,6 +98,10 @@ CREATE TABLE `transaction`
 ### Insert data
 
 ```mysql
+INSERT INTO `admin` (`admin_name`, `password`, `email`) 
+VALUES 
+('Suri', '123456', 'shuqi.dai@ucdconnect.ie');
+
 INSERT INTO `categories` ( `name` )
 VALUES
 	( 'Fruit' ),
