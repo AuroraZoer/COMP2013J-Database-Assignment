@@ -1,6 +1,8 @@
+
 <%@ page import="dataNoBase.UserDAO" %>
 <%@ page import="dataNoBase.User" %>
 <%@ page import="java.sql.Timestamp" %><%--
+
   Created by IntelliJ IDEA.
   User: 张子毅
   Date: 2023/4/25
@@ -20,7 +22,7 @@
 <%--recv session msg--%>
 <%
   String login_status = (String) session.getAttribute("login_status");
-  String uid = (String) session.getAttribute("uid");
+  User user = (User) session.getAttribute("user");
   String referenced = (String) session.getAttribute("referenced");
 %>
 

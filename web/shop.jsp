@@ -1,4 +1,8 @@
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="dataNoBase.Category" %>
+<%@ page import="java.util.List" %>
+<%@ page import="static dataNoBase.CategoryDAO" %>
+<%@ page import="dataNoBase.User" %><%--
   Created by IntelliJ IDEA.
   User: 张子毅
   Date: 2023/4/21
@@ -18,7 +22,7 @@
 
 <%--recv session msg--%>
 <%
-    String uid = (String)session.getAttribute("uid");
+    User user = (User) session.getAttribute("user");
     String login_status = (String) session.getAttribute("login_status");
 %>
 
@@ -39,6 +43,7 @@
     String select = request.getParameter("select");
     String keyword = request.getParameter("keyword");
     String page_num = request.getParameter("page_num");
+    String category_num = request.getParameter("category_num");
 %>
 
 <%--check parameters invalid--%>
@@ -93,9 +98,13 @@
 <%--页面事件--%>
 <%--========================================================================================================================================--%>
 
+<%--初始化--%>
 <%
-    if (keyword==null)
+    List<Category> categories = CategoryDAO.getAllCategories();
 %>
+<script type="text/javascript" language="JavaScript">
+    // if ()
+</script>
 
 
 
@@ -103,13 +112,6 @@
 <head>
     <title>Shop</title>
     <link rel="stylesheet" href="css/shop.css">
-    <script type="text/javascript" language="javascript">
-        document.getElementById("select_button").onclick = function (){
-        //     onclick事件
-            
-        }
-    </script>
-
 
 
 </head>
