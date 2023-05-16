@@ -55,12 +55,12 @@
   if (username==null){username="null";}
   if (password==null){password="null";}
   if (user_type==null){user_type="null";}
-  if (!user_type.equals("user")){login_status="null";}
 %>
 
 <%--change session msg by param--%>
 <%
-
+  if (!user_type.equals("user")){login_status="false";}
+  if (!confirm.equals(password)){login_status = "false";}
 %>
 
 <%--check session msg--%>
