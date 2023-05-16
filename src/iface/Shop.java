@@ -3,7 +3,7 @@ package iface;
 public interface Shop {
 
     /**
-     * return ten items depend on keyword.
+     * return ten items depend on keyword and page.
      * @param keyword
      * @param page
      * @return
