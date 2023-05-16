@@ -18,6 +18,7 @@
 <%
     User user = (User) session.getAttribute("user");
     String login_status = (String) session.getAttribute("login_status");
+    String username = user.getUsername();
 %>
 
 <%--session outdate--%>
@@ -39,7 +40,10 @@
 
 <%--parameters react--%>
 <%
-
+    if (user_logout!=null){
+        session.setAttribute("login_status", "false");
+        response.sendRedirect("login.jsp");
+    }
 %>
 
 <%--check parameters invalid--%>
@@ -84,11 +88,11 @@
 
 <html>
 <head>
-    <title><%=request.getParameter("username")%></title>
+    <title><%=username%></title>
 </head>
 <body>
 <div>
-    用户名：<%=request.getParameter("username")%><br>
+    用户名：<%=username%><br>
 </div>
 
 
