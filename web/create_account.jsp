@@ -76,9 +76,9 @@
 <%
   if (!referenced.equals("create_account")){
     login_status = "false";
-    if (!user_type.equals("user")){login_status="false";}
-    if (!confirm.equals(password)){login_status = "false";}
   }
+  if (!user_type.equals("user")){login_status="false";}
+  if (!confirm.equals(password)){login_status = "false";}
 %>
 
 <%--change session--%>
