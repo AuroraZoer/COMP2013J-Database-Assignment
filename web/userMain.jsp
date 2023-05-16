@@ -1,4 +1,5 @@
-<%@ page import="dataNoBase.User" %><%--
+<%@ page import="dataNoBase.User" %>
+<%@ page import="dataNoBase.UserDAO" %><%--
   Created by IntelliJ IDEA.
   User: 张子毅
   Date: 2023/4/18
@@ -21,6 +22,10 @@
     String username = user.getUsername();
 %>
 
+<%
+
+%>
+
 <%--session outdate--%>
 <%
     if (session.getMaxInactiveInterval()<0){
@@ -36,6 +41,7 @@
 <%--recv parameters--%>
 <%
     String user_logout = request.getParameter("user_logout");
+    String delete_account = request.getParameter("delete_account");
 %>
 
 <%--parameters react--%>
@@ -43,6 +49,9 @@
     if (user_logout!=null){
         session.setAttribute("login_status", "false");
         response.sendRedirect("login.jsp");
+    }
+    if (delete_account!=null && delete_account.equals("true")){
+        UserDAO.deleteUserByUsername(username);
     }
 %>
 
@@ -112,6 +121,13 @@
         </div>
     </form>
 
+</div>
+
+<div>
+    <form action="userMain.jsp">
+        <input type="hidden" name="delete_account" value="true">
+        <input type="submit" value="删除账户">
+    </form>
 </div>
 </body>
 </html>
