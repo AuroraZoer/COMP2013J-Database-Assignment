@@ -1,7 +1,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="dataNoBase.Category" %>
 <%@ page import="java.util.List" %>
-<%@ page import="static dataNoBase.CategoryDAO" %><%--
+<%@ page import="static dataNoBase.CategoryDAO" %>
+<%@ page import="dataNoBase.User" %><%--
   Created by IntelliJ IDEA.
   User: 张子毅
   Date: 2023/4/21
@@ -21,7 +22,7 @@
 
 <%--recv session msg--%>
 <%
-    String uid = (String)session.getAttribute("uid");
+    User user = (User) session.getAttribute("user");
     String login_status = (String) session.getAttribute("login_status");
 %>
 
@@ -102,7 +103,7 @@
     List<Category> categories = CategoryDAO.getAllCategories();
 %>
 <script type="text/javascript" language="JavaScript">
-    if ()
+    // if ()
 </script>
 
 
