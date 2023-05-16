@@ -89,8 +89,6 @@
 <body>
 <div>
     用户名：<%=request.getParameter("username")%><br>
-    uid：<%=uid%><br>
-    信息：<%=request.getParameter("msg")%>
 </div>
 
 
