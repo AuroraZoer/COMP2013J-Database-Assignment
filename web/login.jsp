@@ -139,7 +139,7 @@ need_login:<%=need_login%><br>
 
 <%--redirect shop.jsp--%>
 <%
-    session.setAttribute("user", new User(1,"zoe","123456","xxx@xxx", new Timestamp(new java.util.Date().getTime())));
+    session.setAttribute("user", UserDAO.getUserByUsername(username));
     session.setAttribute("login_status", "true");
     response.sendRedirect("shop.jsp");
 %>
