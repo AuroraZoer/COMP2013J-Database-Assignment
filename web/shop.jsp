@@ -77,7 +77,7 @@
 
 <%--check session msg--%>
 <%
-    if (uid == null){
+    if (user == null){
         login_status = "false";
     }
 %>
