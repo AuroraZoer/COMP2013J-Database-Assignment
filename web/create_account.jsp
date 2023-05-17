@@ -94,6 +94,7 @@
     UserDAO.insertUser(user);
 //    the bug may occur when MYSQL fail to insert user while jsp already use the user data.
     session.setAttribute("user", user);
+    session.setAttribute("user_type", user_type);
     response.sendRedirect("shop.jsp");
   }
 %>
