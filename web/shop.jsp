@@ -43,7 +43,8 @@
     String keyword = request.getParameter("keyword");
     String page_str = request.getParameter("page_num");
     String category_str = request.getParameter("category_num");
-    String category_name = request.getParameter("category_name");
+    String create_category_name = request.getParameter("create_category_name");
+    String delete_category_name = request.getParameter("delete_category_name");
 %>
 
 <%--check parameters invalid--%>
@@ -79,8 +80,12 @@
     if (!keyword.equals("")){
 //        ask mysql
     }
-    if (category_name != null){
-        CategoryDAO.insertCategory(new Category(category_name));
+    if (create_category_name != null){
+        CategoryDAO.insertCategory(new Category(create_category_name));
+    }
+
+    if (delete_category_name != null){
+        CategoryDAO.deleteCategory(delete_category_name);
     }
 
 %>
@@ -140,42 +145,59 @@
 <div class="whole">
     <div class="left_box">
         <div class="left_box_item">
-            <form action="shop.jsp">
-                <input type="hidden" name="category_num" value="0">
-                <button type="submit"><span id="cate0"><%=categories.get(0).getName()%></span><br></button>
-            </form>
+            <%
+                for (Category category : categories){
 
-            <form action="shop.jsp">
-                <input type="hidden" name="category_num" value="1">
-                <button type="submit"><span id="cate1"><%=categories.get(1).getName()%></span><br></button>
-            </form>
-
-            <form action="shop.jsp">
-                <input type="hidden" name="category_num" value="2">
-                <button type="submit"><span id="cate2"><%=categories.get(2).getName()%></span><br></button>
-            </form>
-
-            <form action="shop.jsp">
-                <input type="hidden" name="category_num" value="3">
-                <button type="submit"><span id="cate3"><%=categories.get(3).getName()%></span><br></button>
-            </form>
-
+            %>
             <div>
                 <form action="shop.jsp">
                     <input type="hidden" name="category_num" value="4">
-                    <button type="submit"><span id="cate4"><%=categories.get(4).getName()%></span><br></button>
+                    <button type="submit"><span id="cate4"><%=category.getName()%></span><br></button>
                 </form>
                 <% if (user_type.equals("admin")){%>
                 <form action="shop.jsp" method="post">
-                    <input type="hidden" name="delete_category_name" value="<%=categories.get(4).getName()%>">
+                    <input type="hidden" name="delete_category_name" value="<%=category.getName()%>">
                 </form>
                 <%}%>
             </div>
+<%--            <form action="shop.jsp">--%>
+<%--                <input type="hidden" name="category_num" value="0">--%>
+<%--                <button type="submit"><span id="cate0"><%=categories.get(0).getName()%></span><br></button>--%>
+<%--            </form>--%>
+
+<%--            <form action="shop.jsp">--%>
+<%--                <input type="hidden" name="category_num" value="1">--%>
+<%--                <button type="submit"><span id="cate1"><%=categories.get(1).getName()%></span><br></button>--%>
+<%--            </form>--%>
+
+<%--            <form action="shop.jsp">--%>
+<%--                <input type="hidden" name="category_num" value="2">--%>
+<%--                <button type="submit"><span id="cate2"><%=categories.get(2).getName()%></span><br></button>--%>
+<%--            </form>--%>
+
+<%--            <form action="shop.jsp">--%>
+<%--                <input type="hidden" name="category_num" value="3">--%>
+<%--                <button type="submit"><span id="cate3"><%=categories.get(3).getName()%></span><br></button>--%>
+<%--            </form>--%>
+
+<%--            <div>--%>
+<%--                <form action="shop.jsp">--%>
+<%--                    <input type="hidden" name="category_num" value="4">--%>
+<%--                    <button type="submit"><span id="cate4"><%=categories.get(4).getName()%></span><br></button>--%>
+<%--                </form>--%>
+<%--                <% if (user_type.equals("admin")){%>--%>
+<%--                <form action="shop.jsp" method="post">--%>
+<%--                    <input type="hidden" name="delete_category_name" value="<%=categories.get(4).getName()%>">--%>
+<%--                </form>--%>
+<%--                <%}%>--%>
+<%--            </div>--%>
+
+            <%}%>
 
             <% if (user_type.equals("admin")){%>
             <form action="shop.jsp">
                 <label> Category:name
-                    <input type="text" name="category_name">
+                    <input type="text" name="create_category_name">
                 </label>
                 <button type="submit">add</button>
             </form>
