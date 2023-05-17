@@ -2,7 +2,8 @@
 <%@ page import="dataNoBase.AdminDAO" %>
 <%@ page import="dataNoBase.User" %>
 <%@ page import="java.sql.Timestamp" %>
-<%@ page import="java.sql.Date" %><%--
+<%@ page import="java.sql.Date" %>
+<%@ page import="dataNoBase.Admin" %><%--
   Created by IntelliJ IDEA.
   User: 张子毅
   Date: 2023/4/18
@@ -41,6 +42,7 @@
     String password = request.getParameter("password");
     String user_type = request.getParameter("user_type");
     User user;
+    Admin admin;
 %>
 
 <%--parameters react--%>
@@ -151,7 +153,11 @@
 
 <%--redirect shop.jsp--%>
 <%
-    session.setAttribute("user", UserDAO.getUserByUsername(username));
+    if (user_type.equals("admin")){
+        session.setAttribute("user", AdminDAO.GetUserByAdmin());
+    }else {
+        session.setAttribute("user", UserDAO.getUserByUsername(username));
+    }
     session.setAttribute("login_status", "true");
     session.setAttribute("user_type", user_type);
     response.sendRedirect("shop.jsp");
