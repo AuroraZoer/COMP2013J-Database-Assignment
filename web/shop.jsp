@@ -193,9 +193,13 @@
 <%--    购物车--%>
 
     <div>
+        <%
+            if (user_type.equals("user")){
+        %>
         <a href="shopping_car.jsp">
             <img src="img/shopping_car.jpg" alt="购物车" height="50" width="50">
         </a>
+        <%}%>
     </div>
     
     <div class="main_box">
