@@ -224,6 +224,13 @@
             <div class="item_right_box" id="item_right_box1">
                 <%=commodity.getPrice()%> <br>
                 <%=commodity.getStock()%> <br>
+                <%
+                    if (user_type.equals("admin")){
+                %>
+                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&"></a>
+                <%
+                    }
+                %>
             </div>
         </div>
         <div class="item_box" id="item_box2">
@@ -244,6 +251,13 @@
             <div class="item_right_box" id="item_right_box2">
                 <%=commodity.getPrice()%> <br>
                 <%=commodity.getStock()%> <br>
+                <%
+                    if (user_type.equals("admin")){
+                %>
+                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&"></a>
+                <%
+                    }
+                %>
             </div>
 
         </div>
@@ -265,6 +279,13 @@
             <div class="item_right_box" id="item_right_box3">
                 <%=commodity.getPrice()%> <br>
                 <%=commodity.getStock()%> <br>
+                <%
+                    if (user_type.equals("admin")){
+                %>
+                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&"></a>
+                <%
+                    }
+                %>
             </div>
 
         </div>
@@ -286,6 +307,13 @@
             <div class="item_right_box" id="item_right_box4">
                 <%=commodity.getPrice()%> <br>
                 <%=commodity.getStock()%> <br>
+                <%
+                    if (user_type.equals("admin")){
+                %>
+                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&"></a>
+                <%
+                    }
+                %>
             </div>
             <%=commodity.getCid()%> <br>
         </div>
@@ -307,6 +335,13 @@
             <div class="item_right_box" id="item_right_box5">
                 <%=commodity.getPrice()%> <br>
                 <%=commodity.getStock()%> <br>
+                <%
+                    if (user_type.equals("admin")){
+                %>
+                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&"></a>
+                <%
+                    }
+                %>
             </div>
 
         </div>
@@ -326,6 +361,13 @@
             <div class="item_right_box" id="item_right_box6">
                 <%=commodity.getPrice()%> <br>
                 <%=commodity.getStock()%> <br>
+                <%
+                    if (user_type.equals("admin")){
+                %>
+                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&"></a>
+                <%
+                    }
+                %>
             </div>
 
         </div>
@@ -345,6 +387,13 @@
             <div class="item_right_box" id="item_right_box7">
                 <%=commodity.getPrice()%> <br>
                 <%=commodity.getStock()%> <br>
+                <%
+                    if (user_type.equals("admin")){
+                %>
+                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&"></a>
+                <%
+                    }
+                %>
             </div>
 
         </div>
@@ -364,6 +413,13 @@
             <div class="item_right_box" id="item_right_box8">
                 <%=commodity.getPrice()%> <br>
                 <%=commodity.getStock()%> <br>
+                <%
+                    if (user_type.equals("admin")){
+                %>
+                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&"></a>
+                <%
+                    }
+                %>
             </div>
 
         </div>
@@ -383,6 +439,13 @@
             <div class="item_right_box" id="item_right_box9">
                 <%=commodity.getPrice()%> <br>
                 <%=commodity.getStock()%> <br>
+                <%
+                    if (user_type.equals("admin")){
+                %>
+                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&"></a>
+                <%
+                    }
+                %>
             </div>
 
         </div>
@@ -402,6 +465,13 @@
             <div class="item_right_box" id="item_right_box10">
                 <%=commodity.getPrice()%> <br>
                 <%=commodity.getStock()%> <br>
+                <%
+                    if (user_type.equals("admin")){
+                %>
+                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&"></a>
+                <%
+                    }
+                %>
             </div>
 
         </div>
