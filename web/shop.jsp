@@ -22,6 +22,7 @@
 <%
     User user = (User) session.getAttribute("user");
     String login_status = (String) session.getAttribute("login_status");
+    String user_type = (String) session.getAttribute("user_type");
 %>
 
 <%--session outdate--%>
@@ -77,6 +78,7 @@
     if (!keyword.equals("")){
 //        ask mysql
     }
+
 %>
 
 
