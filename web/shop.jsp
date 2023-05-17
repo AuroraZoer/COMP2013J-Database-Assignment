@@ -22,6 +22,7 @@
 <%
     User user = (User) session.getAttribute("user");
     String login_status = (String) session.getAttribute("login_status");
+    String user_type = (String) session.getAttribute("user_type");
 %>
 
 <%--session outdate--%>
@@ -77,6 +78,7 @@
     if (!keyword.equals("")){
 //        ask mysql
     }
+
 %>
 
 
@@ -191,9 +193,13 @@
 <%--    购物车--%>
 
     <div>
+        <%
+            if (user_type.equals("user")){
+        %>
         <a href="shopping_car.jsp">
             <img src="img/shopping_car.jpg" alt="购物车" height="50" width="50">
         </a>
+        <%}%>
     </div>
     
     <div class="main_box">
@@ -201,171 +207,271 @@
         <%=category_num%> <br>
     <%=page_num%> <br>
         <div class="item_box" id="item_box1">
+            <%
+            Commodity commodity = commodities.get(0);
+            %>
             <div class="item_left_box" id="item_left_box1">
-<%--                <img src="" alt="">--%>
+                <%=commodity.getCategory()%> <br>
             </div>
             <div class="item_mid_box" id="item_mid_box1">
                 <div class="item_top_box" id="item_top_box1">
-
+                    <%=commodity.getCid()%> <br>
                 </div>
                 <div class="item_bottom_box" id="item_bottom_box">
-
+                    <%=commodity.getItemName()%> <br>
                 </div>
             </div>
             <div class="item_right_box" id="item_right_box1">
-
+                <%=commodity.getPrice()%> <br>
+                <%=commodity.getStock()%> <br>
+                <%
+                    if (user_type.equals("admin")){
+                %>
+                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&"></a>
+                <%
+                    }
+                %>
             </div>
         </div>
         <div class="item_box" id="item_box2">
+            <%
+                commodity = commodities.get(1);
+            %>
             <div class="item_left_box" id="item_left_box2">
-                <%--                <img src="" alt="">--%>
+                <%=commodity.getCategory()%> <br>
             </div>
             <div class="item_mid_box" id="item_mid_box2">
                 <div class="item_top_box" id="item_top_box2">
-
+                    <%=commodity.getCid()%> <br>
                 </div>
                 <div class="item_bottom_box" id="item_bottom_box2">
 
                 </div>
             </div>
             <div class="item_right_box" id="item_right_box2">
-
+                <%=commodity.getPrice()%> <br>
+                <%=commodity.getStock()%> <br>
+                <%
+                    if (user_type.equals("admin")){
+                %>
+                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&"></a>
+                <%
+                    }
+                %>
             </div>
 
         </div>
         <div class="item_box" id="item_box3">
+            <%
+                commodity = commodities.get(2);
+            %>
             <div class="item_left_box" id="item_left_box3">
-                <%--                <img src="" alt="">--%>
+                <%=commodity.getCategory()%> <br>
             </div>
             <div class="item_mid_box" id="item_mid_box3">
                 <div class="item_top_box" id="item_top_box3">
-
+                    <%=commodity.getCid()%> <br>
                 </div>
                 <div class="item_bottom_box" id="item_bottom_box3">
-
+                    <%=commodity.getItemName()%> <br>
                 </div>
             </div>
             <div class="item_right_box" id="item_right_box3">
-
+                <%=commodity.getPrice()%> <br>
+                <%=commodity.getStock()%> <br>
+                <%
+                    if (user_type.equals("admin")){
+                %>
+                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&"></a>
+                <%
+                    }
+                %>
             </div>
 
         </div>
         <div class="item_box" id="item_box4">
+            <%
+                commodity = commodities.get(3);
+            %>
             <div class="item_left_box" id="item_left_box4">
-                <%--                <img src="" alt="">--%>
+                <%=commodity.getCategory()%> <br>
             </div>
             <div class="item_mid_box" id="item_mid_box4">
                 <div class="item_top_box" id="item_top_box4">
-
+                    <%=commodity.getCid()%> <br>
                 </div>
                 <div class="item_bottom_box" id="item_bottom_box4">
-
+                    <%=commodity.getItemName()%> <br>
                 </div>
             </div>
             <div class="item_right_box" id="item_right_box4">
-
+                <%=commodity.getPrice()%> <br>
+                <%=commodity.getStock()%> <br>
+                <%
+                    if (user_type.equals("admin")){
+                %>
+                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&"></a>
+                <%
+                    }
+                %>
             </div>
-
+            <%=commodity.getCid()%> <br>
         </div>
         <div class="item_box" id="item_box5">
+            <%
+                commodity = commodities.get(4);
+            %>
             <div class="item_left_box" id="item_left_box5">
-                <%--                <img src="" alt="">--%>
+                <%=commodity.getCategory()%> <br>
             </div>
             <div class="item_mid_box" id="item_mid_box5">
                 <div class="item_top_box" id="item_top_box5">
-
+                    <%=commodity.getCid()%> <br>
                 </div>
                 <div class="item_bottom_box" id="item_bottom_box5">
-
+                    <%=commodity.getItemName()%> <br>
                 </div>
             </div>
             <div class="item_right_box" id="item_right_box5">
-
+                <%=commodity.getPrice()%> <br>
+                <%=commodity.getStock()%> <br>
+                <%
+                    if (user_type.equals("admin")){
+                %>
+                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&"></a>
+                <%
+                    }
+                %>
             </div>
 
         </div>
         <div class="item_box" id="item_box6">
+            commodity = commodities.get(5);
             <div class="item_left_box" id="item_left_box6">
-                <%--                <img src="" alt="">--%>
+                <%=commodity.getCategory()%> <br>
             </div>
             <div class="item_mid_box" id="item_mid_box6">
                 <div class="item_top_box" id="item_top_box6">
-
+                    <%=commodity.getCid()%> <br>
                 </div>
                 <div class="item_bottom_box" id="item_bottom_box6">
-
+                    <%=commodity.getItemName()%> <br>
                 </div>
             </div>
             <div class="item_right_box" id="item_right_box6">
-
+                <%=commodity.getPrice()%> <br>
+                <%=commodity.getStock()%> <br>
+                <%
+                    if (user_type.equals("admin")){
+                %>
+                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&"></a>
+                <%
+                    }
+                %>
             </div>
 
         </div>
         <div class="item_box" id="item_box7">
+            commodity = commodities.get(6);
             <div class="item_left_box" id="item_left_box7">
-                <%--                <img src="" alt="">--%>
+                <%=commodity.getCategory()%> <br>
             </div>
             <div class="item_mid_box" id="item_mid_box7">
                 <div class="item_top_box" id="item_top_box7">
-
+                    <%=commodity.getCid()%> <br>
                 </div>
                 <div class="item_bottom_box" id="item_bottom_box7">
-
+                    <%=commodity.getItemName()%> <br>
                 </div>
             </div>
             <div class="item_right_box" id="item_right_box7">
-
+                <%=commodity.getPrice()%> <br>
+                <%=commodity.getStock()%> <br>
+                <%
+                    if (user_type.equals("admin")){
+                %>
+                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&"></a>
+                <%
+                    }
+                %>
             </div>
 
         </div>
         <div class="item_box" id="item_box8">
+            commodity = commodities.get(7);
             <div class="item_left_box" id="item_left_box8">
-                <%--                <img src="" alt="">--%>
+                <%=commodity.getCategory()%> <br>
             </div>
             <div class="item_mid_box" id="item_mid_box8">
                 <div class="item_top_box" id="item_top_box8">
-
+                    <%=commodity.getCid()%> <br>
                 </div>
                 <div class="item_bottom_box" id="item_bottom_box8">
-
+                    <%=commodity.getItemName()%> <br>
                 </div>
             </div>
             <div class="item_right_box" id="item_right_box8">
-
+                <%=commodity.getPrice()%> <br>
+                <%=commodity.getStock()%> <br>
+                <%
+                    if (user_type.equals("admin")){
+                %>
+                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&"></a>
+                <%
+                    }
+                %>
             </div>
 
         </div>
         <div class="item_box" id="item_box9">
+            commodity = commodities.get(8);
             <div class="item_left_box" id="item_left_box9">
-                <%--                <img src="" alt="">--%>
+                <%=commodity.getCategory()%> <br>
             </div>
             <div class="item_mid_box" id="item_mid_box9">
                 <div class="item_top_box" id="item_top_box9">
-
+                    <%=commodity.getCid()%> <br>
                 </div>
                 <div class="item_bottom_box" id="item_bottom_box9">
-
+                    <%=commodity.getItemName()%> <br>
                 </div>
             </div>
             <div class="item_right_box" id="item_right_box9">
-
+                <%=commodity.getPrice()%> <br>
+                <%=commodity.getStock()%> <br>
+                <%
+                    if (user_type.equals("admin")){
+                %>
+                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&"></a>
+                <%
+                    }
+                %>
             </div>
 
         </div>
         <div class="item_box" id="item_box10">
+            commodity = commodities.get(9);
             <div class="item_left_box" id="item_left_box10">
-                <%--                <img src="" alt="">--%>
+                <%=commodity.getCategory()%> <br>
             </div>
             <div class="item_mid_box" id="item_mid_box10">
                 <div class="item_top_box" id="item_top_box10">
-
+                    <%=commodity.getCid()%> <br>
                 </div>
                 <div class="item_bottom_box" id="item_bottom_box10">
-
+                    <%=commodity.getItemName()%> <br>
                 </div>
             </div>
             <div class="item_right_box" id="item_right_box10">
-
+                <%=commodity.getPrice()%> <br>
+                <%=commodity.getStock()%> <br>
+                <%
+                    if (user_type.equals("admin")){
+                %>
+                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&"></a>
+                <%
+                    }
+                %>
             </div>
 
         </div>

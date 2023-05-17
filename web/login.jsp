@@ -153,6 +153,7 @@
 <%
     session.setAttribute("user", UserDAO.getUserByUsername(username));
     session.setAttribute("login_status", "true");
+    session.setAttribute("user_type", user_type);
     response.sendRedirect("shop.jsp");
 %>
 
