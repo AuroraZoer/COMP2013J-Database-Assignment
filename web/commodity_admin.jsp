@@ -45,22 +45,32 @@
     String name = request.getParameter("name");
     String price = request.getParameter("price");
     String stock = request.getParameter("stock");
-
+    String action = request.getParameter("action");
+    Boolean success = true;
 %>
 
 <%--check parameters invalid--%>
 <%
-    if (!referenced.equals("shop")){
-        response.sendRedirect("shop.jsp");
-    }
-    if (category == null || cid == null || name == null || price == null || stock == null){
+    if (!referenced.equals("shop") && !referenced.equals("commodity_admin")){
         response.sendRedirect("shop.jsp");
     }
 %>
 
 <%--parameters react--%>
 <%
+    category = category==null?"null":category;
+    cid = cid==null?"null":cid;
+    name = name==null?"null":name;
+    price = price==null?"null":price;
+    stock = stock==null?"null":stock;
+    action = action==null?"null":action;
 
+    if (category.equals("null") || cid.equals("null") || name.equals("null") || price.equals("null") || stock.equals("null") || action.equals("null")){
+        success = false;
+    }
+    if (!action.equals("delete") && !action.equals("create") && !action.equals("modify")){
+        success = false;
+    }
 %>
 
 
@@ -83,8 +93,9 @@
 
 <%--pre-action--%>
 <%
-    if (!login_status.equals("true")){
+    if (success){
         response.sendRedirect("login.jsp");
+//        action here
     }
     session.setAttribute("referenced", "commodity_admin");
 %>
@@ -115,6 +126,15 @@
     </label>
     <label>
         <input type="text" name="cid">
+    </label>
+    <label>
+        <input type="radio" name="action" value="delete">
+    </label>
+    <label>
+        <input type="radio" name="action" value="create">
+    </label>
+    <label>
+        <input type="radio" name="action" value="modify">
     </label>
     <input type="submit" value="confirm">
 </form>
