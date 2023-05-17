@@ -3,6 +3,9 @@
 /* 通用样式 */
 body {
     font-family: "Comic Sans MS", sans-serif;
+    background-image: url('../img/bg.jpg');
+    background-size: cover;
+    background-position: center;
 }
 
 .container {
