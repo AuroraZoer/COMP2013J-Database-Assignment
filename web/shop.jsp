@@ -146,13 +146,13 @@
     <div class="left_box">
         <div class="left_box_item">
             <%
-                for (Category category : categories){
-
+                for (int i = 0; i<categories.size(); i++){
+                    Category category = categories.get(i);
             %>
             <div>
-                <form action="shop.jsp">
-                    <input type="hidden" name="category_num" value="4">
-                    <button type="submit"><span id="cate4"><%=category.getName()%></span><br></button>
+                <form action="shop.jsp" method="post">
+                    <input type="hidden" name="category_num" value="<%=i%>">
+                    <button type="submit"><span><%=category.getName()%></span><br></button>
                 </form>
                 <% if (user_type.equals("admin")){%>
                 <form action="shop.jsp" method="post">
@@ -233,6 +233,8 @@
 
 <%--    购物车--%>
 
+    usertype:
+    <%=user_type%>
     <div>
         <%
             if (user_type.equals("user")){
@@ -520,7 +522,7 @@
 
         <%if (user_type.equals("admin")){%>
         <div class="item_admin_box">
-            <a href="commodity_admin.jsp?"><img src="img/add.png" alt="addition"></a>
+            <a href="commodity_admin.jsp?"><img src="img/add.png" alt="addition" width="200" height="50"></a>
         </div>
         <%}%>
 

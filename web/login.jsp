@@ -67,7 +67,7 @@
     if (user_type == null) {
         user_type = "null";
     }
-    if (!user_type.equals("admin") && !user_type.equals("customer")) {
+    if (!user_type.equals("admin") && !user_type.equals("user")) {
         login_status = "null";
     }
 %>
@@ -75,7 +75,7 @@
 <%--change session msg by param--%>
 <%
     //    调用数据库
-    if (user_type.equals("customer")) {
+    if (user_type.equals("user")) {
         if (UserDAO.isPasswordCorrect(username, password)) {
             login_status = "true";
         }
@@ -130,7 +130,7 @@
 
             <div class="radio_box">
                 <div class="left_box">
-                    <label><input type="radio" id="customer" name="user_type" value="customer">User</label>
+                    <label><input type="radio" id="user" name="user_type" value="user">User</label>
                 </div>
                 <div class="right_box">
                     <label><input type="radio" id="admin" name="user_type" value="admin">Admin</label>
