@@ -43,6 +43,7 @@
     String keyword = request.getParameter("keyword");
     String page_str = request.getParameter("page_num");
     String category_str = request.getParameter("category_num");
+    String category_name = request.getParameter("category_name");
 %>
 
 <%--check parameters invalid--%>
@@ -77,6 +78,9 @@
     }
     if (!keyword.equals("")){
 //        ask mysql
+    }
+    if (category_name != null){
+        CategoryDAO.insertCategory(new Category(category_name));
     }
 
 %>
@@ -156,11 +160,26 @@
                 <button type="submit"><span id="cate3"><%=categories.get(3).getName()%></span><br></button>
             </form>
 
-            <form action="shop.jsp">
-                <input type="hidden" name="category_num" value="4">
-                <button type="submit"><span id="cate4"><%=categories.get(4).getName()%></span><br></button>
-            </form>
+            <div>
+                <form action="shop.jsp">
+                    <input type="hidden" name="category_num" value="4">
+                    <button type="submit"><span id="cate4"><%=categories.get(4).getName()%></span><br></button>
+                </form>
+                <% if (user_type.equals("admin")){%>
+                <form action="shop.jsp" method="post">
+                    <input type="hidden" name="delete_category_name" value="<%=categories.get(4).getName()%>">
+                </form>
+                <%}%>
+            </div>
 
+            <% if (user_type.equals("admin")){%>
+            <form action="shop.jsp">
+                <label> Category:name
+                    <input type="text" name="category_name">
+                </label>
+                <button type="submit">add</button>
+            </form>
+            <%}%>
         </div>
     </div>
     
@@ -478,7 +497,7 @@
 
         <%if (user_type.equals("admin")){%>
         <div class="item_admin_box">
-            <a href="commodity_admin.jsp?"><img src="" alt="addition"></a>
+            <a href="commodity_admin.jsp?"><img src="img/add.png" alt="addition"></a>
         </div>
         <%}%>
 
