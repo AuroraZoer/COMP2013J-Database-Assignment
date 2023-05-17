@@ -5,12 +5,36 @@
   Time: 21:14
   To change this template use File | Settings | File Templates.
 --%>
+
+
+
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
+
+<form action="commodity_admin.jsp">
+    <label>
+        <input type="text" name="category">
+    </label>
+    <label>
+        <input type="text" name="name">
+    </label>
+    <label>
+        <input type="text" name="cid">
+    </label>
+    <label>
+        <input type="text" name="name">
+    </label>
+    <label>
+        <input type="text" name="cid">
+    </label>
+    <input type="submit" value="confirm">
+</form>
+
 
 </body>
 </html>
