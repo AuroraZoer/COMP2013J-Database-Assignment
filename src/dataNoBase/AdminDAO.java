@@ -12,11 +12,14 @@ public class AdminDAO {
 
     public static List<Person> getAllAdmins() {
         PersonDAO.setTableName("admin");
+        PersonDAO.setIdColumnName("aid");
+        PersonDAO.setNameColumnName("admin_name");
         return PersonDAO.getAllPersons();
     }
 
     public static Admin getAdminByUsername(String username) {
         PersonDAO.setTableName("admin");
+        PersonDAO.setIdColumnName("aid");
         PersonDAO.setNameColumnName("admin_name");
         return (Admin) PersonDAO.getPersonByName(username);
     }
@@ -29,6 +32,7 @@ public class AdminDAO {
 
     public static void deleteAdminByUsername(String username) {
         PersonDAO.setTableName("admin");
+        PersonDAO.setNameColumnName("admin_name");
         PersonDAO.deletePersonByName(username);
     }
 }
