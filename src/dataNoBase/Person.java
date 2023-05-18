@@ -1,23 +1,23 @@
 package dataNoBase;
 
-import java.sql.Timestamp;
-
 public class Person {
     private int id;
     private String name;
     private String password;
     private String email;
-    private Timestamp createTime;
+    private java.sql.Timestamp createTime;
+    private int  type; // Added type attribute: 0 admin; 1 user
 
     public Person() {
     }
 
-    public Person(int id, String name, String password, String email, Timestamp createTime) {
+    public Person(int id, String name, String password, String email, java.sql.Timestamp createTime, int type) {
         this.id = id;
         this.name = name;
         this.password = password;
         this.email = email;
         this.createTime = createTime;
+        this.type = type;
     }
 
     public int getId() {
@@ -52,11 +52,19 @@ public class Person {
         this.email = email;
     }
 
-    public Timestamp getCreateTime() {
+    public java.sql.Timestamp getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
+    public void setCreateTime(java.sql.Timestamp createTime) {
         this.createTime = createTime;
+    }
+
+    public int  getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }
