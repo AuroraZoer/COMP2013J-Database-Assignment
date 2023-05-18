@@ -44,13 +44,13 @@
 <%--parameters react--%>
 <%
     if (username == null) {
-        login_status = "false";
+        login_status = false;
     }
     if (password == null) {
-        login_status = "false";
+        login_status = false;
     }
     if (user_type == null) {
-        login_status = "false";
+        login_status = false;
     }
 %>
 
@@ -65,16 +65,20 @@
     if (user_type == null) {
         user_type = "null";
     }
-    if (!user_type.equals("admin") && !user_type.equals("user")) {
-        login_status = "null";
-    }
 %>
 
 <%--change session msg by param--%>
 <%
     //    调用数据库
-    if (person.)
-    session.setAttribute("user", AdminDAO.getAdminByUsername(username));
+    if (person.getType() == 0) {
+        session.setAttribute("user", AdminDAO.getAdminByUsername(username));
+    }
+    else if (person.getType() == 1) {
+        session.setAttribute("user", UserDAO.getUserByUsername(username));
+    }
+    else {
+        login_status = false;
+    }
 %>
 
 <%--check session msg--%>
@@ -90,7 +94,6 @@
 
 <%--pre-action--%>
 <%
-    Boolean need_login = !login_status.equals("true");
     session.setAttribute("referenced", "login");
 %>
 
