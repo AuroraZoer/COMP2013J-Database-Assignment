@@ -6,6 +6,7 @@ public class AdminDAO {
 
     public static void insertAdmin(Admin admin) {
         PersonDAO.setTableName("admin");
+        PersonDAO.setNameColumnName("admin_name");
         PersonDAO.insertPerson(admin);
     }
 
@@ -16,11 +17,13 @@ public class AdminDAO {
 
     public static Admin getAdminByUsername(String username) {
         PersonDAO.setTableName("admin");
+        PersonDAO.setNameColumnName("admin_name");
         return (Admin) PersonDAO.getPersonByName(username);
     }
 
     public static boolean isPasswordCorrect(String inputUsername, String inputPassword) {
         PersonDAO.setTableName("admin");
+        PersonDAO.setNameColumnName("admin_name");
         return PersonDAO.isPasswordCorrect(inputUsername, inputPassword);
     }
 
