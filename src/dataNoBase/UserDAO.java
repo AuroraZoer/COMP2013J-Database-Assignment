@@ -12,11 +12,14 @@ public class UserDAO {
 
     public static List<Person> getAllUsers() {
         PersonDAO.setTableName("user");
+        PersonDAO.setIdColumnName("uid");
+        PersonDAO.setNameColumnName("username");
         return PersonDAO.getAllPersons();
     }
 
     public static User getUserByUsername(String username) {
         PersonDAO.setTableName("user");
+        PersonDAO.setIdColumnName("uid");
         PersonDAO.setNameColumnName("username");
         return (User) PersonDAO.getPersonByName(username);
     }
