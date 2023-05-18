@@ -1,4 +1,5 @@
-<%@ page import="dataNoBase.Admin" %><%--
+<%@ page import="dataNoBase.Admin" %>
+<%@ page import="dataNoBase.CommodityDAO" %><%--
   Created by IntelliJ IDEA.
   User: zzy13
   Date: 2023/5/17
@@ -17,13 +18,11 @@
 
 <%--recv session msg--%>
 <%
-    String user_type = (String) session.getAttribute("user_type");
-    if (!user_type.equals("admin")){
-        response.sendRedirect("shop.jsp");
-    }
     Admin admin = (Admin) session.getAttribute("person");
     Boolean login_status = (Boolean) session.getAttribute("login_status");
     String referenced = (String) session.getAttribute("referenced");
+    Boolean back = false;
+    Boolean finish = true;
 %>
 
 <%--session outdate--%>
@@ -41,7 +40,7 @@
 <%--recv parameters--%>
 <%
     String category = request.getParameter("category");
-    String cid = request.getParameter("cid");
+    String cid_str = request.getParameter("cid_str");
     String name = request.getParameter("name");
     String price = request.getParameter("price");
     String stock = request.getParameter("stock");
@@ -51,37 +50,40 @@
 <%--check parameters invalid--%>
 <%
     if (!referenced.equals("shop") && !referenced.equals("commodity_admin")){
-        response.sendRedirect("shop.jsp");
+        back = true;
+    }else if (admin == null){
+        back = true;
     }
 %>
 
 <%--parameters react--%>
 <%
     category = category==null?"null":category;
-    cid = cid==null?"null":cid;
+    cid_str = cid_str==null?"null":cid_str;
     name = name==null?"null":name;
     price = price==null?"null":price;
     stock = stock==null?"null":stock;
     action = action==null?"null":action;
 
-    if (category.equals("null") || cid.equals("null") || name.equals("null") || price.equals("null") || stock.equals("null") || action.equals("null")){
-        response.sendRedirect("shop.jsp");
-    }
-    if (!action.equals("delete") && !action.equals("create") && !action.equals("modify")){
-        response.sendRedirect("shop.jsp");
+    int cid = -1;
+
+    if (category.equals("null") || cid_str.equals("null") || name.equals("null") || price.equals("null") || stock.equals("null")){
+        back = true;
+    }else if (!action.equals("delete") && !action.equals("create") && !action.equals("modify")){
+        finish = false;
     }
 %>
 
 
 <%--change session msg by param--%>
 <%
-
+    
 %>
 
 <%--check session msg--%>
 <%
     if (admin == null){
-        response.sendRedirect("shop.jsp");
+        back = true;
     }
     if (!login_status){
         response.sendRedirect("login.jsp");
@@ -90,12 +92,21 @@
 
 <%--change session--%>
 <%
-    session.setAttribute("referenced", "shop");
+
 %>
 
 <%--pre-action--%>
 <%
     session.setAttribute("referenced", "commodity_admin");
+    if (back){
+        response.sendRedirect("shop.jsp");
+    }
+    if (finish){
+        if (action.equals("delete"))
+        CommodityDAO.deleteCommodity(cid_str);
+        if (action.equals())
+        response.sendRedirect("shop.jsp");
+    }
 %>
 <%--session事件--%>
 <%--=========================================================================================================================================--%>
@@ -117,13 +128,13 @@
         <input type="text" name="name">
     </label>
     <label>
-        <input type="text" name="cid">
+        <input type="text" name="cid_str">
     </label>
     <label>
         <input type="text" name="name">
     </label>
     <label>
-        <input type="text" name="cid">
+        <input type="text" name="cid_str">
     </label>
     <label>
         <input type="radio" name="action" value="delete">
