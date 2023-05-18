@@ -53,6 +53,7 @@
     if (page_str==null) {
         page_str = "0";
     }
+
     int page_num = 0;
     int category_num = 0;
     try{
@@ -83,22 +84,22 @@
 
 <%--change session msg by param--%>
 <%
-
+    int user_type = -1;
 %>
 
 <%--check session msg--%>
 <%
-    if (person==null){
+    if (person == null){
+        person = new Person();
         response.sendRedirect("login.jsp");
     }
-    if (!login_status){
+    else if (!login_status){
         response.sendRedirect("login.jsp");
+
     }
 //    NullPointerException
-    int user_type = person.getType();
-    if (user_type!=0 && user_type!=1){
-        response.sendRedirect("login.jsp");
-    }
+    else if (person.getType() == 0 && person.getType() == 1) {
+        user_type = person.getType();    }
 
 %>
 
@@ -200,7 +201,7 @@
             <%}%>
         </div>
     </div>
-    
+
     <div class="mid_box">
         <div class="top_box">
             <div class="outer_search_box">
@@ -216,10 +217,10 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
-    
-    
+
+
 <%--    用户界面--%>
     <div>
         <a href="userMain.jsp">
@@ -240,7 +241,7 @@
         </a>
         <%}%>
     </div>
-    
+
     <div class="main_box">
 <%--        test--%>
         <%=category_num%> <br>

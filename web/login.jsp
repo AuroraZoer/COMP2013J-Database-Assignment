@@ -11,15 +11,12 @@
 
 <%--no session--%>
 <%
-    if (session.isNew()) {
-        session.setAttribute("login_status", false);
-    }
+
 %>
 
 <%--recv session msg--%>
 <%
-    Boolean login_status = (Boolean) session.getAttribute("login_status");
-    Person person = (Person) session.getAttribute("person");
+    Boolean login_status = true;
 %>
 
 <%--session outdate--%>
@@ -52,6 +49,7 @@
     if (user_type == null) {
         login_status = false;
     }
+
 %>
 
 <%--check parameters invalid--%>
@@ -65,19 +63,23 @@
     if (user_type == null) {
         user_type = "null";
     }
+    if (user_type.equals("admin")){
+        if (!AdminDAO.isPasswordCorrect(username, password))
+            session.setAttribute("person", AdminDAO.getAdminByUsername(username));
+    }else if (user_type.equals("customer")){
+        if (!UserDAO.isPasswordCorrect(username, password))
+            session.setAttribute("person", UserDAO.getUserByUsername(username));
+    }else {
+        login_status = false;
+    }
 %>
 
 <%--change session msg by param--%>
 <%
-    //    调用数据库
-    if (person.getType() == 0) {
-        session.setAttribute("user", AdminDAO.getAdminByUsername(username));
-    }
-    else if (person.getType() == 1) {
-        session.setAttribute("user", UserDAO.getUserByUsername(username));
-    }
-    else {
-        login_status = false;
+    if (login_status) {
+        session.setAttribute("login_status", true);
+//        response.sendRedirect("shop.jsp");
+
     }
 %>
 
@@ -88,13 +90,11 @@
 
 <%--change session--%>
 <%
-    session.setAttribute("login_status", login_status);
-    session.setAttribute("referenced", "login.jsp");
+    session.setAttribute("referenced", "login");
 %>
 
 <%--pre-action--%>
 <%
-    session.setAttribute("referenced", "login");
 %>
 
 
@@ -120,7 +120,7 @@
 
             <div class="radio_box">
                 <div class="left_box">
-                    <label><input type="radio" id="user" name="user_type" value="user">User</label>
+                    <label><input type="radio" id="customer" name="user_type" value="customer">User</label>
                 </div>
                 <div class="right_box">
                     <label><input type="radio" id="admin" name="user_type" value="admin">Admin</label>
@@ -133,16 +133,18 @@
     </div>
 </div>
 
-<%--redirect shop.jsp--%>
-<%
-    if (user_type.equals("admin")){
-        session.setAttribute("user", AdminDAO.getAdminByUsername(username));
-    }else {
-        session.setAttribute("user", UserDAO.getUserByUsername(username));
-    }
-    session.setAttribute("login.jsp", true);
-    response.sendRedirect("shop.jsp");
-%>
+<%--test--%>
+<%=user_type%>
+<%=login_status%>
+<%=username%>
+<%=password%>
+<%=session.getAttribute("person")%>
+<%=session.getAttribute("login_status")%>
+
+
+
+
+
 
 </body>
 </html>
