@@ -8,17 +8,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersonDAO {
-    private String tableName;
-    private String idColumnName;
-    private String nameColumnName;
+    private static String tableName;
+    private static String idColumnName;
+    private static String nameColumnName;
 
-    public PersonDAO(String tableName, String idColumnName, String nameColumnName) {
-        this.tableName = tableName;
-        this.idColumnName = idColumnName;
-        this.nameColumnName = nameColumnName;
+    public static void setTableName(String tableName) {
+        PersonDAO.tableName = tableName;
     }
 
-    public void insertPerson(Person person) {
+    public static void setIdColumnName(String idColumnName) {
+        PersonDAO.idColumnName = idColumnName;
+    }
+
+    public static void setNameColumnName(String nameColumnName) {
+        PersonDAO.nameColumnName = nameColumnName;
+    }
+
+    public static void insertPerson(Person person) {
         String sql = "INSERT INTO " + tableName + " (" + nameColumnName + ", password, email) VALUES (?, ?, ?)";
         try (Connection conn = JDBCTool.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -31,7 +37,7 @@ public class PersonDAO {
         }
     }
 
-    public List<Person> getAllPersons() {
+    public static List<Person> getAllPersons() {
         String sql = "SELECT * FROM " + tableName;
         List<Person> persons = new ArrayList<>();
         try (Connection conn = JDBCTool.getConnection();
@@ -52,7 +58,7 @@ public class PersonDAO {
         return persons;
     }
 
-    public Person getPersonByName(String name) {
+    public static Person getPersonByName(String name) {
         String sql = "SELECT * FROM " + tableName + " WHERE " + nameColumnName + " = ?";
         try (Connection conn = JDBCTool.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -76,7 +82,7 @@ public class PersonDAO {
         }
     }
 
-    public boolean isPasswordCorrect(String inputName, String inputPassword) {
+    public static boolean isPasswordCorrect(String inputName, String inputPassword) {
         String sql = "SELECT password FROM " + tableName + " WHERE " + nameColumnName + " = ?";
         try (Connection conn = JDBCTool.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -95,7 +101,7 @@ public class PersonDAO {
         }
     }
 
-    public void deletePersonByName(String name) {
+    public static void deletePersonByName(String name) {
         String sql = "DELETE FROM " + tableName + " WHERE " + nameColumnName + " = ?";
         try (Connection conn = JDBCTool.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -106,8 +112,7 @@ public class PersonDAO {
         }
     }
 
-    // Create an instance of the Person class
-    private Person createPersonInstance() {
+    private static Person createPersonInstance() {
         if (tableName.equals("user")) {
             return new User();
         } else if (tableName.equals("admin")) {
