@@ -41,8 +41,6 @@
     String username = request.getParameter("username");
     String password = request.getParameter("password");
     String user_type = request.getParameter("user_type");
-    User user;
-    Admin admin;
 %>
 
 <%--parameters react--%>
@@ -159,7 +157,6 @@
         session.setAttribute("user", UserDAO.getUserByUsername(username));
     }
     session.setAttribute("login_status", "true");
-    session.setAttribute("user_type", user_type);
     response.sendRedirect("shop.jsp");
 %>
 
