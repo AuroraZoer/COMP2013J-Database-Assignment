@@ -531,14 +531,21 @@
     <div class="next_page">
         <form action="shop.jsp">
             <input type="hidden" name="category_num" value="<%=category_num%>">
-            <input type="hidden" name="page_num" value="<%=page_num+1%>">
+            <input type="hidden" name="page_num" value="<%=categories.size()<10?page_num:page_num+1%>">
             <input type="hidden" name="keyword" value="<%=keyword%>">
             <input type="submit" value="next page">
         </form>
     </div>
-    
-</div>
 
+    <div class="last_page">
+        <form action="shop.jsp">
+            <input type="hidden" name="category_num" value="<%=category_num%>">
+            <input type="hidden" name="page_num" value="<%=page_num-1<0?page_num:page_num-1%>">
+            <input type="hidden" name="keyword" value="<%=keyword%>">
+            <input type="submit" value="next page">
+        </form>
+    </div>
+</div>
 
 
 </body>
