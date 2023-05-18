@@ -1,4 +1,6 @@
-<%@ page import="dataNoBase.Admin" %><%--
+<%@ page import="dataNoBase.Admin" %>
+<%@ page import="dataNoBase.CommodityDAO" %>
+<%@ page import="dataNoBase.Commodity" %><%--
   Created by IntelliJ IDEA.
   User: zzy13
   Date: 2023/5/17
@@ -17,13 +19,11 @@
 
 <%--recv session msg--%>
 <%
-    String user_type = (String) session.getAttribute("user_type");
-    if (!user_type.equals("admin")){
-        response.sendRedirect("shop.jsp");
-    }
     Admin admin = (Admin) session.getAttribute("person");
     Boolean login_status = (Boolean) session.getAttribute("login_status");
     String referenced = (String) session.getAttribute("referenced");
+    boolean back = false;
+    boolean finish = true;
 %>
 
 <%--session outdate--%>
@@ -41,34 +41,42 @@
 <%--recv parameters--%>
 <%
     String category = request.getParameter("category");
-    String cid = request.getParameter("cid");
+
+    int cid = -1;
+    try{
+        cid = Integer.parseInt(request.getParameter("cid"));
+    }catch (Exception e){}
+
     String name = request.getParameter("name");
-    String price = request.getParameter("price");
-    String stock = request.getParameter("stock");
+    Float price = -1F;
+    try{
+        price = Float.parseFloat(request.getParameter("price"));
+    }catch (Exception e){}
+    int stock = -1;
+    try{
+        stock = Integer.parseInt(request.getParameter("stock"));
+    }catch (Exception e){}
     String action = request.getParameter("action");
 %>
 
 <%--check parameters invalid--%>
 <%
-    if (!referenced.equals("shop") && !referenced.equals("commodity_admin")){
-        response.sendRedirect("shop.jsp");
+//    if (!referenced.equals("shop") && !referenced.equals("commodity_admin")){
+//        back = true;
+//    }
+    if (admin == null){
+        back = true;
     }
 %>
 
 <%--parameters react--%>
 <%
-    category = category==null?"null":category;
-    cid = cid==null?"null":cid;
-    name = name==null?"null":name;
-    price = price==null?"null":price;
-    stock = stock==null?"null":stock;
-    action = action==null?"null":action;
+    category = category==null?"":category;
+    name = name==null?"":name;
+    action = action==null?"":action;
 
-    if (category.equals("null") || cid.equals("null") || name.equals("null") || price.equals("null") || stock.equals("null") || action.equals("null")){
-        response.sendRedirect("shop.jsp");
-    }
     if (!action.equals("delete") && !action.equals("create") && !action.equals("modify")){
-        response.sendRedirect("shop.jsp");
+        finish = false;
     }
 %>
 
@@ -81,21 +89,33 @@
 <%--check session msg--%>
 <%
     if (admin == null){
-        response.sendRedirect("shop.jsp");
+        back = true;
     }
     if (!login_status){
-        response.sendRedirect("login.jsp");
+        back = true;
     }
 %>
 
 <%--change session--%>
 <%
-    session.setAttribute("referenced", "shop");
+
 %>
 
 <%--pre-action--%>
 <%
     session.setAttribute("referenced", "commodity_admin");
+    if (back){
+        response.sendRedirect("shop.jsp");
+    }
+    else if (finish){
+        if (action.equals("delete"))
+            CommodityDAO.deleteCommodity(cid);
+        if (action.equals("create"))
+            CommodityDAO.insertCommodity(new Commodity(cid,name,category,price,stock));
+        if (action.equals("modify"))
+            CommodityDAO.updateCommodity(new Commodity(cid,name,category,price,stock));
+        response.sendRedirect("shop.jsp");
+    }
 %>
 <%--session事件--%>
 <%--=========================================================================================================================================--%>
@@ -110,28 +130,34 @@
 <body>
 
 <form action="commodity_admin.jsp">
-    <label>
-        <input type="text" name="category">
+    <label>Category:
+        <input type="text" name="category" placeholder="<%=category%>">
     </label>
-    <label>
-        <input type="text" name="name">
+    <br>
+    <label>Name
+        <input type="text" name="name" placeholder="<%=name%>">
     </label>
-    <label>
-        <input type="text" name="cid">
+    <br>
+    <label>Cid
+        <input type="text" name="cid" placeholder="<%=cid==-1?"":cid%>">
     </label>
-    <label>
-        <input type="text" name="name">
+    <br>
+    <label>Price
+        <input type="text" name="price" placeholder="<%=price==-1F?"":price%>">
     </label>
-    <label>
-        <input type="text" name="cid">
+    <br>
+    <label>Stock
+        <input type="text" name="stock" placeholder="<%=stock==-1?"":stock%>">
     </label>
-    <label>
+    <br>
+    <label>Delete
         <input type="radio" name="action" value="delete">
     </label>
-    <label>
+    <label>Create
         <input type="radio" name="action" value="create">
     </label>
-    <label>
+    <br>
+    <label>Modify
         <input type="radio" name="action" value="modify">
     </label>
     <input type="submit" value="confirm">

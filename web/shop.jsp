@@ -47,10 +47,6 @@
 
 <%--check parameters invalid--%>
 <%
-    if (keyword==null){
-        keyword = "";
-    }
-
     int page_num = 1;
     int category_num = 1;
     try{
@@ -112,7 +108,11 @@
 <%--初始化--%>
 <%
     List<Category> categories = CategoryDAO.getAllCategories();
-    List<Commodity> commodities = CommodityDAO.getCommoditiesByCategory(categories.get(category_num-1).getName(), page_num);
+    List<Commodity> commodities = null;
+    if (keyword==null)
+        commodities = CommodityDAO.getCommoditiesByCategory(categories.get(category_num-1).getName(), page_num);
+    else
+        commodities = CommodityDAO.getCommoditiesByCategory(keyword, page_num);
 %>
 
 
@@ -147,40 +147,10 @@
                 <% if (user_type == 0){%>
                 <form action="shop.jsp" method="post">
                     <input type="hidden" name="delete_category_name" value="<%=category.getName()%>">
+                    <input type="submit" value="Delete">
                 </form>
                 <%}%>
             </div>
-<%--            <form action="shop.jsp">--%>
-<%--                <input type="hidden" name="category_num" value="0">--%>
-<%--                <button type="submit"><span id="cate0"><%=categories.get(0).getName()%></span><br></button>--%>
-<%--            </form>--%>
-
-<%--            <form action="shop.jsp">--%>
-<%--                <input type="hidden" name="category_num" value="1">--%>
-<%--                <button type="submit"><span id="cate1"><%=categories.get(1).getName()%></span><br></button>--%>
-<%--            </form>--%>
-
-<%--            <form action="shop.jsp">--%>
-<%--                <input type="hidden" name="category_num" value="2">--%>
-<%--                <button type="submit"><span id="cate2"><%=categories.get(2).getName()%></span><br></button>--%>
-<%--            </form>--%>
-
-<%--            <form action="shop.jsp">--%>
-<%--                <input type="hidden" name="category_num" value="3">--%>
-<%--                <button type="submit"><span id="cate3"><%=categories.get(3).getName()%></span><br></button>--%>
-<%--            </form>--%>
-
-<%--            <div>--%>
-<%--                <form action="shop.jsp">--%>
-<%--                    <input type="hidden" name="category_num" value="4">--%>
-<%--                    <button type="submit"><span id="cate4"><%=categories.get(4).getName()%></span><br></button>--%>
-<%--                </form>--%>
-<%--                <% if (user_type.equals("admin")){%>--%>
-<%--                <form action="shop.jsp" method="post">--%>
-<%--                    <input type="hidden" name="delete_category_name" value="<%=categories.get(4).getName()%>">--%>
-<%--                </form>--%>
-<%--                <%}%>--%>
-<%--            </div>--%>
 
             <%}%>
 
@@ -240,6 +210,8 @@
         <%=category_num%> <br>
     <%=page_num%> <br>
     <%=commodities.size()%>
+    <%=    categories.get(category_num-1).getName()
+    %>
     <%
         for (Commodity commodity : commodities){
     %>
@@ -261,7 +233,7 @@
                 <%
                     if (user_type == 0){
                 %>
-                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&">edit</a>
+                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>">edit</a>
                 <%
                     }
                 %>
@@ -270,7 +242,7 @@
     <%}%>
         <%if (user_type == 0){%>
         <div class="item_admin_box">
-            <a href="commodity_admin.jsp?"><img src="img/add.png" alt="addition" width="200" height="50"></a>
+            <a href="commodity_admin.jsp?category=<%=categories.get(category_num-1).getName()%>"><img src="img/add.png" alt="addition" width="200" height="50"></a>
         </div>
         <%}%>
 
@@ -280,7 +252,9 @@
         <form action="shop.jsp" method="post">
             <input type="hidden" name="category_str" value="<%=category_num%>">
             <input type="hidden" name="page_num" value="<%=page_num<=1?1:page_num-1 %>">
+            <%if (keyword!=null){%>
             <input type="hidden" name="keyword" value="<%=keyword%>">
+            <%}%>
             <input type="submit" value="last page">
         </form>
     </div>
@@ -289,7 +263,9 @@
         <form action="shop.jsp" method="post">
             <input type="hidden" name="category_str" value="<%=category_num%>">
             <input type="hidden" name="page_num" value="<%=commodities.size()<10?page_num:page_num+1 %>">
+            <%if (keyword!=null){%>
             <input type="hidden" name="keyword" value="<%=keyword%>">
+            <%}%>
             <input type="submit" value="next page">
         </form>
     </div>
