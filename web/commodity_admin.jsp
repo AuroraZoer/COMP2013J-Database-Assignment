@@ -21,15 +21,15 @@
     if (!user_type.equals("admin")){
         response.sendRedirect("shop.jsp");
     }
-    Admin admin = (Admin) session.getAttribute("user");
-    String login_status = (String) session.getAttribute("login_status");
+    Admin admin = (Admin) session.getAttribute("person");
+    Boolean login_status = (Boolean) session.getAttribute("login_status");
     String referenced = (String) session.getAttribute("referenced");
 %>
 
 <%--session outdate--%>
 <%
     if (session.getMaxInactiveInterval()<0){
-        session.setAttribute("login_status", "true");
+        response.sendRedirect("login.jsp");
     }
 %>
 
@@ -46,7 +46,6 @@
     String price = request.getParameter("price");
     String stock = request.getParameter("stock");
     String action = request.getParameter("action");
-    Boolean success = true;
 %>
 
 <%--check parameters invalid--%>
@@ -66,10 +65,10 @@
     action = action==null?"null":action;
 
     if (category.equals("null") || cid.equals("null") || name.equals("null") || price.equals("null") || stock.equals("null") || action.equals("null")){
-        success = false;
+        response.sendRedirect("shop.jsp");
     }
     if (!action.equals("delete") && !action.equals("create") && !action.equals("modify")){
-        success = false;
+        response.sendRedirect("shop.jsp");
     }
 %>
 
@@ -82,7 +81,10 @@
 <%--check session msg--%>
 <%
     if (admin == null){
-        login_status = "false";
+        response.sendRedirect("shop.jsp");
+    }
+    if (!login_status){
+        response.sendRedirect("login.jsp");
     }
 %>
 
@@ -93,10 +95,6 @@
 
 <%--pre-action--%>
 <%
-    if (success){
-        response.sendRedirect("login.jsp");
-//        action here
-    }
     session.setAttribute("referenced", "commodity_admin");
 %>
 <%--session事件--%>

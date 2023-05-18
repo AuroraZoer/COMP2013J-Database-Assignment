@@ -16,7 +16,7 @@
 
 <%--recv session msg--%>
 <%
-    User user = (User)session.getAttribute("user");
+    User user = (User)session.getAttribute("person");
     String login_status = (String) session.getAttribute("login_status");
 %>
 

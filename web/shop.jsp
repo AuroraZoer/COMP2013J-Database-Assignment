@@ -14,20 +14,20 @@
 <%--no session--%>
 <%
     if (session.isNew()){
-        session.setAttribute("login_status", "true");
+        response.sendRedirect("login.jsp");
     }
 %>
 
 <%--recv session msg--%>
 <%
-    Person person = (Person) session.getAttribute("people");
+    Person person = (Person) session.getAttribute("person");
     Boolean login_status = (Boolean) session.getAttribute("login_status");
 %>
 
 <%--session outdate--%>
 <%
     if (session.getMaxInactiveInterval()<0){
-        session.setAttribute("login_status", "true");
+        response.sendRedirect("login.jsp");
     }
 %>
 

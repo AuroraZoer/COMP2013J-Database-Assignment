@@ -1,9 +1,6 @@
-<%@ page import="dataNoBase.UserDAO" %>
-<%@ page import="dataNoBase.AdminDAO" %>
-<%@ page import="dataNoBase.User" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.sql.Date" %>
-<%@ page import="dataNoBase.Admin" %><%--
+<%@ page import="dataNoBase.*" %><%--
   Created by IntelliJ IDEA.
   User: 张子毅
   Date: 2023/4/18
@@ -15,19 +12,20 @@
 <%--no session--%>
 <%
     if (session.isNew()) {
-        session.setAttribute("login_status", "false");
+        session.setAttribute("login_status", false);
     }
 %>
 
 <%--recv session msg--%>
 <%
-    String login_status = (String) session.getAttribute("login_status");
+    Boolean login_status = (Boolean) session.getAttribute("login_status");
+    Person person = (Person) session.getAttribute("person");
 %>
 
 <%--session outdate--%>
 <%
     if (session.getMaxInactiveInterval() < 0) {
-        login_status = "false";
+        response.sendRedirect("login.jsp");
     }
 %>
 
@@ -75,16 +73,8 @@
 <%--change session msg by param--%>
 <%
     //    调用数据库
-    if (user_type.equals("user")) {
-        if (UserDAO.isPasswordCorrect(username, password)) {
-            login_status = "true";
-        }
-    }
-    if (user_type.equals("admin")) {
-        if (AdminDAO.isPasswordCorrect(username, password)) {
-            login_status = "true";
-        }
-    }
+    if (person.)
+    session.setAttribute("user", AdminDAO.getAdminByUsername(username));
 %>
 
 <%--check session msg--%>
@@ -112,10 +102,7 @@
 </head>
 <body>
 
-<%--if need_login--%>
-<%
-    if (need_login) {
-%>
+
 <div class="container">
     <h1>COMP2013J Databases and Info Sys</h1>
     <h2>Group3 Assignment</h2>
@@ -143,12 +130,6 @@
     </div>
 </div>
 
-
-<%--if not need_login--%>
-<%
-} else {
-%>
-
 <%--redirect shop.jsp--%>
 <%
     if (user_type.equals("admin")){
@@ -160,8 +141,5 @@
     response.sendRedirect("shop.jsp");
 %>
 
-<%
-    }
-%>
 </body>
 </html>

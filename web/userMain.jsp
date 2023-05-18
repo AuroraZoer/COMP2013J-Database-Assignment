@@ -1,5 +1,6 @@
 <%@ page import="dataNoBase.User" %>
-<%@ page import="dataNoBase.UserDAO" %><%--
+<%@ page import="dataNoBase.UserDAO" %>
+<%@ page import="dataNoBase.Person" %><%--
   Created by IntelliJ IDEA.
   User: 张子毅
   Date: 2023/4/18
@@ -17,9 +18,8 @@
 
 <%--recv session msg--%>
 <%
-    User user = (User) session.getAttribute("user");
-    String login_status = (String) session.getAttribute("login_status");
-    String username = user.getUsername();
+    Person person = (Person) session.getAttribute("person");
+    Boolean login_status = (Boolean) session.getAttribute("login_status");
 %>
 
 <%
@@ -29,7 +29,7 @@
 <%--session outdate--%>
 <%
     if (session.getMaxInactiveInterval()<0){
-        session.setAttribute("login_status", "true");
+        response.sendRedirect("login.jsp");
     }
 %>
 
@@ -47,11 +47,10 @@
 <%--parameters react--%>
 <%
     if (user_logout!=null){
-        session.setAttribute("login_status", "false");
         response.sendRedirect("login.jsp");
     }
     if (delete_account!=null && delete_account.equals("true")){
-        UserDAO.deleteUserByUsername(username);
+        UserDAO.deleteUserByUsername(person.getName());
         response.sendRedirect("login.jsp");
     }
 %>
@@ -70,8 +69,11 @@
 
 <%--check session msg--%>
 <%
-    if (user == null){
-        login_status = "false";
+    if (person == null){
+        response.sendRedirect("login.jsp");
+    }
+    if (!login_status){
+        response.sendRedirect("login.jsp");
     }
 %>
 
@@ -82,9 +84,7 @@
 
 <%--pre-action--%>
 <%
-    if (!login_status.equals("true")){
-        response.sendRedirect("login.jsp");
-    }
+
 %>
 
 <%--页面事件--%>
@@ -98,11 +98,11 @@
 
 <html>
 <head>
-    <title><%=username%></title>
+    <title><%=person.getName()%></title>
 </head>
 <body>
 <div>
-    用户名：<%=username%><br>
+    用户名：<%=person.getName()%><br>
 </div>
 
 
@@ -125,10 +125,12 @@
 </div>
 
 <div>
-    <form action="userMain.jsp">
+    <%if (person.getType()==1){%>
+    <form action="userMain.jsp" method="post">
         <input type="hidden" name="delete_account" value="true">
         <input type="submit" value="删除账户">
     </form>
+    <%}%>
 </div>
 </body>
 </html>
