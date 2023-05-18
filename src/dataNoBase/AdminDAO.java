@@ -42,6 +42,30 @@ public class AdminDAO {
         return admins;
     }
 
+    public static Admin getAdminByUsername(String username) {
+        String sql = "SELECT * FROM admin WHERE admin_name = ?";
+        try (Connection conn = JDBCTool.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, username);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    Admin admin = new Admin();
+                    admin.setId(rs.getInt("aid"));
+                    admin.setAdminName(rs.getString("admin_name"));
+                    admin.setPassword(rs.getString("password"));
+                    admin.setEmail(rs.getString("email"));
+                    admin.setCreateTime(rs.getTimestamp("create_time"));
+                    return admin;
+                } else {
+                    return null; // 用户名不存在
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static boolean isPasswordCorrect(String inputUsername, String inputPassword) {
         String sql = "SELECT password FROM admin WHERE adminName = ?";
         try (Connection conn = JDBCTool.getConnection();

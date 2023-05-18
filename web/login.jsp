@@ -154,7 +154,7 @@
 <%--redirect shop.jsp--%>
 <%
     if (user_type.equals("admin")){
-        session.setAttribute("user", AdminDAO.GetUserByAdmin());
+        session.setAttribute("user", AdminDAO.getAdminByUsername(username));
     }else {
         session.setAttribute("user", UserDAO.getUserByUsername(username));
     }
