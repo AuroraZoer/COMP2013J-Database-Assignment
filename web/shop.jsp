@@ -40,7 +40,7 @@
 <%
     String keyword = request.getParameter("keyword");
     String page_str = request.getParameter("page_num");
-    String category_str = request.getParameter("category_num");
+    String category_str = request.getParameter("category_str");
     String create_category_name = request.getParameter("create_category_name");
     String delete_category_name = request.getParameter("delete_category_name");
 %>
@@ -50,22 +50,17 @@
     if (keyword==null){
         keyword = "";
     }
-    if (page_str==null) {
-        page_str = "0";
-    }
 
-    int page_num = 0;
-    int category_num = 0;
+    int page_num = 1;
+    int category_num = 1;
     try{
         page_num = Integer.parseInt(page_str);
-    }catch (NumberFormatException e){
+    }catch (Exception e){
 
     }
     try{
         category_num = Integer.parseInt(category_str);
-    }catch (NumberFormatException e){
-
-    }
+    }catch (Exception e){}
 
 %>
 
@@ -90,16 +85,14 @@
 <%--check session msg--%>
 <%
     if (person == null){
-        person = new Person();
         response.sendRedirect("login.jsp");
     }
     else if (!login_status){
         response.sendRedirect("login.jsp");
-
     }
-//    NullPointerException
-    else if (person.getType() == 0 && person.getType() == 1) {
-        user_type = person.getType();    }
+    else if (person.getType() == 0 || person.getType() == 1) {
+        user_type = person.getType();
+    }
 
 %>
 
@@ -119,7 +112,7 @@
 <%--初始化--%>
 <%
     List<Category> categories = CategoryDAO.getAllCategories();
-    List<Commodity> commodities = CommodityDAO.getCommoditiesByCategory(categories.get(category_num).getName(), page_num);
+    List<Commodity> commodities = CommodityDAO.getCommoditiesByCategory(categories.get(category_num-1).getName(), page_num);
 %>
 
 
@@ -148,7 +141,7 @@
             %>
             <div>
                 <form action="shop.jsp" method="post">
-                    <input type="hidden" name="category_num" value="<%=i%>">
+                    <input type="hidden" name="category_str" value="<%=i+1%>">
                     <button type="submit"><span><%=category.getName()%></span><br></button>
                 </form>
                 <% if (user_type == 0){%>
@@ -246,6 +239,7 @@
 <%--        test--%>
         <%=category_num%> <br>
     <%=page_num%> <br>
+    <%=commodities.size()%>
     <%
         for (Commodity commodity : commodities){
     %>
@@ -274,249 +268,6 @@
             </div>
         </div>
     <%}%>
-<%--        <div class="item_box" id="item_box2">--%>
-<%--            <%--%>
-<%--                commodity = commodities.get(1);--%>
-<%--            %>--%>
-<%--            <div class="item_left_box" id="item_left_box2">--%>
-<%--                <%=commodity.getCategory()%> <br>--%>
-<%--            </div>--%>
-<%--            <div class="item_mid_box" id="item_mid_box2">--%>
-<%--                <div class="item_top_box" id="item_top_box2">--%>
-<%--                    <%=commodity.getCid()%> <br>--%>
-<%--                </div>--%>
-<%--                <div class="item_bottom_box" id="item_bottom_box2">--%>
-
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="item_right_box" id="item_right_box2">--%>
-<%--                <%=commodity.getPrice()%> <br>--%>
-<%--                <%=commodity.getStock()%> <br>--%>
-<%--                <%--%>
-<%--                    if (user_type.equals("admin")){--%>
-<%--                %>--%>
-<%--                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&">edit</a>--%>
-<%--                <%--%>
-<%--                    }--%>
-<%--                %>--%>
-<%--            </div>--%>
-
-<%--        </div>--%>
-<%--        <div class="item_box" id="item_box3">--%>
-<%--            <%--%>
-<%--                commodity = commodities.get(2);--%>
-<%--            %>--%>
-<%--            <div class="item_left_box" id="item_left_box3">--%>
-<%--                <%=commodity.getCategory()%> <br>--%>
-<%--            </div>--%>
-<%--            <div class="item_mid_box" id="item_mid_box3">--%>
-<%--                <div class="item_top_box" id="item_top_box3">--%>
-<%--                    <%=commodity.getCid()%> <br>--%>
-<%--                </div>--%>
-<%--                <div class="item_bottom_box" id="item_bottom_box3">--%>
-<%--                    <%=commodity.getItemName()%> <br>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="item_right_box" id="item_right_box3">--%>
-<%--                <%=commodity.getPrice()%> <br>--%>
-<%--                <%=commodity.getStock()%> <br>--%>
-<%--                <%--%>
-<%--                    if (user_type.equals("admin")){--%>
-<%--                %>--%>
-<%--                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&">edit</a>--%>
-<%--                <%--%>
-<%--                    }--%>
-<%--                %>--%>
-<%--            </div>--%>
-
-<%--        </div>--%>
-<%--        <div class="item_box" id="item_box4">--%>
-<%--            <%--%>
-<%--                commodity = commodities.get(3);--%>
-<%--            %>--%>
-<%--            <div class="item_left_box" id="item_left_box4">--%>
-<%--                <%=commodity.getCategory()%> <br>--%>
-<%--            </div>--%>
-<%--            <div class="item_mid_box" id="item_mid_box4">--%>
-<%--                <div class="item_top_box" id="item_top_box4">--%>
-<%--                    <%=commodity.getCid()%> <br>--%>
-<%--                </div>--%>
-<%--                <div class="item_bottom_box" id="item_bottom_box4">--%>
-<%--                    <%=commodity.getItemName()%> <br>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="item_right_box" id="item_right_box4">--%>
-<%--                <%=commodity.getPrice()%> <br>--%>
-<%--                <%=commodity.getStock()%> <br>--%>
-<%--                <%--%>
-<%--                    if (user_type.equals("admin")){--%>
-<%--                %>--%>
-<%--                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&">edit</a>--%>
-<%--                <%--%>
-<%--                    }--%>
-<%--                %>--%>
-<%--            </div>--%>
-<%--            <%=commodity.getCid()%> <br>--%>
-<%--        </div>--%>
-<%--        <div class="item_box" id="item_box5">--%>
-<%--            <%--%>
-<%--                commodity = commodities.get(4);--%>
-<%--            %>--%>
-<%--            <div class="item_left_box" id="item_left_box5">--%>
-<%--                <%=commodity.getCategory()%> <br>--%>
-<%--            </div>--%>
-<%--            <div class="item_mid_box" id="item_mid_box5">--%>
-<%--                <div class="item_top_box" id="item_top_box5">--%>
-<%--                    <%=commodity.getCid()%> <br>--%>
-<%--                </div>--%>
-<%--                <div class="item_bottom_box" id="item_bottom_box5">--%>
-<%--                    <%=commodity.getItemName()%> <br>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="item_right_box" id="item_right_box5">--%>
-<%--                <%=commodity.getPrice()%> <br>--%>
-<%--                <%=commodity.getStock()%> <br>--%>
-<%--                <%--%>
-<%--                    if (user_type.equals("admin")){--%>
-<%--                %>--%>
-<%--                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&">edit</a>--%>
-<%--                <%--%>
-<%--                    }--%>
-<%--                %>--%>
-<%--            </div>--%>
-
-<%--        </div>--%>
-<%--        <div class="item_box" id="item_box6">--%>
-<%--            commodity = commodities.get(5);--%>
-<%--            <div class="item_left_box" id="item_left_box6">--%>
-<%--                <%=commodity.getCategory()%> <br>--%>
-<%--            </div>--%>
-<%--            <div class="item_mid_box" id="item_mid_box6">--%>
-<%--                <div class="item_top_box" id="item_top_box6">--%>
-<%--                    <%=commodity.getCid()%> <br>--%>
-<%--                </div>--%>
-<%--                <div class="item_bottom_box" id="item_bottom_box6">--%>
-<%--                    <%=commodity.getItemName()%> <br>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="item_right_box" id="item_right_box6">--%>
-<%--                <%=commodity.getPrice()%> <br>--%>
-<%--                <%=commodity.getStock()%> <br>--%>
-<%--                <%--%>
-<%--                    if (user_type.equals("admin")){--%>
-<%--                %>--%>
-<%--                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&">edit</a>--%>
-<%--                <%--%>
-<%--                    }--%>
-<%--                %>--%>
-<%--            </div>--%>
-
-<%--        </div>--%>
-<%--        <div class="item_box" id="item_box7">--%>
-<%--            commodity = commodities.get(6);--%>
-<%--            <div class="item_left_box" id="item_left_box7">--%>
-<%--                <%=commodity.getCategory()%> <br>--%>
-<%--            </div>--%>
-<%--            <div class="item_mid_box" id="item_mid_box7">--%>
-<%--                <div class="item_top_box" id="item_top_box7">--%>
-<%--                    <%=commodity.getCid()%> <br>--%>
-<%--                </div>--%>
-<%--                <div class="item_bottom_box" id="item_bottom_box7">--%>
-<%--                    <%=commodity.getItemName()%> <br>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="item_right_box" id="item_right_box7">--%>
-<%--                <%=commodity.getPrice()%> <br>--%>
-<%--                <%=commodity.getStock()%> <br>--%>
-<%--                <%--%>
-<%--                    if (user_type.equals("admin")){--%>
-<%--                %>--%>
-<%--                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&">edit</a>--%>
-<%--                <%--%>
-<%--                    }--%>
-<%--                %>--%>
-<%--            </div>--%>
-
-<%--        </div>--%>
-<%--        <div class="item_box" id="item_box8">--%>
-<%--            commodity = commodities.get(7);--%>
-<%--            <div class="item_left_box" id="item_left_box8">--%>
-<%--                <%=commodity.getCategory()%> <br>--%>
-<%--            </div>--%>
-<%--            <div class="item_mid_box" id="item_mid_box8">--%>
-<%--                <div class="item_top_box" id="item_top_box8">--%>
-<%--                    <%=commodity.getCid()%> <br>--%>
-<%--                </div>--%>
-<%--                <div class="item_bottom_box" id="item_bottom_box8">--%>
-<%--                    <%=commodity.getItemName()%> <br>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="item_right_box" id="item_right_box8">--%>
-<%--                <%=commodity.getPrice()%> <br>--%>
-<%--                <%=commodity.getStock()%> <br>--%>
-<%--                <%--%>
-<%--                    if (user_type.equals("admin")){--%>
-<%--                %>--%>
-<%--                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&">edit</a>--%>
-<%--                <%--%>
-<%--                    }--%>
-<%--                %>--%>
-<%--            </div>--%>
-
-<%--        </div>--%>
-<%--        <div class="item_box" id="item_box9">--%>
-<%--            commodity = commodities.get(8);--%>
-<%--            <div class="item_left_box" id="item_left_box9">--%>
-<%--                <%=commodity.getCategory()%> <br>--%>
-<%--            </div>--%>
-<%--            <div class="item_mid_box" id="item_mid_box9">--%>
-<%--                <div class="item_top_box" id="item_top_box9">--%>
-<%--                    <%=commodity.getCid()%> <br>--%>
-<%--                </div>--%>
-<%--                <div class="item_bottom_box" id="item_bottom_box9">--%>
-<%--                    <%=commodity.getItemName()%> <br>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="item_right_box" id="item_right_box9">--%>
-<%--                <%=commodity.getPrice()%> <br>--%>
-<%--                <%=commodity.getStock()%> <br>--%>
-<%--                <%--%>
-<%--                    if (user_type.equals("admin")){--%>
-<%--                %>--%>
-<%--                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&">edit</a>--%>
-<%--                <%--%>
-<%--                    }--%>
-<%--                %>--%>
-<%--            </div>--%>
-
-<%--        </div>--%>
-<%--        <div class="item_box" id="item_box10">--%>
-<%--            commodity = commodities.get(9);--%>
-<%--            <div class="item_left_box" id="item_left_box10">--%>
-<%--                <%=commodity.getCategory()%> <br>--%>
-<%--            </div>--%>
-<%--            <div class="item_mid_box" id="item_mid_box10">--%>
-<%--                <div class="item_top_box" id="item_top_box10">--%>
-<%--                    <%=commodity.getCid()%> <br>--%>
-<%--                </div>--%>
-<%--                <div class="item_bottom_box" id="item_bottom_box10">--%>
-<%--                    <%=commodity.getItemName()%> <br>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="item_right_box" id="item_right_box10">--%>
-<%--                <%=commodity.getPrice()%> <br>--%>
-<%--                <%=commodity.getStock()%> <br>--%>
-<%--                <%--%>
-<%--                    if (user_type.equals("admin")){--%>
-<%--                %>--%>
-<%--                <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&">edit</a>--%>
-<%--                <%--%>
-<%--                    }--%>
-<%--                %>--%>
-<%--            </div>--%>
-
-<%--        </div>--%>
-
         <%if (user_type == 0){%>
         <div class="item_admin_box">
             <a href="commodity_admin.jsp?"><img src="img/add.png" alt="addition" width="200" height="50"></a>
@@ -525,19 +276,19 @@
 
     </div>
 
-    <div class="next_page">
+    <div class="last_page">
         <form action="shop.jsp" method="post">
-            <input type="hidden" name="category_num" value="<%=category_num%>">
-            <input type="hidden" name="page_num" value="<%=categories.size()<10?page_num:page_num+1%>">
+            <input type="hidden" name="category_str" value="<%=category_num%>">
+            <input type="hidden" name="page_num" value="<%=page_num<=1?1:page_num-1 %>">
             <input type="hidden" name="keyword" value="<%=keyword%>">
-            <input type="submit" value="next page">
+            <input type="submit" value="last page">
         </form>
     </div>
 
-    <div class="last_page">
+    <div class="next_page">
         <form action="shop.jsp" method="post">
-            <input type="hidden" name="category_num" value="<%=category_num%>">
-            <input type="hidden" name="page_num" value="<%=page_num-1<0?page_num:page_num-1%>">
+            <input type="hidden" name="category_str" value="<%=category_num%>">
+            <input type="hidden" name="page_num" value="<%=commodities.size()<10?page_num:page_num+1 %>">
             <input type="hidden" name="keyword" value="<%=keyword%>">
             <input type="submit" value="next page">
         </form>
