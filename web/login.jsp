@@ -64,11 +64,16 @@
         user_type = "null";
     }
     if (user_type.equals("admin")){
-        if (!AdminDAO.isPasswordCorrect(username, password))
+        if (AdminDAO.isPasswordCorrect(username, password)) {
             session.setAttribute("person", AdminDAO.getAdminByUsername(username));
+            session.setAttribute("test", 1);
+        }
     }else if (user_type.equals("customer")){
-        if (!UserDAO.isPasswordCorrect(username, password))
+        if (UserDAO.isPasswordCorrect(username, password)) {
             session.setAttribute("person", UserDAO.getUserByUsername(username));
+            session.setAttribute("test", 1);
+        }
+
     }else {
         login_status = false;
     }
@@ -78,7 +83,7 @@
 <%
     if (login_status) {
         session.setAttribute("login_status", true);
-//        response.sendRedirect("shop.jsp");
+        response.sendRedirect("shop.jsp");
 
     }
 %>
@@ -138,12 +143,6 @@
 <%=login_status%>
 <%=username%>
 <%=password%>
-<%=session.getAttribute("person")%>
-<%=session.getAttribute("login_status")%>
-
-
-
-
 
 
 </body>
