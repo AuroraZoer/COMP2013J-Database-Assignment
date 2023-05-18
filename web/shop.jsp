@@ -195,7 +195,7 @@
             <%}%>
 
             <% if (user_type.equals("admin")){%>
-            <form action="shop.jsp">
+            <form action="shop.jsp" method="post">
                 <label> Category:name
                     <input type="text" name="create_category_name">
                 </label>
@@ -209,7 +209,7 @@
         <div class="top_box">
             <div class="outer_search_box">
                 <div class="inner_search_box">
-                    <form action="shop.jsp">
+                    <form action="shop.jsp" method="get">
                         <label>
                             <input type="search" name="keyword" width="300px" height="50px" spellcheck="false" placeholder="请输入你的商品">
                         </label>
@@ -529,7 +529,7 @@
     </div>
 
     <div class="next_page">
-        <form action="shop.jsp">
+        <form action="shop.jsp" method="post">
             <input type="hidden" name="category_num" value="<%=category_num%>">
             <input type="hidden" name="page_num" value="<%=categories.size()<10?page_num:page_num+1%>">
             <input type="hidden" name="keyword" value="<%=keyword%>">
@@ -538,7 +538,7 @@
     </div>
 
     <div class="last_page">
-        <form action="shop.jsp">
+        <form action="shop.jsp" method="post">
             <input type="hidden" name="category_num" value="<%=category_num%>">
             <input type="hidden" name="page_num" value="<%=page_num-1<0?page_num:page_num-1%>">
             <input type="hidden" name="keyword" value="<%=keyword%>">
