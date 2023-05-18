@@ -14,21 +14,20 @@
 <%--no session--%>
 <%
     if (session.isNew()){
-        session.setAttribute("login_status", "true");
+        response.sendRedirect("login.jsp");
     }
 %>
 
 <%--recv session msg--%>
 <%
-    User user = (User) session.getAttribute("user");
-    String login_status = (String) session.getAttribute("login_status");
-    String user_type = (String) session.getAttribute("user_type");
+    Person person = (Person) session.getAttribute("person");
+    Boolean login_status = (Boolean) session.getAttribute("login_status");
 %>
 
 <%--session outdate--%>
 <%
     if (session.getMaxInactiveInterval()<0){
-        session.setAttribute("login_status", "true");
+        response.sendRedirect("login.jsp");
     }
 %>
 
@@ -39,7 +38,6 @@
 
 <%--recv parameters--%>
 <%
-    String select = request.getParameter("select");
     String keyword = request.getParameter("keyword");
     String page_str = request.getParameter("page_num");
     String category_str = request.getParameter("category_num");
@@ -49,15 +47,13 @@
 
 <%--check parameters invalid--%>
 <%
-    if (select==null){
-        select = "null";
-    }
     if (keyword==null){
         keyword = "";
     }
     if (page_str==null) {
         page_str = "0";
     }
+
     int page_num = 0;
     int category_num = 0;
     try{
@@ -70,16 +66,11 @@
     }catch (NumberFormatException e){
 
     }
+
 %>
 
 <%--parameters react--%>
 <%
-    if (select.equals("true")){
-
-    }
-    if (!keyword.equals("")){
-//        ask mysql
-    }
     if (create_category_name != null){
         CategoryDAO.insertCategory(new Category(create_category_name));
     }
@@ -93,14 +84,23 @@
 
 <%--change session msg by param--%>
 <%
-
+    int user_type = -1;
 %>
 
 <%--check session msg--%>
 <%
-    if (user == null){
-        login_status = "false";
+    if (person == null){
+        person = new Person();
+        response.sendRedirect("login.jsp");
     }
+    else if (!login_status){
+        response.sendRedirect("login.jsp");
+
+    }
+//    NullPointerException
+    else if (person.getType() == 0 && person.getType() == 1) {
+        user_type = person.getType();    }
+
 %>
 
 <%--change session--%>
@@ -110,10 +110,7 @@
 
 <%--pre-action--%>
 <%
-    if (!login_status.equals("true")){
-        response.sendRedirect("login.jsp");
-    }
-    session.setAttribute("referenced", "shop");
+    session.setAttribute("referenced", "shop.jsp");
 %>
 
 <%--页面事件--%>
@@ -154,7 +151,7 @@
                     <input type="hidden" name="category_num" value="<%=i%>">
                     <button type="submit"><span><%=category.getName()%></span><br></button>
                 </form>
-                <% if (user_type.equals("admin")){%>
+                <% if (user_type == 0){%>
                 <form action="shop.jsp" method="post">
                     <input type="hidden" name="delete_category_name" value="<%=category.getName()%>">
                 </form>
@@ -194,7 +191,7 @@
 
             <%}%>
 
-            <% if (user_type.equals("admin")){%>
+            <% if (user_type==0){%>
             <form action="shop.jsp" method="post">
                 <label> Category:name
                     <input type="text" name="create_category_name">
@@ -204,7 +201,7 @@
             <%}%>
         </div>
     </div>
-    
+
     <div class="mid_box">
         <div class="top_box">
             <div class="outer_search_box">
@@ -220,10 +217,10 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
-    
-    
+
+
 <%--    用户界面--%>
     <div>
         <a href="userMain.jsp">
@@ -237,14 +234,14 @@
     <%=user_type%>
     <div>
         <%
-            if (user_type.equals("user")){
+            if (user_type == 1){
         %>
         <a href="shopping_car.jsp">
             <img src="img/shopping_car.jpg" alt="购物车" height="50" width="50">
         </a>
         <%}%>
     </div>
-    
+
     <div class="main_box">
 <%--        test--%>
         <%=category_num%> <br>
@@ -268,7 +265,7 @@
                 <%=commodity.getPrice()%> <br>
                 <%=commodity.getStock()%> <br>
                 <%
-                    if (user_type.equals("admin")){
+                    if (user_type == 0){
                 %>
                 <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>&">edit</a>
                 <%
@@ -520,7 +517,7 @@
 
 <%--        </div>--%>
 
-        <%if (user_type.equals("admin")){%>
+        <%if (user_type == 0){%>
         <div class="item_admin_box">
             <a href="commodity_admin.jsp?"><img src="img/add.png" alt="addition" width="200" height="50"></a>
         </div>
