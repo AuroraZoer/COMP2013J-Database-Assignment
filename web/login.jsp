@@ -156,7 +156,6 @@
     }else {
         session.setAttribute("user", UserDAO.getUserByUsername(username));
     }
-    session.setAttribute("login_status", "true");
     response.sendRedirect("shop.jsp");
 %>
 
