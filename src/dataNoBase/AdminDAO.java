@@ -1,38 +1,50 @@
 package dataNoBase;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class AdminDAO {
-
+public class AdminDAO extends PersonDAO{
     public static void insertAdmin(Admin admin) {
-        PersonDAO.setTableName("admin");
-        PersonDAO.setNameColumnName("admin_name");
-        PersonDAO.insertPerson(admin);
+        setTableName("admin");
+        setNameColumnName("admin_name");
+        insertPerson(admin);
     }
 
     public static List<Person> getAllAdmins() {
-        PersonDAO.setTableName("admin");
-        PersonDAO.setIdColumnName("aid");
-        PersonDAO.setNameColumnName("admin_name");
-        return PersonDAO.getAllPersons();
+        setTableName("admin");
+        setIdColumnName("aid");
+        setNameColumnName("admin_name");
+        return getAllPersons();
     }
 
     public static Admin getAdminByUsername(String username) {
-        PersonDAO.setTableName("admin");
-        PersonDAO.setIdColumnName("aid");
-        PersonDAO.setNameColumnName("admin_name");
-        return (Admin) PersonDAO.getPersonByName(username);
+        setTableName("admin");
+        setIdColumnName("aid");
+        setNameColumnName("admin_name");
+        return (Admin) getPersonByName(username);
     }
 
     public static boolean isPasswordCorrect(String inputUsername, String inputPassword) {
-        PersonDAO.setTableName("admin");
-        PersonDAO.setNameColumnName("admin_name");
-        return PersonDAO.isPasswordCorrect(inputUsername, inputPassword);
+        setTableName("admin");
+        setNameColumnName("admin_name");
+        return isPasswordCorrect(inputUsername, inputPassword);
     }
 
     public static void deleteAdminByUsername(String username) {
-        PersonDAO.setTableName("admin");
-        PersonDAO.setNameColumnName("admin_name");
-        PersonDAO.deletePersonByName(username);
+        setTableName("admin");
+        setNameColumnName("admin_name");
+        deletePersonByName(username);
+    }
+
+    public static List<Admin> getAdminsByPage(int pageNumber) {
+        setTableName("user");
+        setIdColumnName("uid");
+        setNameColumnName("username");
+        List<Person> persons = getPersonsByPage(pageNumber);
+        List<Admin> admins = new ArrayList<>();
+        for (Person person : persons) {
+            admins.add((Admin) person);
+        }
+        return admins;
     }
 }

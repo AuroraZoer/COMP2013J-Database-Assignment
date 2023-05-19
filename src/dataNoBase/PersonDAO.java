@@ -120,4 +120,28 @@ public class PersonDAO {
         }
         return null;
     }
+
+    public static List<Person> getPersonsByPage(int pageNumber) {
+        List<Person> persons = new ArrayList<>();
+        String sql = "SELECT * FROM " + tableName + " LIMIT 10 OFFSET ?";
+        try (Connection conn = JDBCTool.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, (pageNumber - 1) * 10);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Person person = createPersonInstance();
+                    person.setId(rs.getInt(idColumnName));
+                    person.setName(rs.getString(nameColumnName));
+                    person.setPassword(rs.getString("password"));
+                    person.setEmail(rs.getString("email"));
+                    person.setCreateTime(rs.getTimestamp("create_time"));
+                    persons.add(person);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return persons;
+    }
+
 }

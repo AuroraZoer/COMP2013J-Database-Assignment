@@ -79,6 +79,7 @@ button[type="submit"] {
     background-color: transparent;
     cursor: pointer;
     font-size: 20px;
+    font-family: "Comic Sans MS", sans-serif;
 }
 
 img {
@@ -125,8 +126,11 @@ img {
     flex-direction: column;
     gap: 5px;
 }
+.item_top_box {
+    font-size: 20px;
+    padding: 5px;
+}
 
-.item_top_box,
 .item_bottom_box {
     padding: 5px;
 }
