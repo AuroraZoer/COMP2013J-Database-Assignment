@@ -1,12 +1,6 @@
 <%@ page import="dataNoBase.User" %>
 <%@ page import="dataNoBase.UserDAO" %>
-<%@ page import="dataNoBase.Person" %><%--
-  Created by IntelliJ IDEA.
-  User: 张子毅
-  Date: 2023/4/18
-  Time: 14:10
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="dataNoBase.Person" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%--no session--%>
@@ -98,57 +92,61 @@
 
 <html>
 <head>
-    <title><%=person.getName()%></title>
+    <link rel="stylesheet" href="css/userMain.css">
+    <title><%=person.getName()%>
+    </title>
 </head>
 <body>
-<div>
-    用户名：<%=person.getName()%><br>
+<div class="container">
+    <div>
+        用户名：<%=person.getName()%><br>
 </div>
 
 
-<div>
-    <form action="userMain.jsp" method="post">
-        <input type="hidden" name="user_logout">
-        <button type="submit">退出登录</button>
-    </form>
+    <div>
+        <form action="userMain.jsp" method="post">
+            <input type="hidden" name="user_logout">
+            <button type="submit">退出登录</button>
+        </form>
 </div>
 
-<div>
-    <form action="shop.jsp">
+    <div>
+        <form action="shop.jsp">
+            <div>
+                <button>
+                    <img src="img/shop.jpg" alt="商店" height="50" , width="50">
+                </button>
+            </div>
+        </form>
+
+    </div>
+
+    <div>
         <div>
-            <button>
-                <img src="img/shop.jpg" alt="商店" height="50", width="50">
-            </button>
+            Welcome <%=person.getName()%>
         </div>
-    </form>
+        <div>
+            Identity:<%=person.getType()==1?"Admin":"Customer"%>
+        </div>
+        <div>
+            Email:<%=person.getEmail()%>
+        </div>
+        <div>
+            Cid:<%=person.getId()%>
+        </div>
 
-</div>
+        <a href="change_password.jsp"></a>
 
-<div>
-    <div>
-        Welcome <%=person.getName()%>
-    </div>
-    <div>
-        Identity:<%=person.getType()==1?"Admin":"Customer"%>
-    </div>
-    <div>
-        Email:<%=person.getEmail()%>
-    </div>
-    <div>
-        Cid:<%=person.getId()%>
     </div>
 
-    <a href="change_password.jsp"></a>
-
-</div>
-
-<div>
-    <%if (person.getType()==1){%>
-    <form action="userMain.jsp" method="post">
-        <input type="hidden" name="delete_account" value="true">
-        <input type="submit" value="删除账户">
-    </form>
-    <%}%>
+    <div>
+        <%if (person.getType()==1){%>
+        <form action="userMain.jsp" method="post">
+            <input type="hidden" name="delete_account" value="true">
+            <input type="submit" value="删除账户">
+        </form>
+        <%}%>
+    </div>
 </div>
 </body>
 </html>
