@@ -106,7 +106,9 @@ img {
 }
 
 .item_box {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 20px;
     padding: 10px;
     background-color: #f5f5f5;
     border-radius: 5px;
