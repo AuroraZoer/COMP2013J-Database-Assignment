@@ -11,7 +11,7 @@
 
 <%--no session--%>
 <%
-    if (session.isNew()){
+    if (session.isNew()) {
         response.sendRedirect("login.jsp");
     }
 %>
@@ -28,7 +28,7 @@
 
 <%--session outdate--%>
 <%
-    if (session.getMaxInactiveInterval()<0){
+    if (session.getMaxInactiveInterval() < 0) {
         response.sendRedirect("login.jsp");
     }
 %>
@@ -46,10 +46,10 @@
 
 <%--parameters react--%>
 <%
-    if (user_logout!=null){
+    if (user_logout != null) {
         response.sendRedirect("login.jsp");
     }
-    if (delete_account!=null && delete_account.equals("true")){
+    if (delete_account != null && delete_account.equals("true")) {
         UserDAO.deleteUserByUsername(person.getName());
         response.sendRedirect("login.jsp");
     }
@@ -57,22 +57,22 @@
 
 <%--check parameters invalid--%>
 <%
-    if (user_logout!=null){
+    if (user_logout != null) {
         session.setAttribute("login_status", false);
     }
 %>
 
 <%--change session msg by param--%>
 <%
-    
+
 %>
 
 <%--check session msg--%>
 <%
-    if (person == null){
+    if (person == null) {
         response.sendRedirect("login.jsp");
     }
-    if (!login_status){
+    if (!login_status) {
         response.sendRedirect("login.jsp");
     }
 %>
@@ -92,13 +92,14 @@
 
 <%--check parameters--%>
 <%
-    
+
 %>
 
 
 <html>
 <head>
-    <title><%=person.getName()%></title>
+    <title><%=person.getName()%>
+    </title>
 </head>
 <body>
 <div>
@@ -117,7 +118,7 @@
     <form action="shop.jsp">
         <div>
             <button>
-                <img src="img/shop.jpg" alt="商店" height="50", width="50">
+                <img src="img/shop.jpg" alt="商店" height="50" , width="50">
             </button>
         </div>
     </form>
@@ -125,7 +126,7 @@
 </div>
 
 <div>
-    <%if (person.getType()==1){%>
+    <%if (person.getType() == 1) {%>
     <form action="userMain.jsp" method="post">
         <input type="hidden" name="delete_account" value="true">
         <input type="submit" value="删除账户">

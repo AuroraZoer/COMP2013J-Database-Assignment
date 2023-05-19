@@ -9,40 +9,40 @@
 
 <%--no session--%>
 <%
-  if (session.isNew()){
-    response.sendRedirect("login.jsp");
-  }
+    if (session.isNew()) {
+        response.sendRedirect("login.jsp");
+    }
 %>
 
 <%--recv session msg--%>
 <%
-  User user = (User) session.getAttribute("user");
-  String login_status = (String) session.getAttribute("login_status");
-  String referenced = (String) session.getAttribute("referenced");
+    User user = (User) session.getAttribute("user");
+    String login_status = (String) session.getAttribute("login_status");
+    String referenced = (String) session.getAttribute("referenced");
 %>
 
 <%--session outdate--%>
 <%
-  if (session.getMaxInactiveInterval()<0){
-    session.setAttribute("login_status", "true");
-  }
+    if (session.getMaxInactiveInterval() < 0) {
+        session.setAttribute("login_status", "true");
+    }
 %>
 
 <%--sessionn update--%>
 <%
-  session.setMaxInactiveInterval(1800);
+    session.setMaxInactiveInterval(1800);
 %>
 
 <%--recv parameters--%>
 <%
-  String item = request.getParameter("item_id");
+    String item = request.getParameter("item_id");
 %>
 
 <%--parameters react--%>
 <%
-  if (item==null){
-    item="null";
-  }
+    if (item == null) {
+        item = "null";
+    }
 %>
 
 <%--check parameters invalid--%>
@@ -57,22 +57,22 @@
 
 <%--check session msg--%>
 <%
-  if (user == null){
-    login_status = "false";
-  }
+    if (user == null) {
+        login_status = "false";
+    }
 %>
 
 <%--change session--%>
 <%
-  session.setAttribute("referenced", "userMain.jsp");
+    session.setAttribute("referenced", "userMain.jsp");
 %>
 
 <%--pre-action--%>
 <%
-  if (!login_status.equals("true")){
-    response.sendRedirect("login.jsp");
-  }
-  session.setAttribute("referenced", "item");
+    if (!login_status.equals("true")) {
+        response.sendRedirect("login.jsp");
+    }
+    session.setAttribute("referenced", "item");
 
 %>
 <html>
@@ -80,22 +80,22 @@
     <title><%=item%>></title>
 </head>
 <body>
-  this is Item
-  <div>
+this is Item
+<div>
     <form action="shop.jsp">
-      <button type="submit">
-        <img src="img/shop.jpg" alt="商城">
-      </button>
+        <button type="submit">
+            <img src="img/shop.jpg" alt="商城">
+        </button>
     </form>
-  </div>
+</div>
 
-  <div>
+<div>
     <form action="shopping_car.jsp">
-      <button type="submit">
-        <img src="img/shopping_car.jpg" alt="购物车">
-      </button>
+        <button type="submit">
+            <img src="img/shopping_car.jpg" alt="购物车">
+        </button>
     </form>
-  </div>
+</div>
 
 
 </body>

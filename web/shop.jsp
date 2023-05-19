@@ -178,52 +178,52 @@
                 </div>
             </div>
         </div>
-<%--        <div class="main_box">--%>
-<%--            &lt;%&ndash;        test&ndash;%&gt;--%>
-<%--            <%=category_num%> <br>--%>
-<%--            <%=page_num%> <br>--%>
-<%--            <%=commodities.size()%>--%>
-<%--            <%=    categories.get(category_num - 1).getName()--%>
-<%--            %>--%>
-<%--            <%--%>
-<%--                for (Commodity commodity : commodities) {--%>
-<%--            %>--%>
-<%--            <div class="item_box" id="item_box1">--%>
-<%--                <div class="item_left_box">--%>
-<%--                    <%=commodity.getCategory()%> <br>--%>
-<%--                </div>--%>
-<%--                <div class="item_mid_box">--%>
-<%--                    <div class="item_top_box">--%>
-<%--                        <%=commodity.getCid()%> <br>--%>
-<%--                    </div>--%>
-<%--                    <div class="item_bottom_box">--%>
-<%--                        <%=commodity.getItemName()%> <br>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--                <div class="item_right_box">--%>
-<%--                    <%=commodity.getPrice()%> <br>--%>
-<%--                    <%=commodity.getStock()%> <br>--%>
-<%--                    <%--%>
-<%--                        if (user_type == 0) {--%>
-<%--                    %>--%>
-<%--                    <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>">edit</a>--%>
-<%--                    <%--%>
-<%--                        }--%>
-<%--                    %>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <%}%>--%>
-<%--            <%if (user_type == 0) {%>--%>
-<%--            <div class="item_admin_box">--%>
-<%--                <a href="commodity_admin.jsp?category=<%=categories.get(category_num-1).getName()%>"><img--%>
-<%--                        src="img/add.png"--%>
-<%--                        alt="addition"--%>
-<%--                        width="200"--%>
-<%--                        height="50"></a>--%>
-<%--            </div>--%>
-<%--            <%}%>--%>
+        <%--        <div class="main_box">--%>
+        <%--            &lt;%&ndash;        test&ndash;%&gt;--%>
+        <%--            <%=category_num%> <br>--%>
+        <%--            <%=page_num%> <br>--%>
+        <%--            <%=commodities.size()%>--%>
+        <%--            <%=    categories.get(category_num - 1).getName()--%>
+        <%--            %>--%>
+        <%--            <%--%>
+        <%--                for (Commodity commodity : commodities) {--%>
+        <%--            %>--%>
+        <%--            <div class="item_box" id="item_box1">--%>
+        <%--                <div class="item_left_box">--%>
+        <%--                    <%=commodity.getCategory()%> <br>--%>
+        <%--                </div>--%>
+        <%--                <div class="item_mid_box">--%>
+        <%--                    <div class="item_top_box">--%>
+        <%--                        <%=commodity.getCid()%> <br>--%>
+        <%--                    </div>--%>
+        <%--                    <div class="item_bottom_box">--%>
+        <%--                        <%=commodity.getItemName()%> <br>--%>
+        <%--                    </div>--%>
+        <%--                </div>--%>
+        <%--                <div class="item_right_box">--%>
+        <%--                    <%=commodity.getPrice()%> <br>--%>
+        <%--                    <%=commodity.getStock()%> <br>--%>
+        <%--                    <%--%>
+        <%--                        if (user_type == 0) {--%>
+        <%--                    %>--%>
+        <%--                    <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>">edit</a>--%>
+        <%--                    <%--%>
+        <%--                        }--%>
+        <%--                    %>--%>
+        <%--                </div>--%>
+        <%--            </div>--%>
+        <%--            <%}%>--%>
+        <%--            <%if (user_type == 0) {%>--%>
+        <%--            <div class="item_admin_box">--%>
+        <%--                <a href="commodity_admin.jsp?category=<%=categories.get(category_num-1).getName()%>"><img--%>
+        <%--                        src="img/add.png"--%>
+        <%--                        alt="addition"--%>
+        <%--                        width="200"--%>
+        <%--                        height="50"></a>--%>
+        <%--            </div>--%>
+        <%--            <%}%>--%>
 
-<%--        </div>--%>
+        <%--        </div>--%>
         <div class="main_box">
             <% for (Commodity commodity : commodities) { %>
             <div class="item_box" id="item_box1">

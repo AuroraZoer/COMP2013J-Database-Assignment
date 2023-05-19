@@ -12,7 +12,7 @@
 <%--=========================================================================================================================================--%>
 <%--no session--%>
 <%
-    if (session.isNew()){
+    if (session.isNew()) {
         session.setAttribute("login_status", "true");
     }
 %>
@@ -28,7 +28,7 @@
 
 <%--session outdate--%>
 <%
-    if (session.getMaxInactiveInterval()<0){
+    if (session.getMaxInactiveInterval() < 0) {
         response.sendRedirect("login.jsp");
     }
 %>
@@ -43,39 +43,42 @@
     String category = request.getParameter("category");
 
     int cid = -1;
-    try{
+    try {
         cid = Integer.parseInt(request.getParameter("cid"));
-    }catch (Exception e){}
+    } catch (Exception e) {
+    }
 
     String name = request.getParameter("name");
     Float price = -1F;
-    try{
+    try {
         price = Float.parseFloat(request.getParameter("price"));
-    }catch (Exception e){}
+    } catch (Exception e) {
+    }
     int stock = -1;
-    try{
+    try {
         stock = Integer.parseInt(request.getParameter("stock"));
-    }catch (Exception e){}
+    } catch (Exception e) {
+    }
     String action = request.getParameter("action");
 %>
 
 <%--check parameters invalid--%>
 <%
-//    if (!referenced.equals("shop") && !referenced.equals("commodity_admin")){
+    //    if (!referenced.equals("shop") && !referenced.equals("commodity_admin")){
 //        back = true;
 //    }
-    if (admin == null){
+    if (admin == null) {
         back = true;
     }
 %>
 
 <%--parameters react--%>
 <%
-    category = category==null?"":category;
-    name = name==null?"":name;
-    action = action==null?"":action;
+    category = category == null ? "" : category;
+    name = name == null ? "" : name;
+    action = action == null ? "" : action;
 
-    if (!action.equals("delete") && !action.equals("create") && !action.equals("modify")){
+    if (!action.equals("delete") && !action.equals("create") && !action.equals("modify")) {
         finish = false;
     }
 %>
@@ -88,10 +91,10 @@
 
 <%--check session msg--%>
 <%
-    if (admin == null){
+    if (admin == null) {
         back = true;
     }
-    if (!login_status){
+    if (!login_status) {
         back = true;
     }
 %>
@@ -104,22 +107,20 @@
 <%--pre-action--%>
 <%
     session.setAttribute("referenced", "commodity_admin");
-    if (back){
+    if (back) {
         response.sendRedirect("shop.jsp");
-    }
-    else if (finish){
+    } else if (finish) {
         if (action.equals("delete"))
             CommodityDAO.deleteCommodity(cid);
         if (action.equals("create"))
-            CommodityDAO.insertCommodity(new Commodity(cid,name,category,price,stock));
+            CommodityDAO.insertCommodity(new Commodity(cid, name, category, price, stock));
         if (action.equals("modify"))
-            CommodityDAO.updateCommodity(new Commodity(cid,name,category,price,stock));
+            CommodityDAO.updateCommodity(new Commodity(cid, name, category, price, stock));
         response.sendRedirect("shop.jsp");
     }
 %>
 <%--session事件--%>
 <%--=========================================================================================================================================--%>
-
 
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>

@@ -63,18 +63,18 @@
     if (user_type == null) {
         user_type = "null";
     }
-    if (user_type.equals("admin")){
+    if (user_type.equals("admin")) {
         if (AdminDAO.isPasswordCorrect(username, password)) {
             session.setAttribute("person", AdminDAO.getAdminByUsername(username));
             session.setAttribute("test", 1);
         }
-    }else if (user_type.equals("customer")){
+    } else if (user_type.equals("customer")) {
         if (UserDAO.isPasswordCorrect(username, password)) {
             session.setAttribute("person", UserDAO.getUserByUsername(username));
             session.setAttribute("test", 1);
         }
 
-    }else {
+    } else {
         login_status = false;
     }
 %>

@@ -9,20 +9,20 @@
 
 <%--no session--%>
 <%
-    if (session.isNew()){
+    if (session.isNew()) {
         response.sendRedirect("login.jsp");
     }
 %>
 
 <%--recv session msg--%>
 <%
-    User user = (User)session.getAttribute("person");
+    User user = (User) session.getAttribute("person");
     String login_status = (String) session.getAttribute("login_status");
 %>
 
 <%--session outdate--%>
 <%
-    if (session.getMaxInactiveInterval()<0){
+    if (session.getMaxInactiveInterval() < 0) {
         session.setAttribute("login_status", "true");
     }
 %>
@@ -54,7 +54,7 @@
 
 <%--check session msg--%>
 <%
-    if (user == null){
+    if (user == null) {
         login_status = "false";
     }
 %>
@@ -66,7 +66,7 @@
 
 <%--pre-action--%>
 <%
-    if (!login_status.equals("true")){
+    if (!login_status.equals("true")) {
         response.sendRedirect("login.jsp");
     }
     session.setAttribute("referenced", "shopping_car");

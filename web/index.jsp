@@ -8,13 +8,13 @@
          pageEncoding="UTF-8" %>
 
 <%
-response.sendRedirect("login.jsp");
+    response.sendRedirect("login.jsp");
 %>
 <html>
-  <head>
+<head>
     <title>$Title$</title>
-  </head>
-  <body>
-  successful
-  </body>
+</head>
+<body>
+successful
+</body>
 </html>
