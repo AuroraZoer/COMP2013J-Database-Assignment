@@ -139,10 +139,10 @@
 </div>
 
 <%--test--%>
-<%=user_type%>
-<%=login_status%>
-<%=username%>
-<%=password%>
+<%--<%=user_type%>--%>
+<%--<%=login_status%>--%>
+<%--<%=username%>--%>
+<%--<%=password%>--%>
 
 
 </body>

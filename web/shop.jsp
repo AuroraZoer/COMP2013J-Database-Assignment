@@ -225,25 +225,34 @@
 
         <%--        </div>--%>
         <div class="main_box">
+<%--            <div class="head">--%>
+<%--                <span></span>--%>
+<%--            </div>--%>
             <% for (Commodity commodity : commodities) { %>
             <div class="item_box" id="item_box1">
                 <div class="item_left_box">
                     <%=commodity.getCategory()%> <br>
+                    <% if (user_type == 0) { %>
+                        <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>">edit</a>
+                    <% } %>
                 </div>
                 <div class="item_mid_box">
                     <div class="item_top_box">
-                        <%=commodity.getCid()%> <br>
+                        <%=commodity.getItemName()%> <br>
+
                     </div>
                     <div class="item_bottom_box">
-                        <%=commodity.getItemName()%> <br>
+                        Cid:<%=commodity.getCid()%> <br>
                     </div>
                 </div>
                 <div class="item_right_box">
-                    <%=commodity.getPrice()%> <br>
-                    <%=commodity.getStock()%> <br>
-                    <% if (user_type == 0) { %>
-                    <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>">edit</a>
-                    <% } %>
+                    <span class="price">
+                        ¥<%=commodity.getPrice()%> <br>
+                    </span>
+
+                    <span class="stock">
+                        Stock :<%=commodity.getStock()%> <br>
+                    </span>
                 </div>
             </div>
             <% } %>
