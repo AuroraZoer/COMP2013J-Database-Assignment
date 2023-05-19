@@ -125,6 +125,24 @@
 </div>
 
 <div>
+    <div>
+        Welcome <%=person.getName()%>
+    </div>
+    <div>
+        Identity:<%=person.getType()==1?"Admin":"Customer"%>
+    </div>
+    <div>
+        Email:<%=person.getEmail()%>
+    </div>
+    <div>
+        Cid:<%=person.getId()%>
+    </div>
+
+    <a href="change_password.jsp"></a>
+
+</div>
+
+<div>
     <%if (person.getType()==1){%>
     <form action="userMain.jsp" method="post">
         <input type="hidden" name="delete_account" value="true">
