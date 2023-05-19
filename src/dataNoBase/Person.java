@@ -6,7 +6,7 @@ public class Person {
     private String password;
     private String email;
     private java.sql.Timestamp createTime;
-    private int  type; // Added type attribute: 0 admin; 1 user
+    private int type; // Added type attribute: 0 admin; 1 user
 
     public Person() {
     }
@@ -60,7 +60,7 @@ public class Person {
         this.createTime = createTime;
     }
 
-    public int  getType() {
+    public int getType() {
         return type;
     }
 

@@ -22,6 +22,7 @@ public class CommodityDAO {
             e.printStackTrace();
         }
     }
+
     public static List<Commodity> getAllCommodities() {
         List<Commodity> commodities = new ArrayList<>();
         String sql = "SELECT * FROM commodity";
