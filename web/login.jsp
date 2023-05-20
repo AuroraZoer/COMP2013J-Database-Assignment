@@ -3,14 +3,6 @@
 <%@ page import="dataNoBase.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%--
-  Created by IntelliJ IDEA.
-  User: 张子毅
-  Date: 2023/4/18
-  Time: 13:47
-  To change this template use File | Settings | File Templates.
---%>
-
 <%--session事件--%>
 <%--=========================================================================================================================================--%>
 <%--no session--%>
@@ -58,10 +50,7 @@
 
 <%--parameters invalid--%>
 <%
-    if (login_status) {
-        session.setAttribute("login_status", true);
-        response.sendRedirect("shop.jsp");
-    }
+
 %>
 
 <%--NullPointerException && NumberFormatException--%>
