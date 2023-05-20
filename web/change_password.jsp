@@ -17,6 +17,11 @@
   }
 %>
 
+<%--set referenced--%>
+<%
+  session.setAttribute("referenced", "change_password.jsp");
+%>
+
 <%--session outdate--%>
 <%
   if (session.getMaxInactiveInterval() < 0) {
@@ -67,16 +72,6 @@
 
 <%--parameters react--%>
 <%
-
-%>
-
-<%--set referenced--%>
-<%
-  session.setAttribute("referenced", "change_password.jsp");
-%>
-
-<%--pre-action--%>
-<%
   if (confirm!=null && password!=null) {
     if (person.getType() == 0) {
       AdminDAO.deleteAdminByUsername(person.getName());
@@ -90,6 +85,11 @@
     response.sendRedirect("userMain.jsp");
     return;
   }
+%>
+
+<%--pre-action--%>
+<%
+
 %>
 
 <%--page--%>
