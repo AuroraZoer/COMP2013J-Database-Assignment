@@ -24,6 +24,11 @@ public class PersonDAO {
         PersonDAO.nameColumnName = nameColumnName;
     }
 
+    /**
+     * Inserts a person into the database.
+     *
+     * @param person the person to insert
+     */
     public static void insertPerson(Person person) {
         String sql = "INSERT INTO " + tableName + " (" + nameColumnName + ", password, email) VALUES (?, ?, ?)";
         try (Connection conn = JDBCTool.getConnection();
@@ -37,6 +42,11 @@ public class PersonDAO {
         }
     }
 
+    /**
+     * Retrieves a list of all persons from the database.
+     *
+     * @return the list of all persons
+     */
     public static List<Person> getAllPersons() {
         String sql = "SELECT * FROM " + tableName;
         List<Person> persons = new ArrayList<>();
@@ -58,6 +68,12 @@ public class PersonDAO {
         return persons;
     }
 
+    /**
+     * Retrieves a person from the database based on the name.
+     *
+     * @param name the name of the person
+     * @return the person object
+     */
     public static Person getPersonByName(String name) {
         String sql = "SELECT * FROM " + tableName + " WHERE " + nameColumnName + " = ?";
         try (Connection conn = JDBCTool.getConnection();
@@ -82,6 +98,13 @@ public class PersonDAO {
         }
     }
 
+    /**
+     * Checks if the provided password is correct for the given name.
+     *
+     * @param inputName     the name
+     * @param inputPassword the password to check
+     * @return true if the password is correct, false otherwise
+     */
     public static boolean isPasswordCorrect(String inputName, String inputPassword) {
         String sql = "SELECT password FROM " + tableName + " WHERE " + nameColumnName + " = ?";
         try (Connection conn = JDBCTool.getConnection();
@@ -101,6 +124,11 @@ public class PersonDAO {
         }
     }
 
+    /**
+     * Deletes a person from the database based on the name.
+     *
+     * @param name the name of the person to delete
+     */
     public static void deletePersonByName(String name) {
         String sql = "DELETE FROM " + tableName + " WHERE " + nameColumnName + " = ?";
         try (Connection conn = JDBCTool.getConnection();
@@ -121,6 +149,12 @@ public class PersonDAO {
         return null;
     }
 
+    /**
+     * Retrieves a list of persons from the database based on the page number.
+     *
+     * @param pageNumber the page number
+     * @return the list of persons on the specified page
+     */
     public static List<Person> getPersonsByPage(int pageNumber) {
         List<Person> persons = new ArrayList<>();
         String sql = "SELECT * FROM " + tableName + " LIMIT 10 OFFSET ?";
