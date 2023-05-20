@@ -1,4 +1,9 @@
-<%--
+<%@ page import="dataNoBase.AdminDAO" %>
+<%@ page import="dataNoBase.Admin" %>
+<%@ page import="dataNoBase.PersonDAO" %>
+<%@ page import="dataNoBase.Person" %>
+<%@ page import="java.sql.Timestamp" %>
+<%@ page import="java.util.Date" %><%--
   Created by IntelliJ IDEA.
   User: zzy13
   Date: 2023/5/20
@@ -15,10 +20,11 @@
 
 <%--recv session msg--%>
 <%
+  Admin admin = (Admin) session.getAttribute("person");
   Boolean login_status = (Boolean) session.getAttribute("login_status");
   String referenced = (String) session.getAttribute("referenced");
   boolean back = false;
-  boolean finish = true;
+  Boolean status = true;
 %>
 
 <%--session outdate--%>
@@ -35,46 +41,39 @@
 
 <%--recv parameters--%>
 <%
-  String category = request.getParameter("category");
-
-  int cid = -1;
-  try {
-    cid = Integer.parseInt(request.getParameter("cid"));
-  } catch (Exception e) {
-  }
-
   String name = request.getParameter("name");
-  Float price = -1F;
-  try {
-    price = Float.parseFloat(request.getParameter("price"));
-  } catch (Exception e) {
-  }
-  int stock = -1;
-  try {
-    stock = Integer.parseInt(request.getParameter("stock"));
-  } catch (Exception e) {
-  }
   String action = request.getParameter("action");
+  String type_str = request.getParameter("type");
+  String email = request.getParameter("email");
+  String password = request.getParameter("password");
+  String id_str = request.getParameter("id");
+  String new_name = request.getParameter("new_name");
 %>
 
 <%--check parameters invalid--%>
 <%
-  //    if (!referenced.equals("shop") && !referenced.equals("commodity_admin")){
-//        back = true;
-//    }
-  if (admin == null) {
-    back = true;
-  }
+  
 %>
 
 <%--parameters react--%>
 <%
-  category = category == null ? "" : category;
-  name = name == null ? "" : name;
-  action = action == null ? "" : action;
-
+  int type = -1;
+  int id = -1;
+  try {
+    type = Integer.parseInt(type_str);
+    id = Integer.parseInt(id_str);
+  }catch (Exception ignored){}
+  
   if (!action.equals("delete") && !action.equals("create") && !action.equals("modify")) {
-    finish = false;
+    status = false;
+  }
+  else if (name == null || email==null || id==-1 || type==-1 || password==null) {
+    name = name == null? "":name;
+    email = email == null? "":email;
+    password = password == null? "":password;
+    back = true;
+  }else if (action==null || new_name == null){
+    status = false;
   }
 %>
 
@@ -96,22 +95,27 @@
 
 <%--change session--%>
 <%
-
+  session.setAttribute("referenced", "change_user");
 %>
 
 <%--pre-action--%>
 <%
-  session.setAttribute("referenced", "commodity_admin");
-  if (back) {
-    response.sendRedirect("shop.jsp");
-  } else if (finish) {
-    if (action.equals("delete"))
-      CommodityDAO.deleteCommodity(cid);
-    if (action.equals("create"))
-      CommodityDAO.insertCommodity(new Commodity(cid, name, category, price, stock));
-    if (action.equals("modify"))
-      CommodityDAO.updateCommodity(new Commodity(cid, name, category, price, stock));
-    response.sendRedirect("shop.jsp");
+  if (back){
+    response.sendRedirect("manage.jsp");
+  }
+
+  if (status) {
+    switch (action) {
+      case "create" ->
+              PersonDAO.insertPerson(new Person(id, name, password, email, new Timestamp(new Date().getTime()), type));
+      case "delete" -> PersonDAO.deletePersonByName(name);
+      case "modify" -> {
+        PersonDAO.deletePersonByName(name);
+        PersonDAO.insertPerson(new Person(id, name, password, email, new Timestamp(new Date().getTime()), type));
+      }
+    }
+    response.sendRedirect(referenced);
+    
   }
 %>
 <%--session事件--%>
@@ -125,25 +129,17 @@
 </head>
 <body>
 
-<form action="commodity_admin.jsp">
-  <label>Category:
-    <input type="text" name="category" placeholder="<%=category%>">
+<form action="change_user.jsp">
+  <label>New Name
+    <input type="text" name="new_name" placeholder="<%=name%>">
   </label>
   <br>
-  <label>Name
-    <input type="text" name="name" placeholder="<%=name%>">
-  </label>
-  <br>
-  <label>Cid
-    <input type="text" name="cid" placeholder="<%=cid==-1?"":cid%>">
-  </label>
-  <br>
-  <label>Price
-    <input type="text" name="price" placeholder="<%=price==-1F?"":price%>">
+  <label>id
+    <input type="text" name="cid" placeholder="<%=id==-1?"":id%>">
   </label>
   <br>
   <label>Stock
-    <input type="text" name="stock" placeholder="<%=stock==-1?"":stock%>">
+    <input type="text" name="stock" placeholder="<%=type==1?"admin":"customer"%>">
   </label>
   <br>
   <label>Delete

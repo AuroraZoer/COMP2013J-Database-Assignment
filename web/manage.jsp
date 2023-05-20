@@ -49,55 +49,24 @@
 <%
   String keyword = request.getParameter("keyword");
   String page_str = request.getParameter("page_num");
-  String category_str = request.getParameter("category_str");
-  String old_person_name = request.getParameter("old_person_name");
-  String person_name = request.getParameter("person_name");
-  String person_email = request.getParameter("person_email");
-  String person_id_str = request.getParameter("person_id");
-  String person_type = request.getParameter("person_type");
-  String person_password = request.getParameter("person_password");
-  String operation = request.getParameter("operation");
   String type = request.getParameter("type");
-  int person_id = -1;
-  int person_type_num = -1;
   Boolean status = true;
 %>
 
 <%--check parameters invalid--%>
 <%
   int page_num = 1;
-  int category_num = 1;
   try {
     page_num = Integer.parseInt(page_str);
-  } catch (Exception ignored) {}
-  try {
-    category_num = Integer.parseInt(category_str);
   } catch (Exception ignored) {}
 
 %>
 
 <%--parameters react--%>
 <%
-  try{
-    person_id = Integer.parseInt(person_id_str);
-    person_type_num = Integer.parseInt(person_type);
-  }catch (Exception e){
-    status = false;
-  }
-  if (!operation.equals("delete") && !operation.equals("create") && !operation.equals("modify")) {
-    status = false;
-  }
-  else if (person_name == null || person_email==null || person_id==-1 || person_type_num==-1 || person_password==null || old_person_name==null) {
-    person_name = person_name == null? "":person_name;
-    person_email = person_email == null? "":person_email;
-    person_type_num = person_type_num == -1? 0:person_type_num;
-    old_person_name = old_person_name == null? "":old_person_name;
-    status = false;
-  }
-  else if (type==null || (!type.equals("customer") && !type.equals("admin"))) {
+  if (type==null){
     type = "customer";
   }
-
 %>
 
 
@@ -114,8 +83,6 @@
     response.sendRedirect("login.jsp");
   } else if (person.getType() != 0 && person.getType() != 1) {
     response.sendRedirect("login.jsp");
-  } else if (person_id==-1 || person_type_num == -1){
-    status = false;
   }
 %>
 
@@ -127,19 +94,7 @@
 
 <%--pre-action--%>
 <%
-  if (status) {
-    switch (operation) {
-      case "create" ->
-              PersonDAO.insertPerson(new Person(person_id, person_name, person_password, person_email, new Timestamp(new java.util.Date().getTime()), person_type_num));
-      case "delete" -> PersonDAO.deletePersonByName(person_name);
-      case "modify" -> {
-        PersonDAO.deletePersonByName(old_person_name);
-        PersonDAO.insertPerson(new Person(person_id, person_name, person_password, person_email, new Timestamp(new java.util.Date().getTime()), person_type_num));
-      }
-    }
 
-//    response.sendRedirect(referenced);
-  }
 %>
 
 <%--页面事件--%>
@@ -215,25 +170,25 @@
       <% for (Person each : persons) { %>
       <div class="item_box" id="item_box1">
         <div class="item_left_box">
-          <%=each.getType()==1?"Customer":"Admin"%> <br>
-          <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>">edit</a>
+          <%=each.getId()%> <br>
+          <a href="change_user.jsp?name=<%=each.getName()%>&id=<%=each.getId()%>&email=<%=each.getEmail()%>&passord=<%=each.getPassword()%>&type=<%=each.getType()%>">edit</a>
         </div>
         <div class="item_mid_box">
           <div class="item_top_box">
-            <%=commodity.getItemName()%> <br>
+            <%=each.getName()%> <br>
 
           </div>
           <div class="item_bottom_box">
-            Cid:<%=commodity.getCid()%> <br>
+            Cid:<%=each.getType()==1?"Customer":"Admin"%> <br>
           </div>
         </div>
         <div class="item_right_box">
                     <span class="price">
-                        ¥<%=commodity.getPrice()%> <br>
+                        <%=each.getEmail()%> <br>
                     </span>
 
           <span class="stock">
-                        Stock :<%=commodity.getStock()%> <br>
+                        Stock :<%=each.getCreateTime()%> <br>
                     </span>
         </div>
       </div>
@@ -243,7 +198,7 @@
     <div class="pagination_box">
       <div class="last_page">
         <form action="manage.jsp" method="post">
-          <input type="hidden" name="category_str" value="<%=category_num%>">
+          <input type="hidden" name="type" value="<%=type%>">
           <input type="hidden" name="page_num" value="<%=page_num<=1?1:page_num-1 %>">
           <%if (keyword != null) {%>
           <input type="hidden" name="keyword" value="<%=keyword%>">
@@ -254,8 +209,8 @@
 
       <div class="next_page">
         <form action="manage.jsp" method="post">
-          <input type="hidden" name="category_str" value="<%=category_num%>">
-          <input type="hidden" name="page_num" value="<%=commodities.size()<10?page_num:page_num+1 %>">
+          <input type="hidden" name="type" value="<%=type%>">
+          <input type="hidden" name="page_num" value="<%=persons.size()<10?page_num:page_num+1 %>">
           <%if (keyword != null) {%>
           <input type="hidden" name="keyword" value="<%=keyword%>">
           <%}%>
@@ -275,7 +230,7 @@
 
   <%--    购物车--%>
   usertype:
-  <%=user_type%>
+  <%=type%>
 
 </div>
 
