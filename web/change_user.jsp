@@ -61,7 +61,7 @@
   try {
     type = Integer.parseInt(type_str);
     id = Integer.parseInt(id_str);
-    time = Long.parseLong(time_str);
+//    time = Long.parseLong(time_str);
   }catch (Exception ignored){}
   
 
@@ -72,7 +72,7 @@
     back = true;
   }if (type!=0 && type!=1){
     back = true;
-  }if (id<1 || id>999 || time<1){
+  }if (id<1 || id>999){
     back = true;
   }
   if (action==null){
@@ -93,10 +93,10 @@
 <%--check session msg--%>
 <%
   if (admin == null) {
-    back = true;
+//    back = true;
   }
   if (!login_status) {
-    back = true;
+//    back = true;
   }
 %>
 
@@ -107,10 +107,10 @@
 
 <%--pre-action--%>
 <%
-  if (back){
-    response.sendRedirect("manage.jsp");
-    return;
-  }
+//  if (back){
+//    response.sendRedirect("manage.jsp");
+//    return;
+//  }
 
   if (status) {
     switch (action) {
@@ -120,13 +120,19 @@
           AdminDAO.insertAdmin(new Admin(id, new_name, password, email, new Timestamp(new Date().getTime())));
         else
           UserDAO.insertUser(new User(id, new_name, password, email, new Timestamp(new Date().getTime())));
+//        response.sendRedirect("manage.jsp");
+//        return;
         break;
       case "delete":
-        if (type == 0)
+//        if (type == 0) {
           AdminDAO.deleteAdminByUsername(name);
-        else
-          UserDAO.insertUser(new User(id, new_name, password, email, new Timestamp(new Date().getTime())));
-        break;
+//          response.sendRedirect("manage.jsp");
+//        }
+//        else {
+//          UserDAO.deleteUserByUsername(name);
+//        }
+        response.sendRedirect("manage.jsp");
+       break;
       case "modify":
         if (type == 0) {
           AdminDAO.deleteAdminByUsername(name);
@@ -136,9 +142,12 @@
           UserDAO.insertUser(new User(id, new_name, password, email, new Timestamp(time)));
         }
         break;
+
+//        response.sendRedirect("manage.jsp");
+//        return;
     }
-    response.sendRedirect("manage.jsp");
-    return;
+//    response.sendRedirect("manage.jsp");
+//    return;
   }
 %>
 <%--session事件--%>
@@ -186,14 +195,12 @@
   <input type="submit" value="confirm">
 </form>
 
+<%=name%>
+<%=new_name%>
 
-</body>
-</html>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
+<%=email%>
+<%=action%>
+
 
 </body>
 </html>
