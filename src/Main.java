@@ -9,6 +9,7 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         Connection test = JDBCTool.getConnection();
         System.out.println(test.isValid(1));
+//        AdminDAO.de(new Admin(122, "test", "test", "test", new Timestamp(new java.util.Date().getTime())));
+        PersonDAO.deletePersonByName("test");
     }
-
 }

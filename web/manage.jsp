@@ -171,7 +171,7 @@
       <div class="item_box" id="item_box1">
         <div class="item_left_box">
           <%=each.getId()%> <br>
-          <a href="change_user.jsp?name=<%=each.getName()%>&id=<%=each.getId()%>&email=<%=each.getEmail()%>&password=<%=each.getPassword()%>&type=<%=each.getType()%>">edit</a>
+          <a href="change_user.jsp?name=<%=each.getName()%>&id=<%=each.getId()%>&email=<%=each.getEmail()%>&password=<%=each.getPassword()%>&type=<%=each.getType()%>&time=<%=each.getCreateTime().getTime()%>">edit</a>
         </div>
         <div class="item_mid_box">
           <div class="item_top_box">
@@ -183,13 +183,13 @@
           </div>
         </div>
         <div class="item_right_box">
-                    <span class="price">
-                        <%=each.getEmail()%> <br>
-                    </span>
+          <span class="price">
+            <%=each.getEmail()%> <br>
+          </span>
 
           <span class="stock">
-                        Stock :<%=each.getCreateTime()%> <br>
-                    </span>
+              <%=each.getCreateTime()%> <br>
+          </span>
         </div>
       </div>
       <% } %>
