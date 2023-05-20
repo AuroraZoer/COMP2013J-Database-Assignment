@@ -7,38 +7,18 @@
 <%--=========================================================================================================================================--%>
 <%--no session--%>
 <%
-    if (session.isNew()) {
-        response.sendRedirect("login.jsp");
-        return;
-    }
 %>
 
-<%--set referenced--%>
+<%--recv session msg--%>
 <%
-    session.setAttribute("referenced", "login.jsp");
+    Boolean login_status = true;
 %>
 
 <%--session outdate--%>
 <%
     if (session.getMaxInactiveInterval() < 0) {
         response.sendRedirect("login.jsp");
-        return;
     }
-%>
-
-<%--session update--%>
-<%
-    session.setMaxInactiveInterval(1800);
-%>
-
-<%--recv session msg--%>
-<%
-    String referenced = (String) session.getAttribute("referenced");
-%>
-
-<%--session invalid--%>
-<%
-
 %>
 
 <%--recv parameters--%>
@@ -48,36 +28,47 @@
     String user_type = request.getParameter("user_type");
 %>
 
-<%--parameters invalid--%>
-<%
-
-%>
-
-<%--NullPointerException && NumberFormatException--%>
-<%
-
-%>
-
 <%--parameters react--%>
 <%
-    if (user_type == null){
-//        管理员登陆
+    if (username == null || password == null || user_type == null) {
+        login_status = false;
+    }
+%>
+
+<%--check parameters invalid--%>
+<%
+    if (login_status) {
         if (user_type.equals("admin")) {
-//            密码正确
             if (AdminDAO.isPasswordCorrect(username, password)) {
                 session.setAttribute("person", AdminDAO.getAdminByUsername(username));
                 session.setAttribute("test", 1);
             }
-        }
-//        用户登录
-        else if (user_type.equals("customer")) {
-//            密码正确
+        } else if (user_type.equals("customer")) {
             if (UserDAO.isPasswordCorrect(username, password)) {
                 session.setAttribute("person", UserDAO.getUserByUsername(username));
                 session.setAttribute("test", 1);
             }
+        } else {
+            login_status = false;
         }
     }
+%>
+
+<%--change session msg by param--%>
+<%
+    if (login_status) {
+        session.setAttribute("login_status", true);
+        response.sendRedirect("shop.jsp");
+    }
+%>
+
+<%--check session msg--%>
+<%
+%>
+
+<%--change session--%>
+<%
+    session.setAttribute("referenced", "login");
 %>
 
 <%--pre-action--%>
