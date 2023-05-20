@@ -36,15 +36,15 @@ public class UserDAO{
         PersonDAO.deletePersonByName(username);
     }
 
-    public static List<User> getUsersByPage(int pageNumber) {
+    public static List<Person> getUsersByPage(int pageNumber) {
         PersonDAO.setTableName("user");
         PersonDAO.setIdColumnName("uid");
         PersonDAO.setNameColumnName("username");
         List<Person> persons = PersonDAO.getPersonsByPage(pageNumber);
-        List<User> users = new ArrayList<>();
-        for (Person person : persons) {
-            users.add((User) person);
-        }
-        return users;
+//        List<User> users = new ArrayList<>();
+//        for (Person person : persons) {
+//            users.add((User) person);
+//        }
+        return persons;
     }
 }

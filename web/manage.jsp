@@ -7,7 +7,8 @@
 --%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
-<%@ page import="dataNoBase.*" %><%--
+<%@ page import="dataNoBase.*" %>
+<%@ page import="java.sql.Timestamp" %><%--
   Created by IntelliJ IDEA.
   User: 张子毅
   Date: 2023/4/21
@@ -29,6 +30,7 @@
 <%
   Person person = (Person) session.getAttribute("person");
   Boolean login_status = (Boolean) session.getAttribute("login_status");
+  String referenced = (String) session.getAttribute("referenced");
 %>
 
 <%--session outdate--%>
@@ -48,8 +50,17 @@
   String keyword = request.getParameter("keyword");
   String page_str = request.getParameter("page_num");
   String category_str = request.getParameter("category_str");
-  String create_category_name = request.getParameter("create_category_name");
-  String delete_category_name = request.getParameter("delete_category_name");
+  String old_person_name = request.getParameter("old_person_name");
+  String person_name = request.getParameter("person_name");
+  String person_email = request.getParameter("person_email");
+  String person_id_str = request.getParameter("person_id");
+  String person_type = request.getParameter("person_type");
+  String person_password = request.getParameter("person_password");
+  String operation = request.getParameter("operation");
+  String type = request.getParameter("type");
+  int person_id = -1;
+  int person_type_num = -1;
+  Boolean status = true;
 %>
 
 <%--check parameters invalid--%>
@@ -58,24 +69,33 @@
   int category_num = 1;
   try {
     page_num = Integer.parseInt(page_str);
-  } catch (Exception e) {
-
-  }
+  } catch (Exception ignored) {}
   try {
     category_num = Integer.parseInt(category_str);
-  } catch (Exception e) {
-  }
+  } catch (Exception ignored) {}
 
 %>
 
 <%--parameters react--%>
 <%
-  if (create_category_name != null) {
-    CategoryDAO.insertCategory(new Category(create_category_name));
+  try{
+    person_id = Integer.parseInt(person_id_str);
+    person_type_num = Integer.parseInt(person_type);
+  }catch (Exception e){
+    status = false;
   }
-
-  if (delete_category_name != null) {
-    CategoryDAO.deleteCategory(delete_category_name);
+  if (!operation.equals("delete") && !operation.equals("create") && !operation.equals("modify")) {
+    status = false;
+  }
+  else if (person_name == null || person_email==null || person_id==-1 || person_type_num==-1 || person_password==null || old_person_name==null) {
+    person_name = person_name == null? "":person_name;
+    person_email = person_email == null? "":person_email;
+    person_type_num = person_type_num == -1? 0:person_type_num;
+    old_person_name = old_person_name == null? "":old_person_name;
+    status = false;
+  }
+  else if (type==null || (!type.equals("customer") && !type.equals("admin"))) {
+    type = "customer";
   }
 
 %>
@@ -83,7 +103,7 @@
 
 <%--change session msg by param--%>
 <%
-  int user_type = -1;
+
 %>
 
 <%--check session msg--%>
@@ -92,20 +112,34 @@
     response.sendRedirect("login.jsp");
   } else if (!login_status) {
     response.sendRedirect("login.jsp");
-  } else if (person.getType() == 0 || person.getType() == 1) {
-    user_type = person.getType();
+  } else if (person.getType() != 0 && person.getType() != 1) {
+    response.sendRedirect("login.jsp");
+  } else if (person_id==-1 || person_type_num == -1){
+    status = false;
   }
-
 %>
 
 <%--change session--%>
 <%
-  session.setAttribute("referenced", "shop");
+  session.setAttribute("referenced", "manage");
+
 %>
 
 <%--pre-action--%>
 <%
-  session.setAttribute("referenced", "shop.jsp");
+  if (status) {
+    switch (operation) {
+      case "create" ->
+              PersonDAO.insertPerson(new Person(person_id, person_name, person_password, person_email, new Timestamp(new java.util.Date().getTime()), person_type_num));
+      case "delete" -> PersonDAO.deletePersonByName(person_name);
+      case "modify" -> {
+        PersonDAO.deletePersonByName(old_person_name);
+        PersonDAO.insertPerson(new Person(person_id, person_name, person_password, person_email, new Timestamp(new java.util.Date().getTime()), person_type_num));
+      }
+    }
+
+//    response.sendRedirect(referenced);
+  }
 %>
 
 <%--页面事件--%>
@@ -113,12 +147,18 @@
 
 <%--初始化--%>
 <%
-  List<Category> categories = CategoryDAO.getAllCategories();
-  List<Commodity> commodities = null;
-  if (keyword == null)
-    commodities = CommodityDAO.getCommoditiesByCategory(categories.get(category_num - 1).getName(), page_num);
-  else
-    commodities = CommodityDAO.getCommoditiesByCategory(keyword, page_num);
+  List<Person> persons = null;
+  if (type.equals("customer")) {
+    persons =  UserDAO.getUsersByPage(page_num);
+  }
+  else {
+    persons = AdminDAO.getaAdminsByPage(page_num);
+  }
+//  List<Commodity> commodities = null;
+//  if (keyword == null)
+//    commodities = CommodityDAO.getCommoditiesByCategory(categories.get(category_num - 1).getName(), page_num);
+//  else
+//    commodities = CommodityDAO.getCommoditiesByCategory(keyword, page_num);
 %>
 
 
@@ -126,11 +166,11 @@
 <head>
   <title>Shop</title>
   <link rel="stylesheet" href="css/shop.css">
-  <style>
-    #cate<%=category_num%> {
-      /*    高亮显示span*/
-    }
-  </style>
+<%--  <style>--%>
+<%--    #cate<%=category_num%> {--%>
+<%--      /*    高亮显示span*/--%>
+<%--    }--%>
+<%--  </style>--%>
 
 
 </head>
@@ -139,33 +179,19 @@
 <div class="whole">
   <div class="left_box">
     <div class="left_box_item">
-      <%
-        for (int i = 0; i < categories.size(); i++) {
-          Category category = categories.get(i);
-      %>
       <div>
-        <form action="shop.jsp" method="post">
-          <input type="hidden" name="category_str" value="<%=i+1%>">
-          <button type="submit"><span><%=category.getName()%></span><br></button>
+        <form action="manage.jsp" method="post">
+          <input type="hidden" name="type" value="admin">
+          <button type="submit"><span>Admin</span><br></button>
         </form>
-        <% if (user_type == 0) {%>
-        <form action="shop.jsp" method="post">
-          <input type="hidden" name="delete_category_name" value="<%=category.getName()%>">
-          <input type="submit" value="Delete">
-        </form>
-        <%}%>
       </div>
 
-      <%}%>
-
-      <% if (user_type == 0) {%>
-      <form action="shop.jsp" method="post">
-        <label> Category:name
-          <input type="text" name="create_category_name">
-        </label>
-        <button type="submit">add</button>
-      </form>
-      <%}%>
+      <div>
+        <form action="manage.jsp" method="post">
+          <input type="hidden" name="type" value="customer">
+          <button type="submit"><span>Customer</span><br></button>
+        </form>
+      </div>
     </div>
   </div>
 
@@ -173,10 +199,10 @@
     <div class="top_box">
       <div class="outer_search_box">
         <div class="inner_search_box">
-          <form action="shop.jsp" method="get">
+          <form action="manage.jsp" method="get">
             <label>
               <input type="search" name="keyword" width="300px" height="50px" spellcheck="false"
-                     placeholder="请输入你的商品">
+                     placeholder="员工姓名">
             </label>
             <button type="submit">
               <img src="img/search_icon.png" alt="搜索" width="50px" height="50px">
@@ -185,63 +211,12 @@
         </div>
       </div>
     </div>
-    <%--        <div class="main_box">--%>
-    <%--            &lt;%&ndash;        test&ndash;%&gt;--%>
-    <%--            <%=category_num%> <br>--%>
-    <%--            <%=page_num%> <br>--%>
-    <%--            <%=commodities.size()%>--%>
-    <%--            <%=    categories.get(category_num - 1).getName()--%>
-    <%--            %>--%>
-    <%--            <%--%>
-    <%--                for (Commodity commodity : commodities) {--%>
-    <%--            %>--%>
-    <%--            <div class="item_box" id="item_box1">--%>
-    <%--                <div class="item_left_box">--%>
-    <%--                    <%=commodity.getCategory()%> <br>--%>
-    <%--                </div>--%>
-    <%--                <div class="item_mid_box">--%>
-    <%--                    <div class="item_top_box">--%>
-    <%--                        <%=commodity.getCid()%> <br>--%>
-    <%--                    </div>--%>
-    <%--                    <div class="item_bottom_box">--%>
-    <%--                        <%=commodity.getItemName()%> <br>--%>
-    <%--                    </div>--%>
-    <%--                </div>--%>
-    <%--                <div class="item_right_box">--%>
-    <%--                    <%=commodity.getPrice()%> <br>--%>
-    <%--                    <%=commodity.getStock()%> <br>--%>
-    <%--                    <%--%>
-    <%--                        if (user_type == 0) {--%>
-    <%--                    %>--%>
-    <%--                    <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>">edit</a>--%>
-    <%--                    <%--%>
-    <%--                        }--%>
-    <%--                    %>--%>
-    <%--                </div>--%>
-    <%--            </div>--%>
-    <%--            <%}%>--%>
-    <%--            <%if (user_type == 0) {%>--%>
-    <%--            <div class="item_admin_box">--%>
-    <%--                <a href="commodity_admin.jsp?category=<%=categories.get(category_num-1).getName()%>"><img--%>
-    <%--                        src="img/add.png"--%>
-    <%--                        alt="addition"--%>
-    <%--                        width="200"--%>
-    <%--                        height="50"></a>--%>
-    <%--            </div>--%>
-    <%--            <%}%>--%>
-
-    <%--        </div>--%>
     <div class="main_box">
-      <%--            <div class="head">--%>
-      <%--                <span></span>--%>
-      <%--            </div>--%>
-      <% for (Commodity commodity : commodities) { %>
+      <% for (Person each : persons) { %>
       <div class="item_box" id="item_box1">
         <div class="item_left_box">
-          <%=commodity.getCategory()%> <br>
-          <% if (user_type == 0) { %>
+          <%=each.getType()==1?"Customer":"Admin"%> <br>
           <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>">edit</a>
-          <% } %>
         </div>
         <div class="item_mid_box">
           <div class="item_top_box">
@@ -267,7 +242,7 @@
 
     <div class="pagination_box">
       <div class="last_page">
-        <form action="shop.jsp" method="post">
+        <form action="manage.jsp" method="post">
           <input type="hidden" name="category_str" value="<%=category_num%>">
           <input type="hidden" name="page_num" value="<%=page_num<=1?1:page_num-1 %>">
           <%if (keyword != null) {%>
@@ -278,7 +253,7 @@
       </div>
 
       <div class="next_page">
-        <form action="shop.jsp" method="post">
+        <form action="manage.jsp" method="post">
           <input type="hidden" name="category_str" value="<%=category_num%>">
           <input type="hidden" name="page_num" value="<%=commodities.size()<10?page_num:page_num+1 %>">
           <%if (keyword != null) {%>
@@ -301,15 +276,6 @@
   <%--    购物车--%>
   usertype:
   <%=user_type%>
-  <div>
-    <%
-      if (user_type == 1) {
-    %>
-    <a href="shopping_car.jsp">
-      <img src="img/shopping_car.jpg" alt="购物车" height="50" width="50">
-    </a>
-    <%}%>
-  </div>
 
 </div>
 

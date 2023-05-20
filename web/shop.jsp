@@ -98,7 +98,7 @@
 
 <%--pre-action--%>
 <%
-    session.setAttribute("referenced", "shop.jsp");
+
 %>
 
 <%--页面事件--%>
