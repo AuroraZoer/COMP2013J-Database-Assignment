@@ -1,10 +1,9 @@
-<%@ page import="dataNoBase.*" %><%--
-  Created by IntelliJ IDEA.
-  User: zzy13
-  Date: 2023/5/19
-  Time: 8:51
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="dataNoBase.PersonDAO" %>
+<%@ page import="dataNoBase.Person" %>
+<%@ page import="dataNoBase.AdminDAO" %>
+<%@ page import="dataNoBase.Admin" %>
+<%@ page import="dataNoBase.UserDAO" %>
+<%@ page import="dataNoBase.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%--session事件--%>
@@ -89,7 +88,18 @@
 
 <%--pre-action--%>
 <%
-
+  if (login_status){
+    if (person.getType()==0) {
+      AdminDAO.deleteAdminByUsername(person.getName());
+      AdminDAO.insertAdmin(new Admin(person.getId(), person.getName(), password, person.getEmail(), person.getCreateTime()));
+      session.setAttribute("person", AdminDAO.getAdminByUsername(person.getName()));
+    }else {
+      UserDAO.deleteUserByUsername(person.getName());
+      UserDAO.insertUser(new User(person.getId(), person.getName(), password, person.getEmail(), person.getCreateTime()));
+      session.setAttribute("person", UserDAO.getUserByUsername(person.getName()));
+    }
+      response.sendRedirect("userMain.jsp");
+  }
 %>
 
 <%--page--%>

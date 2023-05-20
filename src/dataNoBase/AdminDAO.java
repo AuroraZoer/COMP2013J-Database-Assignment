@@ -37,16 +37,16 @@ public class AdminDAO {
         PersonDAO.deletePersonByName(username);
     }
 
-    public static List<Admin> getaAdminsByPage(int pageNumber) {
+    public static List<Person> getaAdminsByPage(int pageNumber) {
         PersonDAO.setTableName("admin");
         PersonDAO.setIdColumnName("aid");
         PersonDAO.setNameColumnName("admin_name");
         List<Person> persons = PersonDAO.getPersonsByPage(pageNumber);
-        List<Admin> admins = new ArrayList<>();
-        for (Person person : persons) {
-            admins.add((Admin) person);
-        }
-        return admins;
+//        List<Admin> admins = new ArrayList<>();
+//        for (Person person : persons) {
+//            admins.add((Admin) person);
+//        }
+        return persons;
     }
 
 }

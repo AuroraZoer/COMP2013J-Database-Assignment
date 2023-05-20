@@ -58,7 +58,10 @@
 
 <%--parameters invalid--%>
 <%
-
+    if (login_status) {
+        session.setAttribute("login_status", true);
+        response.sendRedirect("shop.jsp");
+    }
 %>
 
 <%--NullPointerException && NumberFormatException--%>

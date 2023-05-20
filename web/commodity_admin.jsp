@@ -145,23 +145,23 @@
 
 <form action="commodity_admin.jsp">
     <label>Category:
-        <input type="text" name="category" placeholder="<%=category%>">
+        <input type="text" name="category" value="<%=category%>">
     </label>
     <br>
     <label>Name
-        <input type="text" name="name" placeholder="<%=name%>">
+        <input type="text" name="name" value="<%=name%>">
     </label>
     <br>
     <label>Cid
-        <input type="text" name="cid" placeholder="<%=cid==-1?"":cid%>">
+        <input type="text" name="cid" value="<%=cid==-1?"":cid%>">
     </label>
     <br>
     <label>Price
-        <input type="text" name="price" placeholder="<%=price==-1F?"":price%>">
+        <input type="text" name="price" value="<%=price==-1F?"":price%>">
     </label>
     <br>
     <label>Stock
-        <input type="text" name="stock" placeholder="<%=stock==-1?"":stock%>">
+        <input type="text" name="stock" value="<%=stock==-1?"":stock%>">
     </label>
     <br>
     <label>Delete

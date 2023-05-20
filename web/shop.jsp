@@ -91,7 +91,7 @@
 
 <%--pre-action--%>
 <%
-    session.setAttribute("referenced", "shop.jsp");
+
 %>
 
 <%--页面事件--%>
@@ -151,6 +151,8 @@
                 </label>
                 <button type="submit">add</button>
             </form>
+
+            <a href="manage.jsp">Click here to manage users</a>
             <%}%>
         </div>
     </div>
