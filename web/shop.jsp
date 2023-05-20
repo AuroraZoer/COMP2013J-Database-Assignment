@@ -284,26 +284,34 @@
     </div>
 
 
+    <div class="right_box">
     <%--    用户界面--%>
-    <div>
-        <a href="userMain.jsp">
-            <img src="img/user_icon.jpg" alt="用户" height="50" width="50">
-        </a>
-    </div>
+        <div class="user">
+            <a href="userMain.jsp">
+                <img src="img/user_icon.jpg" alt="用户" height="50" width="50">
+            </a>
+        </div>
+        <br>
 
-    <%--    购物车--%>
-    usertype:
-    <%=user_type%>
-    <div>
-        <%
-            if (user_type == 1) {
-        %>
-        <a href="shopping_car.jsp">
-            <img src="img/shopping_car.jpg" alt="购物车" height="50" width="50">
-        </a>
-        <%}%>
-    </div>
+        <%--    购物车--%>
+        <div class="user_type">
+            usertype:
+            <br>
+            <%=user_type==1?"customer":"admin"%>
+        </div>
+        <br>
 
+        <div class="shopping_car">
+            <%
+                if (user_type == 1) {
+            %>
+            <a href="shopping_car.jsp">
+                <img src="img/shopping_car.jpg" alt="购物车" height="50" width="50">
+            </a>
+            <%}%>
+        </div>
+
+    </div>
 </div>
 
 
