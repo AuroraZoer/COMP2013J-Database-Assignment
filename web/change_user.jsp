@@ -1,9 +1,6 @@
-<%@ page import="dataNoBase.AdminDAO" %>
-<%@ page import="dataNoBase.Admin" %>
-<%@ page import="dataNoBase.PersonDAO" %>
-<%@ page import="dataNoBase.Person" %>
 <%@ page import="java.sql.Timestamp" %>
-<%@ page import="java.util.Date" %><%--
+<%@ page import="java.util.Date" %>
+<%@ page import="dataNoBase.*" %><%--
   Created by IntelliJ IDEA.
   User: zzy13
   Date: 2023/5/20
@@ -48,6 +45,7 @@
   String password = request.getParameter("password");
   String id_str = request.getParameter("id");
   String new_name = request.getParameter("new_name");
+  String time_str = request.getParameter("time");
 %>
 
 <%--check parameters invalid--%>
@@ -59,9 +57,11 @@
 <%
   int type = -1;
   int id = -1;
+  long time = -1;
   try {
     type = Integer.parseInt(type_str);
     id = Integer.parseInt(id_str);
+    time = Long.parseLong(time_str);
   }catch (Exception ignored){}
   
 
@@ -72,7 +72,7 @@
     back = true;
   }if (type!=0 && type!=1){
     back = true;
-  }if (id<1 || id>999){
+  }if (id<1 || id>999 || time<1){
     back = true;
   }
   if (action==null){
@@ -115,14 +115,18 @@
   if (status) {
     switch (action) {
       case "create":
-        PersonDAO.insertPerson(new Person(id, new_name, password, email, new Timestamp(new Date().getTime()), type));
+//        set param from admindao/userdao
+        if (type == 0)
+          AdminDAO.insertAdmin(new Admin(id, new_name, password, email, new Timestamp(new Date().getTime())));
+        else
+          UserDAO.insertUser(new User(id, new_name, password, email, new Timestamp(new Date().getTime())));
         break;
       case "delete":
         PersonDAO.deletePersonByName(name);
         break;
       case "modify":
         PersonDAO.deletePersonByName(name);
-        PersonDAO.insertPerson(new Person(id, new_name, password, email, new Timestamp(new Date().getTime()), type));
+        PersonDAO.insertPerson(new Person(id, new_name, password, email, new Timestamp(time), type));
         break;
 
     }
