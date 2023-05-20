@@ -45,8 +45,8 @@ CREATE TABLE `user`
 CREATE TABLE `admin`
 (
     `aid`         INT(11)      NOT NULL AUTO_INCREMENT,
-    `admin_name`  VARCHAR(255) NOT NULL,
-    `password`    VARCHAR(255) NOT NULL,
+    `admin_name`  VARCHAR(100) NOT NULL,
+    `password`    VARCHAR(100) NOT NULL,
     `email`       VARCHAR(255) NOT NULL,
     `create_time` TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`aid`),
