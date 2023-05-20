@@ -8,16 +8,13 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%--session--%>
 <%--no session--%>
 <%
-
-%>
-
-<%--recv session msg--%>
-<%
-  Boolean login_status = true;
-  String referenced = (String) session.getAttribute("referenced");
-  Person person = (Person) session.getAttribute("person");
+  if (session.isNew()){
+    response.sendRedirect("login.jsp");
+    return;
+  }
 %>
 
 <%--session outdate--%>
@@ -32,43 +29,53 @@
   session.setMaxInactiveInterval(1800);
 %>
 
+<%--recv session msg--%>
+<%
+  boolean login_status = (boolean) session.getAttribute("login_status");
+  String referenced = (String) session.getAttribute("referenced");
+  Person person = (Person) session.getAttribute("person");
+%>
+
+<%--session invalid--%>
+<%
+  if (!login_status){
+    response.sendRedirect("login.jsp");
+    return;
+  }
+
+  if (person == null){
+    response.sendRedirect("login.jsp");
+    return;
+  }
+%>
+
 <%--recv parameters--%>
 <%
   String password = request.getParameter("password");
   String confirm = request.getParameter("confirm");
 %>
 
+<%--parameters invalid--%>
+<%
+  if (confirm==null || password==null){
+    response.sendRedirect(referenced);
+    return;
+  }
+%>
+
+<%--NullPointerException && NumberFormatException--%>
 <%
 
 %>
+
 <%--parameters react--%>
 <%
-  if (confirm == null) {
-    login_status = false;
-  }else if (password == null) {
-    login_status = false;
-  }else if (!referenced.equals("change_password")) {
-    login_status = false;
-  }
-  if (confirm == null) {
-    login_status = false;
-  }
 
 %>
 
-<%--change session msg by param--%>
+<%--set referenced--%>
 <%
-
-%>
-
-<%--check session msg--%>
-<%
-
-%>
-
-<%--change session--%>
-<%
-  session.setAttribute("referenced", "change_password");
+  session.setAttribute("referenced", "change_password.jsp");
 %>
 
 <%--pre-action--%>
