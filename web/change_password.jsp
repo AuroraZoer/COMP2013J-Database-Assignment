@@ -1,7 +1,4 @@
-<%@ page import="dataNoBase.PersonDAO" %>
-<%@ page import="dataNoBase.Person" %>
-<%@ page import="dataNoBase.AdminDAO" %>
-<%@ page import="dataNoBase.Admin" %><%--
+<%@ page import="dataNoBase.*" %><%--
   Created by IntelliJ IDEA.
   User: zzy13
   Date: 2023/5/19
@@ -10,7 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%--session--%>
+<%--session事件--%>
+<%--=========================================================================================================================================--%>
 <%--no session--%>
 <%
   if (session.isNew()){
@@ -59,10 +57,7 @@
 
 <%--parameters invalid--%>
 <%
-  if (confirm==null || password==null){
-    response.sendRedirect(referenced);
-    return;
-  }
+
 %>
 
 <%--NullPointerException && NumberFormatException--%>
@@ -82,16 +77,23 @@
 
 <%--pre-action--%>
 <%
-  if (login_status) {
+  if (confirm!=null && password!=null) {
     if (person.getType() == 0) {
       AdminDAO.deleteAdminByUsername(person.getName());
-      AdminDAO.insertAdmin(new Admin(person.getId(), person.getName(), password, person.getEmail(), person.getCreateTime());
+      AdminDAO.insertAdmin(new Admin(1, person.getName(), password, person.getEmail(), person.getCreateTime()));
       session.setAttribute("person", AdminDAO.getAdminByUsername(person.getName()));
-      response.sendRedirect("userMain.jsp");
-      return;
+    }else {
+      UserDAO.deleteUserByUsername(person.getName());
+      UserDAO.insertUser(new User(1, person.getName(), password, person.getEmail(), person.getCreateTime()));
+      session.setAttribute("person", UserDAO.getUserByUsername(person.getName()));
     }
+    response.sendRedirect("userMain.jsp");
+    return;
   }
 %>
+
+<%--page--%>
+<%--=========================================================================================================================================--%>
 
 
 <html>
