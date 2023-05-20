@@ -1,12 +1,6 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
-<%@ page import="dataNoBase.*" %><%--
-  Created by IntelliJ IDEA.
-  User: 张子毅
-  Date: 2023/4/21
-  Time: 19:49
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="dataNoBase.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%--session事件--%>
@@ -72,7 +66,6 @@
     }
 
 %>
-
 
 <%--change session msg by param--%>
 <%
@@ -165,75 +158,29 @@
     <div class="mid_box">
         <div class="top_box">
             <div class="outer_search_box">
-                <div class="inner_search_box">
+                <div class="left_input_box">
+                    Please enter the category of the product you wish to search for:
+                </div>
+                <div class="right_input_box">
                     <form action="shop.jsp" method="get">
                         <label>
-                            <input type="search" name="keyword" width="300px" height="50px" spellcheck="false"
-                                   placeholder="请输入你的商品">
+                            <input type="search" name="keyword" width="80000px" height="50px" spellcheck="false"
+                                   placeholder="Drink">
                         </label>
                         <button type="submit">
-                            <img src="img/search_icon.png" alt="搜索" width="50px" height="50px">
+                            <img src="img/search_icon.png" alt="搜索" width="40px" height="40px">
                         </button>
                     </form>
                 </div>
             </div>
         </div>
-        <%--        <div class="main_box">--%>
-        <%--            &lt;%&ndash;        test&ndash;%&gt;--%>
-        <%--            <%=category_num%> <br>--%>
-        <%--            <%=page_num%> <br>--%>
-        <%--            <%=commodities.size()%>--%>
-        <%--            <%=    categories.get(category_num - 1).getName()--%>
-        <%--            %>--%>
-        <%--            <%--%>
-        <%--                for (Commodity commodity : commodities) {--%>
-        <%--            %>--%>
-        <%--            <div class="item_box" id="item_box1">--%>
-        <%--                <div class="item_left_box">--%>
-        <%--                    <%=commodity.getCategory()%> <br>--%>
-        <%--                </div>--%>
-        <%--                <div class="item_mid_box">--%>
-        <%--                    <div class="item_top_box">--%>
-        <%--                        <%=commodity.getCid()%> <br>--%>
-        <%--                    </div>--%>
-        <%--                    <div class="item_bottom_box">--%>
-        <%--                        <%=commodity.getItemName()%> <br>--%>
-        <%--                    </div>--%>
-        <%--                </div>--%>
-        <%--                <div class="item_right_box">--%>
-        <%--                    <%=commodity.getPrice()%> <br>--%>
-        <%--                    <%=commodity.getStock()%> <br>--%>
-        <%--                    <%--%>
-        <%--                        if (user_type == 0) {--%>
-        <%--                    %>--%>
-        <%--                    <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>">edit</a>--%>
-        <%--                    <%--%>
-        <%--                        }--%>
-        <%--                    %>--%>
-        <%--                </div>--%>
-        <%--            </div>--%>
-        <%--            <%}%>--%>
-        <%--            <%if (user_type == 0) {%>--%>
-        <%--            <div class="item_admin_box">--%>
-        <%--                <a href="commodity_admin.jsp?category=<%=categories.get(category_num-1).getName()%>"><img--%>
-        <%--                        src="img/add.png"--%>
-        <%--                        alt="addition"--%>
-        <%--                        width="200"--%>
-        <%--                        height="50"></a>--%>
-        <%--            </div>--%>
-        <%--            <%}%>--%>
-
-        <%--        </div>--%>
         <div class="main_box">
-<%--            <div class="head">--%>
-<%--                <span></span>--%>
-<%--            </div>--%>
             <% for (Commodity commodity : commodities) { %>
             <div class="item_box" id="item_box1">
                 <div class="item_left_box">
                     <%=commodity.getCategory()%> <br>
                     <% if (user_type == 0) { %>
-                        <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>">edit</a>
+                    <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>">edit</a>
                     <% } %>
                 </div>
                 <div class="item_mid_box">
@@ -242,16 +189,16 @@
 
                     </div>
                     <div class="item_bottom_box">
-                        Cid:<%=commodity.getCid()%> <br>
+                        Cid: <%=commodity.getCid()%> <br>
                     </div>
                 </div>
                 <div class="item_right_box">
                     <span class="price">
-                        ¥<%=commodity.getPrice()%> <br>
+                        ¥ <%=commodity.getPrice()%> <br>
                     </span>
 
                     <span class="stock">
-                        Stock :<%=commodity.getStock()%> <br>
+                        Stock: <%=commodity.getStock()%> <br>
                     </span>
                 </div>
             </div>

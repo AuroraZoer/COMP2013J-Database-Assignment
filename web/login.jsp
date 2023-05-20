@@ -125,7 +125,7 @@
 
             <div class="radio_box">
                 <div class="left_box">
-                    <label><input type="radio" id="customer" name="user_type" value="customer">User</label>
+                    <label><input type="radio" id="customer" name="user_type" value="customer">Customer</label>
                 </div>
                 <div class="right_box">
                     <label><input type="radio" id="admin" name="user_type" value="admin">Admin</label>
