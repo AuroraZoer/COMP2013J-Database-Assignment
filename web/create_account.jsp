@@ -10,33 +10,44 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%--session--%>
+<%--session事件--%>
+<%--=========================================================================================================================================--%>
 <%--no session--%>
 <%
     if (session.isNew()) {
-        session.setAttribute("login_status", "true");
+        response.sendRedirect("login.jsp");
+        return;
     }
 %>
 
-<%--recv session msg--%>
+<%--set referenced--%>
 <%
-    //  String login_status = (String) session.getAttribute("login_status");
-//  User user = (User) session.getAttribute("user");
-    String referenced = (String) session.getAttribute("referenced");
-    String login_status = "true";
-
+    session.setAttribute("referenced", "create_account.jsp");
 %>
 
 <%--session outdate--%>
 <%
     if (session.getMaxInactiveInterval() < 0) {
-        login_status = "false";
+        response.sendRedirect("login.jsp");
+        return;
     }
 %>
 
 <%--session update--%>
 <%
     session.setMaxInactiveInterval(1800);
+%>
+<%--recv session msg--%>
+<%
+    String referenced = (String) session.getAttribute("referenced");
+%>
+
+<%--session invalid--%>
+<%
+    //默认登录shop.jsp
+    if (referenced == null){
+        referenced = "shop.jsp";
+    }
 %>
 
 <%--recv parameters--%>
@@ -48,77 +59,27 @@
     String email = request.getParameter("email");
 %>
 
-<%--parameters react--%>
+<%--NullPointerException && NumberFormatException--%>
 <%
-    if (username == null) {
-        login_status = "false";
-    }
-    if (password == null) {
-        login_status = "false";
-    }
-    if (user_type == null) {
-        login_status = "false";
-    }
-    if (confirm == null) {
-        login_status = "false";
-    }
-    if (email == null) {
-        login_status = "false";
-    }
+
 %>
+
 
 <%--check parameters invalid--%>
 <%
-    if (username == null) {
-        username = "null";
-    }
-    if (password == null) {
-        password = "null";
-    }
-    if (user_type == null) {
-        user_type = "null";
-    }
-    if (confirm == null) {
-        confirm = "null";
-    }
-    if (email == null) {
-        email = "";
-    }
+
 %>
 
-<%--change session msg by param--%>
+<%--parameters react--%>
 <%
-
-%>
-
-<%--check session msg--%>
-<%
-    if (!referenced.equals("create_account")) {
-        login_status = "false";
-    }
-    if (!user_type.equals("user")) {
-        login_status = "false";
-    }
-    if (!confirm.equals(password)) {
-        login_status = "false";
+    if (username != null && password != null && user_type != null && confirm != null && email != null && confirm.equals(password)){
+//        参数正常，注册
+        UserDAO.insertUser(new User(1, username, password, email, new Timestamp(new java.util.Date().getTime())));
     }
 %>
-
-<%--change session--%>
-<%
-    session.setAttribute("login_status", login_status);
-    session.setAttribute("referenced", "create_account");
-%>
-
 <%--pre-action--%>
 <%
-    if (login_status.equals("true")) {
-        User user = new User(1, username, password, email, new Timestamp(new java.util.Date().getTime()));
-        UserDAO.insertUser(user);
-//    the bug may occur when MYSQL fail to insert user while jsp already use the user data.
-        session.setAttribute("user", user);
-        response.sendRedirect("shop.jsp");
-    }
+
 %>
 
 
@@ -148,12 +109,6 @@
         </form>
     </div>
 </div>
-<%=referenced%> <br>
-<%=login_status%> <br>
-<%=user_type%> <br>
-<%=username%> <br>
-<%=email%> <br>
-<%=confirm%>
 
 
 </body>

@@ -3,25 +3,22 @@
 <%@ page import="dataNoBase.AdminDAO" %>
 <%@ page import="dataNoBase.Admin" %>
 <%@ page import="dataNoBase.UserDAO" %>
-<%@ page import="dataNoBase.User" %><%--
-  Created by IntelliJ IDEA.
-  User: zzy13
-  Date: 2023/5/19
-  Time: 8:51
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="dataNoBase.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%--session事件--%>
+<%--=========================================================================================================================================--%>
 <%--no session--%>
 <%
-
+  if (session.isNew()){
+    response.sendRedirect("login.jsp");
+    return;
+  }
 %>
 
-<%--recv session msg--%>
+<%--set referenced--%>
 <%
-  Boolean login_status = true;
-  String referenced = (String) session.getAttribute("referenced");
-  Person person = (Person) session.getAttribute("person");
+  session.setAttribute("referenced", "change_password.jsp");
 %>
 
 <%--session outdate--%>
@@ -36,43 +33,57 @@
   session.setMaxInactiveInterval(1800);
 %>
 
+<%--recv session msg--%>
+<%
+  boolean login_status = (boolean) session.getAttribute("login_status");
+  String referenced = (String) session.getAttribute("referenced");
+  Person person = (Person) session.getAttribute("person");
+%>
+
+<%--session invalid--%>
+<%
+  if (!login_status){
+    response.sendRedirect("login.jsp");
+    return;
+  }
+
+  if (person == null){
+    response.sendRedirect("login.jsp");
+    return;
+  }
+%>
+
 <%--recv parameters--%>
 <%
   String password = request.getParameter("password");
   String confirm = request.getParameter("confirm");
 %>
 
+<%--parameters invalid--%>
 <%
 
 %>
+
+<%--NullPointerException && NumberFormatException--%>
+<%
+
+%>
+
 <%--parameters react--%>
 <%
-  if (confirm == null) {
-    login_status = false;
-  }else if (password == null) {
-    login_status = false;
-  }else if (!referenced.equals("change_password")) {
-    login_status = false;
+  if (confirm!=null && password!=null) {
+    if (person.getType() == 0) {
+      AdminDAO.deleteAdminByUsername(person.getName());
+      AdminDAO.insertAdmin(new Admin(1, person.getName(), password, person.getEmail(), person.getCreateTime()));
+      session.setAttribute("person", AdminDAO.getAdminByUsername(person.getName()));
+    }else {
+      UserDAO.deleteUserByUsername(person.getName());
+      UserDAO.insertUser(new User(1, person.getName(), password, person.getEmail(), person.getCreateTime()));
+      session.setAttribute("person", UserDAO.getUserByUsername(person.getName()));
+    }
+    response.sendRedirect("userMain.jsp");
+    return;
   }
-  if (confirm == null) {
-    login_status = false;
-  }
-
-%>
-
-<%--change session msg by param--%>
-<%
-
-%>
-
-<%--check session msg--%>
-<%
-
-%>
-
-<%--change session--%>
-<%
-  session.setAttribute("referenced", "change_password");
 %>
 
 <%--pre-action--%>
@@ -90,6 +101,9 @@
       response.sendRedirect("userMain.jsp");
   }
 %>
+
+<%--page--%>
+<%--=========================================================================================================================================--%>
 
 
 <html>
@@ -117,10 +131,6 @@
     <a href="create_account.jsp">Click to create an account</a>
   </div>
 </div>
-
-<%--test--%>
-<%=login_status%>
-<%=password%>
 
 
 </body>
