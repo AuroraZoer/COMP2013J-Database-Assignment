@@ -65,7 +65,7 @@
 <%--parameters react--%>
 <%
   if (type==null){
-    type = "customer";
+    type = "admin";
   }
 %>
 

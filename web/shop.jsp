@@ -158,6 +158,8 @@
                 </label>
                 <button type="submit">add</button>
             </form>
+
+            <a href="manage.jsp">Click here to manage users</a>
             <%}%>
         </div>
     </div>
