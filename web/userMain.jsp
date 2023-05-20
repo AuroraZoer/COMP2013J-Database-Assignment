@@ -65,9 +65,11 @@
 <%
     if (person == null){
         response.sendRedirect("login.jsp");
+        return;
     }
     if (!login_status){
         response.sendRedirect("login.jsp");
+        return;
     }
 %>
 
