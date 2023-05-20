@@ -24,7 +24,7 @@
   Boolean login_status = (Boolean) session.getAttribute("login_status");
   String referenced = (String) session.getAttribute("referenced");
   boolean back = false;
-  Boolean status = true;
+  boolean status = true;
 %>
 
 <%--session outdate--%>
@@ -64,15 +64,22 @@
     id = Integer.parseInt(id_str);
   }catch (Exception ignored){}
   
-  if (!action.equals("delete") && !action.equals("create") && !action.equals("modify")) {
-    status = false;
-  }
-  else if (name == null || email==null || id==-1 || type==-1 || password==null) {
+
+  if (name == null || email==null || password==null) {
     name = name == null? "":name;
     email = email == null? "":email;
     password = password == null? "":password;
     back = true;
-  }else if (action==null || new_name == null){
+  }if (type!=0 && type!=1){
+    back = true;
+  }if (id<1 || id>999){
+    back = true;
+  }
+  if (action==null){
+    status = false;
+  }else if (!action.equals("delete") && !action.equals("create") && !action.equals("modify")) {
+    status = false;
+  } if (new_name==null){
     status = false;
   }
 %>
@@ -102,20 +109,25 @@
 <%
   if (back){
     response.sendRedirect("manage.jsp");
+    return;
   }
 
   if (status) {
     switch (action) {
-      case "create" ->
-              PersonDAO.insertPerson(new Person(id, name, password, email, new Timestamp(new Date().getTime()), type));
-      case "delete" -> PersonDAO.deletePersonByName(name);
-      case "modify" -> {
+      case "create":
+        PersonDAO.insertPerson(new Person(id, new_name, password, email, new Timestamp(new Date().getTime()), type));
+        break;
+      case "delete":
         PersonDAO.deletePersonByName(name);
-        PersonDAO.insertPerson(new Person(id, name, password, email, new Timestamp(new Date().getTime()), type));
-      }
+        break;
+      case "modify":
+        PersonDAO.deletePersonByName(name);
+        PersonDAO.insertPerson(new Person(id, new_name, password, email, new Timestamp(new Date().getTime()), type));
+        break;
+
     }
-    response.sendRedirect(referenced);
-    
+    response.sendRedirect("manage.jsp");
+    return;
   }
 %>
 <%--session事件--%>
@@ -131,15 +143,23 @@
 
 <form action="change_user.jsp">
   <label>New Name
-    <input type="text" name="new_name" placeholder="<%=name%>">
+    <input type="text" name="new_name" value="<%=name%>">
   </label>
   <br>
   <label>id
-    <input type="text" name="cid" placeholder="<%=id==-1?"":id%>">
+    <input type="text" name="cid" value="<%=id%>">
   </label>
   <br>
-  <label>Stock
-    <input type="text" name="stock" placeholder="<%=type==1?"admin":"customer"%>">
+  <label>Type
+    <input type="text" name="type" value="<%=type==0?"admin":"customer"%>">
+  </label>
+  <br>
+  <label>Email
+    <input type="text" name="email" value="<%=email%>">
+  </label>
+  <br>
+  <label>Password
+    <input type="text" name="password" value="<%=password%>">
   </label>
   <br>
   <label>Delete
@@ -148,10 +168,10 @@
   <label>Create
     <input type="radio" name="action" value="create">
   </label>
-  <br>
   <label>Modify
     <input type="radio" name="action" value="modify">
   </label>
+  <input type="hidden" name="name" value="<%=name%>">
   <input type="submit" value="confirm">
 </form>
 
