@@ -7,7 +7,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws SQLException {
         Connection test = JDBCTool.getConnection();
-//        System.out.println(test.isValid(1));
+        System.out.println(test.isValid(1));
 
         // 添加交易记录
 //        TransactionDAO.addTransaction(1, 16, 5);
@@ -24,5 +24,6 @@ public class Main {
         }
 
 //        TransactionDAO.updateTransactionPaymentStatus(1);
+//        TransactionDAO.updateTransactionQuantity(1,10);
     }
 }
