@@ -1,5 +1,7 @@
 <%@ page import="dataNoBase.PersonDAO" %>
-<%@ page import="dataNoBase.Person" %><%--
+<%@ page import="dataNoBase.Person" %>
+<%@ page import="dataNoBase.AdminDAO" %>
+<%@ page import="dataNoBase.Admin" %><%--
   Created by IntelliJ IDEA.
   User: zzy13
   Date: 2023/5/19
@@ -80,11 +82,14 @@
 
 <%--pre-action--%>
 <%
-  if (login_status){
-    PersonDAO.deletePersonByName(person.getName());
-    PersonDAO.insertPerson(new Person(person.getId(), person.getName(), password, person.getEmail(), person.getCreateTime(), person.getType()));
-    session.setAttribute("person", PersonDAO.getPersonByName(person.getName()));
-    response.sendRedirect("userMain.jsp");
+  if (login_status) {
+    if (person.getType() == 0) {
+      AdminDAO.deleteAdminByUsername(person.getName());
+      AdminDAO.insertAdmin(new Admin(person.getId(), person.getName(), password, person.getEmail(), person.getCreateTime());
+      session.setAttribute("person", AdminDAO.getAdminByUsername(person.getName()));
+      response.sendRedirect("userMain.jsp");
+      return;
+    }
   }
 %>
 
@@ -114,10 +119,6 @@
     <a href="create_account.jsp">Click to create an account</a>
   </div>
 </div>
-
-<%--test--%>
-<%=login_status%>
-<%=password%>
 
 
 </body>
