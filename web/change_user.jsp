@@ -122,13 +122,20 @@
           UserDAO.insertUser(new User(id, new_name, password, email, new Timestamp(new Date().getTime())));
         break;
       case "delete":
-        PersonDAO.deletePersonByName(name);
+        if (type == 0)
+          AdminDAO.deleteAdminByUsername(name);
+        else
+          UserDAO.insertUser(new User(id, new_name, password, email, new Timestamp(new Date().getTime())));
         break;
       case "modify":
-        PersonDAO.deletePersonByName(name);
-        PersonDAO.insertPerson(new Person(id, new_name, password, email, new Timestamp(time), type));
+        if (type == 0) {
+          AdminDAO.deleteAdminByUsername(name);
+          AdminDAO.insertAdmin(new Admin(id, new_name, password, email, new Timestamp(time)));
+        }else {
+          UserDAO.deleteUserByUsername(name);
+          UserDAO.insertUser(new User(id, new_name, password, email, new Timestamp(time)));
+        }
         break;
-
     }
     response.sendRedirect("manage.jsp");
     return;
