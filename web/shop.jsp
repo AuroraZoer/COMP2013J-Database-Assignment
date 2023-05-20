@@ -163,13 +163,13 @@
                 </div>
                 <div class="right_input_box">
                     <form action="shop.jsp" method="get">
-                        <label>
-                            <input type="search" name="keyword" width="80000px" height="50px" spellcheck="false"
+                        <div class="input_wrapper">
+                            <input type="input_search" name="keyword" width="80000px" height="50px" spellcheck="false"
                                    placeholder="Drink">
-                        </label>
-                        <button type="submit">
-                            <img src="img/search_icon.png" alt="搜索" width="40px" height="40px">
-                        </button>
+                            <button type="submit">
+                                <img src="img/search_icon.png" alt="搜索" width="40px" height="40px">
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
