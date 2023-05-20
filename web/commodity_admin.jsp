@@ -1,6 +1,7 @@
 <%@ page import="dataNoBase.Admin" %>
 <%@ page import="dataNoBase.CommodityDAO" %>
-<%@ page import="dataNoBase.Commodity" %><%--
+<%@ page import="dataNoBase.Commodity" %>
+<%@ page import="dataNoBase.Person" %><%--
   Created by IntelliJ IDEA.
   User: zzy13
   Date: 2023/5/17
@@ -13,17 +14,14 @@
 <%--no session--%>
 <%
     if (session.isNew()) {
-        session.setAttribute("login_status", "true");
+        response.sendRedirect("login.jsp");
+        return;
     }
 %>
 
-<%--recv session msg--%>
+<%--set referenced--%>
 <%
-    Admin admin = (Admin) session.getAttribute("person");
-    Boolean login_status = (Boolean) session.getAttribute("login_status");
-    String referenced = (String) session.getAttribute("referenced");
-    boolean back = false;
-    boolean finish = true;
+    session.setAttribute("referenced", "commodity_admin.jsp");
 %>
 
 <%--session outdate--%>
@@ -38,88 +36,98 @@
     session.setMaxInactiveInterval(1800);
 %>
 
+<%--recv session msg--%>
+<%
+    Person admin = (Person) session.getAttribute("person");
+    boolean login_status = (boolean) session.getAttribute("login_status");
+    String referenced = (String) session.getAttribute("referenced");
+//    boolean back = false;
+//    boolean finish = true;
+%>
+
+<%--session invalid--%>
+<%
+    //登录状态不正常，重新登陆
+    if (!login_status){
+        response.sendRedirect("login.jsp");
+        return;
+    }
+
+//    session获取不到用户信息，重新登录
+    if (admin == null){
+        response.sendRedirect("login.jsp");
+        return;
+    }
+
+//    用户权限不足，返回原界面
+    if (admin.getType()!=0){
+        response.sendRedirect(referenced);
+        return;
+    }
+%>
+
 <%--recv parameters--%>
 <%
     String category = request.getParameter("category");
-
-    int cid = -1;
-    try {
-        cid = Integer.parseInt(request.getParameter("cid"));
-    } catch (Exception e) {
-    }
-
     String name = request.getParameter("name");
-    Float price = -1F;
-    try {
-        price = Float.parseFloat(request.getParameter("price"));
-    } catch (Exception e) {
-    }
-    int stock = -1;
-    try {
-        stock = Integer.parseInt(request.getParameter("stock"));
-    } catch (Exception e) {
-    }
     String action = request.getParameter("action");
+
+//    以下参数需要转换类型
+    String price_str = request.getParameter("price");
+    String cid_str = request.getParameter("cid");
+    String stock_str = request.getParameter("stock");
 %>
 
-<%--check parameters invalid--%>
+<%--parameters invalid--%>
 <%
-    //    if (!referenced.equals("shop") && !referenced.equals("commodity_admin")){
-//        back = true;
-//    }
-    if (admin == null) {
-        back = true;
+
+%>
+
+<%--NullPointerException && NumberFormatException--%>
+<%
+//    声明变量
+    float price = -1F;
+    int cid = -1;
+    int stock = -1;
+
+//    转换
+    try {
+        price = Float.parseFloat(price_str);
+        cid = Integer.parseInt(cid_str);
+        stock = Integer.parseInt(stock_str);
+//        接收不到参数，返回原界面
+    }catch (NullPointerException e){
+        response.sendRedirect(referenced);
+//        参数异常，返回原界面
+    }catch (NumberFormatException e){
+        response.sendRedirect(referenced);
     }
 %>
 
 <%--parameters react--%>
 <%
-    category = category == null ? "" : category;
-    name = name == null ? "" : name;
-    action = action == null ? "" : action;
-
-    if (!action.equals("delete") && !action.equals("create") && !action.equals("modify")) {
-        finish = false;
+    if (action != null){
+        switch (action){
+//            删除
+            case "delete":
+                CommodityDAO.deleteCommodity(cid);
+                response.sendRedirect(referenced);
+                return;
+//            创建
+            case "create":
+                CommodityDAO.insertCommodity(new Commodity(cid, name, category, price, stock));
+                response.sendRedirect(referenced);
+                return;
+//            修改
+            case "modify":
+                CommodityDAO.updateCommodity(new Commodity(cid, name, category, price, stock));
+                response.sendRedirect(referenced);
+                return;
+        }
     }
 %>
 
-
-<%--change session msg by param--%>
-<%
-
-%>
-
-<%--check session msg--%>
-<%
-    if (admin == null) {
-        back = true;
-    }
-    if (!login_status) {
-        back = true;
-    }
-%>
-
-<%--change session--%>
-<%
-
-%>
-
-<%--pre-action--%>
-<%
-    session.setAttribute("referenced", "commodity_admin");
-    if (back) {
-        response.sendRedirect("shop.jsp");
-    } else if (finish) {
-        if (action.equals("delete"))
-            CommodityDAO.deleteCommodity(cid);
-        if (action.equals("create"))
-            CommodityDAO.insertCommodity(new Commodity(cid, name, category, price, stock));
-        if (action.equals("modify"))
-            CommodityDAO.updateCommodity(new Commodity(cid, name, category, price, stock));
-        response.sendRedirect("shop.jsp");
-    }
-%>
-<%--session事件--%>
+<%--page--%>
 <%--=========================================================================================================================================--%>
 
 
