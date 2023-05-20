@@ -9,6 +9,11 @@ import java.util.List;
 
 
 public class CommodityDAO {
+    /**
+     * Inserts a new commodity into the database.
+     *
+     * @param commodity The Commodity object representing the commodity to be inserted.
+     */
     public static void insertCommodity(Commodity commodity) {
         String sql = "INSERT INTO commodity (itemName, category, price, stock) VALUES (?, ?, ?, ?)";
         try (Connection conn = JDBCTool.getConnection();
@@ -23,6 +28,11 @@ public class CommodityDAO {
         }
     }
 
+    /**
+     * Retrieves all commodities from the database.
+     *
+     * @return A List of Commodity objects representing all the commodities in the database.
+     */
     public static List<Commodity> getAllCommodities() {
         List<Commodity> commodities = new ArrayList<>();
         String sql = "SELECT * FROM commodity";
@@ -43,6 +53,11 @@ public class CommodityDAO {
         return commodities;
     }
 
+    /**
+     * Updates a commodity in the database.
+     *
+     * @param commodity The Commodity object representing the updated commodity.
+     */
     public static void updateCommodity(Commodity commodity) {
         String sql = "UPDATE commodity SET itemName = ?, category = ?, price = ?, stock = ? WHERE cid = ?";
         try (Connection conn = JDBCTool.getConnection();
@@ -58,6 +73,11 @@ public class CommodityDAO {
         }
     }
 
+    /**
+     * Deletes a commodity from the database.
+     *
+     * @param cid The ID of the commodity to be deleted.
+     */
     public static void deleteCommodity(int cid) {
         String sql = "DELETE FROM commodity WHERE cid = ?";
         try (Connection conn = JDBCTool.getConnection();
@@ -69,7 +89,13 @@ public class CommodityDAO {
         }
     }
 
-    // 这个方法根据类别筛选商品，每页显示10条商品信息，需要传入页码pageNumber
+    /**
+     * Retrieves commodities based on the category, with pagination support.
+     *
+     * @param category   The category to filter the commodities.
+     * @param pageNumber The page number for pagination (starting from 1).
+     * @return A List of Commodity objects representing the filtered commodities.
+     */
     public static List<Commodity> getCommoditiesByCategory(String category, int pageNumber) {
         List<Commodity> commodities = new ArrayList<>();
         String sql = "SELECT * FROM commodity WHERE category = ? LIMIT 10 OFFSET ?";
