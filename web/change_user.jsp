@@ -43,9 +43,7 @@
   String type_str = request.getParameter("type");
   String email = request.getParameter("email");
   String password = request.getParameter("password");
-  String id_str = request.getParameter("id");
   String new_name = request.getParameter("new_name");
-  String time_str = request.getParameter("time");
 %>
 
 <%--check parameters invalid--%>
@@ -56,12 +54,8 @@
 <%--parameters react--%>
 <%
   int type = -1;
-  int id = -1;
-  long time = -1;
   try {
     type = Integer.parseInt(type_str);
-    id = Integer.parseInt(id_str);
-//    time = Long.parseLong(time_str);
   }catch (Exception ignored){}
   
 
@@ -72,9 +66,6 @@
     back = true;
   }if (type!=0 && type!=1){
     back = true;
-  }if (id<1 || id>999){
-    back = true;
-  }
   if (action==null){
     status = false;
   }else if (!action.equals("delete") && !action.equals("create") && !action.equals("modify")) {
@@ -117,37 +108,30 @@
       case "create":
 //        set param from admindao/userdao
         if (type == 0)
-          AdminDAO.insertAdmin(new Admin(id, new_name, password, email, new Timestamp(new Date().getTime())));
+          AdminDAO.insertAdmin(new Admin(1, new_name, password, email, new Timestamp(new Date().getTime())));
         else
-          UserDAO.insertUser(new User(id, new_name, password, email, new Timestamp(new Date().getTime())));
-//        response.sendRedirect("manage.jsp");
-//        return;
+          UserDAO.insertUser(new User(1, new_name, password, email, new Timestamp(new Date().getTime())));
         break;
       case "delete":
-//        if (type == 0) {
+        if (type == 0) {
           AdminDAO.deleteAdminByUsername(name);
-//          response.sendRedirect("manage.jsp");
-//        }
-//        else {
-//          UserDAO.deleteUserByUsername(name);
-//        }
-        response.sendRedirect("manage.jsp");
+        }
+        else {
+          UserDAO.deleteUserByUsername(name);
+        }
        break;
       case "modify":
         if (type == 0) {
           AdminDAO.deleteAdminByUsername(name);
-          AdminDAO.insertAdmin(new Admin(id, new_name, password, email, new Timestamp(time)));
+          AdminDAO.insertAdmin(new Admin(1, new_name, password, email, new Timestamp(new Date().getTime())));
         }else {
           UserDAO.deleteUserByUsername(name);
-          UserDAO.insertUser(new User(id, new_name, password, email, new Timestamp(time)));
+          UserDAO.insertUser(new User(1, new_name, password, email, new Timestamp(new Date().getTime())));
         }
         break;
-
-//        response.sendRedirect("manage.jsp");
-//        return;
     }
-//    response.sendRedirect("manage.jsp");
-//    return;
+    response.sendRedirect("manage.jsp");
+    return;
   }
 %>
 <%--session事件--%>
@@ -166,12 +150,8 @@
     <input type="text" name="new_name" value="<%=name%>">
   </label>
   <br>
-  <label>id
-    <input type="text" name="cid" value="<%=id%>">
-  </label>
-  <br>
   <label>Type
-    <input type="text" name="type" value="<%=type==0?"admin":"customer"%>">
+    <input type="text" name="type" value="<%=type%>">
   </label>
   <br>
   <label>Email
@@ -200,6 +180,7 @@
 
 <%=email%>
 <%=action%>
+<%=type%>
 
 
 </body>
