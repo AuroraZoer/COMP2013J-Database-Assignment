@@ -63,6 +63,9 @@ body {
     height: 60px;
     width: 100%;
 }
+.left_input_box {
+    font-size: 18px;
+}
 
 .right_input_box {
     display: flex;
@@ -70,15 +73,20 @@ body {
     align-items: center;
     border-radius: 100px;
     background-color: #f5f5f5;
-    width: 40%;
+    width: 30%;
     margin-left: 30px;
 }
 
-input[type="search"] {
-    flex: 1;
-    margin-left: 30px;
-    width: 100%;
-    max-width: 1000px;
+.input_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input_wrapper input[type="input_search"] {
+    margin-top: 10px;
+    margin-left: 20px;
+    font-size: 16px;
     border: none;
     outline: none;
     background-color: transparent;
@@ -169,7 +177,7 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .last_page input[type="submit"],
@@ -180,11 +188,14 @@ img {
     cursor: pointer;
     color: #007bff;
     text-decoration: underline;
+    font-size: 16px;
+
 }
 
 .last_page input[type="submit"]:hover,
 .next_page input[type="submit"]:hover {
     color: #0056b3;
+    font-family: "Comic Sans MS", sans-serif;
 }
 
 .price {
