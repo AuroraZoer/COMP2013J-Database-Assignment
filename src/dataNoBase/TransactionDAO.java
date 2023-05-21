@@ -9,7 +9,13 @@ import java.util.List;
 
 public class TransactionDAO {
 
-    // 添加交易记录
+    /**
+     * Adds a transaction record to the database.
+     *
+     * @param cid      Customer ID
+     * @param uid      User ID
+     * @param quantity Quantity of items
+     */
     public static void addTransaction(int cid, int uid, int quantity) {
         String sql = "INSERT INTO `transaction` (cid, uid, quantity, total, is_paid) VALUES (?, ?, ?, ?, 0)";
         float total = calculateTotal(cid, quantity); // 计算交易总额
@@ -25,7 +31,11 @@ public class TransactionDAO {
         }
     }
 
-    // 删除交易记录
+    /**
+     * Deletes a transaction record from the database.
+     *
+     * @param tid Transaction ID
+     */
     public static void deleteTransaction(int tid) {
         String sql = "DELETE FROM `transaction` WHERE tid = ?";
         try (Connection conn = JDBCTool.getConnection();
@@ -37,7 +47,13 @@ public class TransactionDAO {
         }
     }
 
-    // 获取指定用户的交易记录
+    /**
+     * Retrieves a list of transactions for a specific user.
+     *
+     * @param uid        User ID
+     * @param pageNumber Page number for pagination
+     * @return List of Transaction objects
+     */
     public static List<Transaction> getUserTransactions(int uid, int pageNumber) {
         List<Transaction> transactions = new ArrayList<>();
         String sql = "SELECT * FROM `transaction` WHERE uid = ? ORDER BY tid DESC LIMIT 10 OFFSET ?";
@@ -63,18 +79,23 @@ public class TransactionDAO {
         return transactions;
     }
 
-    // 修改交易记录的商品数量和总价
+    /**
+     * Updates the quantity and total amount of a transaction.
+     *
+     * @param tid      Transaction ID
+     * @param quantity New quantity of items
+     */
     public static void updateTransactionQuantity(int tid, int quantity) {
         String sql = "UPDATE `transaction` SET quantity = ?, total = ? WHERE tid = ?";
         try (Connection conn = JDBCTool.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            // 获取原始交易记录信息
+            // Retrieve the original transaction information
             Transaction transaction = getTransactionById(tid);
             if (transaction == null) {
-                return; // 交易记录不存在，不进行更新
+                return; // Transaction does not exist, no updates needed
             }
 
-            // 计算新的总价
+            // Calculate the new total amount
             float newTotal = calculateTotal(transaction.getCid(), quantity);
 
             pstmt.setInt(1, quantity);
@@ -86,7 +107,12 @@ public class TransactionDAO {
         }
     }
 
-    // 根据交易记录ID获取单个交易记录
+    /**
+     * Retrieves a single transaction by its ID.
+     *
+     * @param tid Transaction ID
+     * @return Transaction object if found, null otherwise
+     */
     public static Transaction getTransactionById(int tid) {
         String sql = "SELECT * FROM `transaction` WHERE tid = ?";
         try (Connection conn = JDBCTool.getConnection();
@@ -108,7 +134,11 @@ public class TransactionDAO {
         return null;
     }
 
-    // 更新交易记录的支付状态
+    /**
+     * Updates the payment status of a transaction to "paid".
+     *
+     * @param tid Transaction ID
+     */
     public static void updateTransactionPaymentStatus(int tid) {
         String sql = "UPDATE `transaction` SET is_paid = 1 WHERE tid = ?";
         try (Connection conn = JDBCTool.getConnection();
@@ -120,7 +150,13 @@ public class TransactionDAO {
         }
     }
 
-    // 计算交易总额
+    /**
+     * Calculates the total amount of a transaction based on the commodity price and quantity.
+     *
+     * @param cid      Commodity ID
+     * @param quantity Quantity of items
+     * @return Total amount of the transaction
+     */
     private static float calculateTotal(int cid, int quantity) {
         String sql = "SELECT price FROM commodity WHERE cid = ?";
         try (Connection conn = JDBCTool.getConnection();

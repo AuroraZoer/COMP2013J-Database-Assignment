@@ -1,12 +1,12 @@
 package dataNoBase;
 
 public class Transaction {
-    private int tid;
-    private int uid;
-    private int cid;
-    private int quantity;
-    private float total;
-    private boolean isPaid;  // is_paid：表示付款状态，如果付款了则为1，否则为0
+    private int tid; // Transaction ID
+    private int uid; // User ID
+    private int cid; // Customer ID
+    private int quantity; // Quantity of items
+    private float total; // Total amount
+    private boolean isPaid; // Payment status: 1 if paid, 0 otherwise
 
     public Transaction(int tid, int uid, int cid, int quantity, float total, boolean isPaid) {
         this.tid = tid;

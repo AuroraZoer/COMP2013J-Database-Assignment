@@ -1,18 +1,18 @@
 package dataNoBase;
 
 public class Category {
-    private String name;
+    private String category;
 
-    public Category(String name) {
-        this.name = name;
+    public Category(String category) {
+        this.category = category;
     }
 
     public String getName() {
-        return name;
+        return category;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String category) {
+        this.category = category;
     }
 
 }
