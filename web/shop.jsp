@@ -12,6 +12,11 @@
     }
 %>
 
+<%--set referenced--%>
+<%
+    session.setAttribute("referenced", "shop.jsp");
+%>
+
 <%--session outdate--%>
 <%
     if (session.getMaxInactiveInterval() < 0) {
@@ -28,6 +33,7 @@
 <%
     Person person = (Person) session.getAttribute("person");
     Boolean login_status = (Boolean) session.getAttribute("login_status");
+    String referenced = (String) session.getAttribute("referenced");
 %>
 
 <%--session invalid--%>
@@ -125,14 +131,6 @@
 
 <%--pre-action--%>
 <%
-
-%>
-
-<%--页面事件--%>
-<%--========================================================================================================================================--%>
-
-<%--初始化--%>
-<%
     List<Category> categories = CategoryDAO.getAllCategories();
     List<Commodity> commodities = null;
     if (keyword == null)
@@ -140,6 +138,9 @@
     else
         commodities = CommodityDAO.getCommoditiesByCategory(keyword, page_num);
 %>
+
+<%--页面事件--%>
+<%--========================================================================================================================================--%>
 
 
 <html>
