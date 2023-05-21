@@ -12,12 +12,6 @@
     }
 %>
 
-<%--recv session msg--%>
-<%
-    Person person = (Person) session.getAttribute("person");
-    Boolean login_status = (Boolean) session.getAttribute("login_status");
-%>
-
 <%--session outdate--%>
 <%
     if (session.getMaxInactiveInterval() < 0) {
@@ -30,6 +24,24 @@
     session.setMaxInactiveInterval(1800);
 %>
 
+<%--recv session msg--%>
+<%
+    Person person = (Person) session.getAttribute("person");
+    Boolean login_status = (Boolean) session.getAttribute("login_status");
+%>
+
+<%--session invalid--%>
+<%
+    if (person == null){
+        response.sendRedirect("login.jsp");
+        return;
+    }
+    if (!login_status){
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
+
 <%--recv parameters--%>
 <%
     String keyword = request.getParameter("keyword");
@@ -37,21 +49,39 @@
     String category_str = request.getParameter("category_str");
     String create_category_name = request.getParameter("create_category_name");
     String delete_category_name = request.getParameter("delete_category_name");
+    String add_commodity_number_str = request.getParameter("add_commodity_number");
+    String add_commodity_cid_str = request.getParameter("add_commodity_cid");
 %>
 
-<%--check parameters invalid--%>
+<%--NullPointerException && NumberFormatException--%>
 <%
     int page_num = 1;
     int category_num = 1;
+    int add_commodity_number = -1;
+    int add_commodity_cid = -1;
     try {
         page_num = Integer.parseInt(page_str);
-    } catch (Exception e) {
+    } catch (Exception ignored) {
 
     }
     try {
         category_num = Integer.parseInt(category_str);
-    } catch (Exception e) {
+    } catch (Exception ignored) {
     }
+
+    try {
+        add_commodity_number = Integer.parseInt(category_str);
+    } catch (Exception ignored) {
+    }
+
+    try {
+        add_commodity_cid = Integer.parseInt(category_str);
+    } catch (Exception ignored) {
+    }
+%>
+
+<%--check parameters invalid--%>
+<%
 
 %>
 
@@ -63,6 +93,10 @@
 
     if (delete_category_name != null) {
         CategoryDAO.deleteCategory(delete_category_name);
+    }
+
+    if (add_commodity_cid>0 && add_commodity_number>0){
+        TransactionDAO.addTransaction(add_commodity_cid,person.getId(), add_commodity_number);
     }
 
 %>
