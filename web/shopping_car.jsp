@@ -148,6 +148,9 @@
         <div class="main_box">
             <% for (Transaction transaction : transactions) {
                 Commodity commodity = CommodityDAO.getCommodityByCid(transaction.getCid());
+                if (commodity == null){
+                    continue;
+                }
             %>
             <div class="item_box" id="item_box1">
                 <div class="item_left_box">
@@ -167,15 +170,19 @@
                         ¥ <%=commodity.getPrice()%> <br>
                     </span>
                     <form class="stock" action="shopping_car.jsp" method="post">
-                        <input type="number" name="add_transaction_number" min="1" max="<%=commodity.getStock()%>" step="1">
+                        <input type="number" name="add_transaction_number" min="1" max="<%=commodity.getStock()%>" step="1" placeholder="<%=transaction.getQuantity()%>">
                         <input type="hidden" name="page_num" value="<%=page_num%>">
+                        <%if (keyword_str != null) {%>
                         <input type="hidden" name="keyword" value="<%=keyword%>">
+                        <%}%>
                         <input type="hidden" name="add_transaction_cid" value="<%=transaction.getTid()%>">
                         <input type="submit" value="modify">
                     </form>
                     <form action="shopping_car.jsp" method="post">
                         <input type="hidden" name="page_num" value="<%=page_num%>">
+                        <%if (keyword_str != null) {%>
                         <input type="hidden" name="keyword" value="<%=keyword%>">
+                        <%}%>
                         <input type="hidden" name="delete_tid" value="<%=transaction.getTid()%>">
                         <input type="submit" value="delete">
                     </form>
@@ -209,7 +216,7 @@
 
 
     <div class="right_box">
-        
+
         <%--    用户界面--%>
         <div class="user">
             <a href="userMain.jsp">
