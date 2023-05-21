@@ -9,6 +9,11 @@ import java.util.List;
 
 public class CategoryDAO {
 
+    /**
+     * Inserts a new category into the database.
+     *
+     * @param category The Category object representing the category to be inserted.
+     */
     public static void insertCategory(Category category) {
         String sql = "INSERT INTO categories (name) VALUES (?)";
         try (Connection conn = JDBCTool.getConnection();
@@ -20,6 +25,11 @@ public class CategoryDAO {
         }
     }
 
+    /**
+     * Retrieves all categories from the database.
+     *
+     * @return A List of Category objects representing all the categories in the database.
+     */
     public static List<Category> getAllCategories() {
         List<Category> categories = new ArrayList<>();
         String sql = "SELECT * FROM categories";
@@ -36,6 +46,12 @@ public class CategoryDAO {
         return categories;
     }
 
+    /**
+     * Updates the name of a category in the database.
+     *
+     * @param oldName The current name of the category.
+     * @param newName The new name for the category.
+     */
     public static void updateCategory(String oldName, String newName) {
         String sql = "UPDATE categories SET name = ? WHERE name = ?";
         try (Connection conn = JDBCTool.getConnection();
@@ -48,6 +64,11 @@ public class CategoryDAO {
         }
     }
 
+    /**
+     * Deletes a category from the database.
+     *
+     * @param name The name of the category to be deleted.
+     */
     public static void deleteCategory(String name) {
         String sql = "DELETE FROM categories WHERE name = ?";
         try (Connection conn = JDBCTool.getConnection();
