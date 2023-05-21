@@ -12,10 +12,9 @@
     }
 %>
 
-<%--recv session msg--%>
+<%--set referenced--%>
 <%
-    Person person = (Person) session.getAttribute("person");
-    Boolean login_status = (Boolean) session.getAttribute("login_status");
+    session.setAttribute("referenced", "shop.jsp");
 %>
 
 <%--session outdate--%>
@@ -30,6 +29,29 @@
     session.setMaxInactiveInterval(1800);
 %>
 
+<%--recv session msg--%>
+<%
+    Person person = (Person) session.getAttribute("person");
+    Boolean login_status = (Boolean) session.getAttribute("login_status");
+    String referenced = (String) session.getAttribute("referenced");
+%>
+
+<%--session invalid--%>
+<%
+    if (person == null){
+        response.sendRedirect("login.jsp");
+        return;
+    }
+    if (person.getType()!= 1 && person.getType()!=0){
+        response.sendRedirect("login.jsp");
+        return;
+    }
+    if (!login_status){
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
+
 <%--recv parameters--%>
 <%
     String keyword = request.getParameter("keyword");
@@ -37,21 +59,39 @@
     String category_str = request.getParameter("category_str");
     String create_category_name = request.getParameter("create_category_name");
     String delete_category_name = request.getParameter("delete_category_name");
+    String add_transaction_number_str = request.getParameter("add_transaction_number");
+    String add_transaction_cid_str = request.getParameter("add_transaction_cid");
 %>
 
-<%--check parameters invalid--%>
+<%--NullPointerException && NumberFormatException--%>
 <%
     int page_num = 1;
     int category_num = 1;
+    int add_transaction_number = -1;
+    int add_transaction_cid = -1;
     try {
         page_num = Integer.parseInt(page_str);
-    } catch (Exception e) {
+    } catch (Exception ignored) {
 
     }
     try {
         category_num = Integer.parseInt(category_str);
-    } catch (Exception e) {
+    } catch (Exception ignored) {
     }
+
+    try {
+        add_transaction_number = Integer.parseInt(add_transaction_number_str);
+    } catch (Exception ignored) {
+    }
+
+    try {
+        add_transaction_cid = Integer.parseInt(add_transaction_cid_str);
+    } catch (Exception ignored) {
+    }
+%>
+
+<%--check parameters invalid--%>
+<%
 
 %>
 
@@ -65,39 +105,13 @@
         CategoryDAO.deleteCategory(delete_category_name);
     }
 
-%>
-
-<%--change session msg by param--%>
-<%
-    int user_type = -1;
-%>
-
-<%--check session msg--%>
-<%
-    if (person == null) {
-        response.sendRedirect("login.jsp");
-    } else if (!login_status) {
-        response.sendRedirect("login.jsp");
-    } else if (person.getType() == 0 || person.getType() == 1) {
-        user_type = person.getType();
+    if (add_transaction_cid>0 && add_transaction_number>0){
+        TransactionDAO.addTransaction(add_transaction_cid,person.getId(), add_transaction_number);
     }
 
 %>
 
-<%--change session--%>
-<%
-    session.setAttribute("referenced", "shop");
-%>
-
 <%--pre-action--%>
-<%
-
-%>
-
-<%--页面事件--%>
-<%--========================================================================================================================================--%>
-
-<%--初始化--%>
 <%
     List<Category> categories = CategoryDAO.getAllCategories();
     List<Commodity> commodities = null;
@@ -106,6 +120,9 @@
     else
         commodities = CommodityDAO.getCommoditiesByCategory(keyword, page_num);
 %>
+
+<%--页面事件--%>
+<%--========================================================================================================================================--%>
 
 
 <html>
@@ -134,7 +151,7 @@
                     <input type="hidden" name="category_str" value="<%=i+1%>">
                     <button type="submit"><span><%=category.getName()%></span><br></button>
                 </form>
-                <% if (user_type == 0) {%>
+                <% if (person.getType() == 0) {%>
                 <form action="shop.jsp" method="post">
                     <input type="hidden" name="delete_category_name" value="<%=category.getName()%>">
                     <input type="submit" value="Delete">
@@ -144,7 +161,7 @@
 
             <%}%>
 
-            <% if (user_type == 0) {%>
+            <% if (person.getType() == 0) {%>
             <form action="shop.jsp" method="post">
                 <label> Category:name
                     <input type="text" name="create_category_name">
@@ -181,7 +198,7 @@
             <div class="item_box" id="item_box1">
                 <div class="item_left_box">
                     <%=commodity.getCategory()%> <br>
-                    <% if (user_type == 0) { %>
+                    <% if (person.getType() == 0) { %>
                     <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>">edit</a>
                     <% } %>
                 </div>
@@ -191,17 +208,31 @@
 
                     </div>
                     <div class="item_bottom_box">
+                        <% if (person.getType() == 0) { %>
                         Cid: <%=commodity.getCid()%> <br>
+                        <% } %>
                     </div>
                 </div>
                 <div class="item_right_box">
                     <span class="price">
                         ¥ <%=commodity.getPrice()%> <br>
                     </span>
-
+                    <% if (person.getType() == 0) { %>
                     <span class="stock">
                         Stock: <%=commodity.getStock()%> <br>
                     </span>
+                    <% } else { %>
+                    <form class="stock" action="shop.jsp" method="post">
+                        <input type="number" name="add_transaction_number" min="1" max="<%=commodity.getStock()%>" step="1" placeholder="0">
+                        <input type="hidden" name="category_str" value="<%=category_num%>">
+                        <input type="hidden" name="page_num" value="<%=page_num%>">
+                        <%if (keyword != null) {%>
+                        <input type="hidden" name="keyword" value="<%=keyword%>">
+                        <%}%>
+                        <input type="hidden" name="add_transaction_cid" value="<%=commodity.getCid()%>">
+                        <input type="submit" value="add">
+                    </form>
+                    <% } %>
                 </div>
             </div>
             <% } %>
@@ -246,13 +277,13 @@
         <div class="user_type">
             usertype:
             <br>
-            <%=user_type==1?"customer":"admin"%>
+            <%=person.getType()==1?"customer":"admin"%>
         </div>
         <br>
 
         <div class="shopping_car">
             <%
-                if (user_type == 1) {
+                if (person.getType() == 1) {
             %>
             <a href="shopping_car.jsp">
                 <img src="img/shopping_car.jpg" alt="购物车" height="50" width="50">
