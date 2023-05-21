@@ -56,22 +56,19 @@
     String user_type = request.getParameter("user_type");
 %>
 
-<%--parameters invalid--%>
+<%--NullPointerException && NumberFormatException--%>
 <%
-    if (login_status) {
-        session.setAttribute("login_status", true);
-        response.sendRedirect("shop.jsp");
-    }
+
 %>
 
-<%--NullPointerException && NumberFormatException--%>
+<%--parameters invalid--%>
 <%
 
 %>
 
 <%--parameters react--%>
 <%
-    if (user_type == null){
+    if (user_type != null){
 //        管理员登陆
         if (user_type.equals("admin")) {
 //            密码正确
