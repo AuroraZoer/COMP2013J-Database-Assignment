@@ -1,8 +1,6 @@
-<%@ page import="dataNoBase.User" %>
-<%@ page import="dataNoBase.Person" %>
 <%@ page import="java.util.List" %>
-<%@ page import="dataNoBase.Transaction" %>
-<%@ page import="dataNoBase.TransactionDAO" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="dataNoBase.*" %><%--
   Created by IntelliJ IDEA.
   User: 张子毅
   Date: 2023/4/24
@@ -62,9 +60,10 @@
 <%--recv parameters--%>
 <%
     String page_str = request.getParameter("page_num");
-    String keyword = request.getParameter("keyword");
-    String delete_cid = request.getParameter("delete_cid");
-    String
+    String keyword_str = request.getParameter("keyword");
+    String delete_tid_str = request.getParameter("delete_cid");
+    String modify_tid_str = request.getParameter("modify_tid");
+    String modify_str = request.getParameter("modify_num");
 %>
 
 <%--NullPointerException && NumberFormatException--%>
@@ -73,11 +72,32 @@
     try {
         page_num = Integer.parseInt(page_str);
     } catch (Exception ignored) {}
+    int delete_tid = -1;
+    try {
+        delete_tid = Integer.parseInt(delete_tid_str);
+    } catch (Exception ignored) {}
+    int modify_tid = -1;
+    try {
+        modify_tid = Integer.parseInt(modify_tid_str);
+    } catch (Exception ignored) {}
+    int modify_num = -1;
+    try {
+        modify_num = Integer.parseInt(modify_str);
+    } catch (Exception ignored) {}
+    int keyword = -1;
+    try {
+        keyword = Integer.parseInt(keyword_str);
+    } catch (Exception ignored) {}
 %>
 
 <%--parameters react--%>
 <%
-
+    if (delete_tid != -1){
+        TransactionDAO.deleteTransaction(delete_tid);
+    }
+    if (modify_tid != -1){
+        TransactionDAO.updateTransactionQuantity(modify_tid, modify_num);
+    }
 %>
 
 <%--check parameters invalid--%>
@@ -92,7 +112,14 @@
 
 <%--pre-action--%>
 <%
-    List<Transaction> transactions = TransactionDAO.getUserTransactions(user.getId(), page_num)
+    List<Transaction> transactions;
+    
+    if (keyword==-1){
+        transactions = TransactionDAO.getUserTransactions(user.getId(), page_num);
+    }else {
+        transactions = new ArrayList<Transaction>();
+        transactions.add(TransactionDAO.getTransactionById(keyword));
+    }
 %>
 
 <%--页面事件--%>
@@ -103,51 +130,12 @@
 <head>
     <title>Shop</title>
     <link rel="stylesheet" href="css/shop.css">
-    <style>
-        #cate<%=category_num%> {
-            /*    高亮显示span*/
-        }
-    </style>
 
 
 </head>
 <body>
 
 <div class="whole">
-    <div class="left_box">
-        <div class="left_box_item">
-            <%
-                for (int i = 0; i < categories.size(); i++) {
-                    Category category = categories.get(i);
-            %>
-            <div>
-                <form action="shop.jsp" method="post">
-                    <input type="hidden" name="category_str" value="<%=i+1%>">
-                    <button type="submit"><span><%=category.getName()%></span><br></button>
-                </form>
-                <% if (user_type == 0) {%>
-                <form action="shop.jsp" method="post">
-                    <input type="hidden" name="delete_category_name" value="<%=category.getName()%>">
-                    <input type="submit" value="Delete">
-                </form>
-                <%}%>
-            </div>
-
-            <%}%>
-
-            <% if (user_type == 0) {%>
-            <form action="shop.jsp" method="post">
-                <label> Category:name
-                    <input type="text" name="create_category_name">
-                </label>
-                <button type="submit">add</button>
-            </form>
-
-            <a href="manage.jsp">Click here to manage users</a>
-            <%}%>
-        </div>
-    </div>
-
     <div class="mid_box">
         <div class="top_box">
             <div class="outer_search_box">
@@ -168,40 +156,42 @@
             </div>
         </div>
         <div class="main_box">
-            <% for (Commodity commodity : commodities) { %>
+            <% for (Transaction transaction : transactions) {
+                Commodity commodity = CommodityDAO.get(transaction.getCid())
+            %>
             <div class="item_box" id="item_box1">
                 <div class="item_left_box">
-                    <%=commodity.getCategory()%> <br>
+                    <%=transaction.getCid()%> <br>
                     <% if (user_type == 0) { %>
-                    <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>">edit</a>
+                    <a href="transaction_admin.jsp?category=<%=transaction.getCategory()%>&cid=<%=transaction.getCid()%>&name=<%=transaction.getItemName()%>&price=<%=transaction.getPrice()%>&stock=<%=transaction.getStock()%>">edit</a>
                     <% } %>
                 </div>
                 <div class="item_mid_box">
                     <div class="item_top_box">
-                        <%=commodity.getItemName()%> <br>
+                        <%=transaction.getItemName()%> <br>
 
                     </div>
                     <div class="item_bottom_box">
                         <% if (user_type == 0) { %>
-                        Cid: <%=commodity.getCid()%> <br>
+                        Cid: <%=transaction.getCid()%> <br>
                         <% } %>
                     </div>
                 </div>
                 <div class="item_right_box">
                     <span class="price">
-                        ¥ <%=commodity.getPrice()%> <br>
+                        ¥ <%=transaction.getPrice()%> <br>
                     </span>
                     <% if (user_type == 0) { %>
                     <span class="stock">
-                        Stock: <%=commodity.getStock()%> <br>
+                        Stock: <%=transaction.getStock()%> <br>
                     </span>
                     <% } else { %>
                     <form action="shop.jsp" method="post">
-                        <input type="number" name="add_commodity_number" min="1" max="<%=commodity.getStock()%>" step="1">
+                        <input type="number" name="add_transaction_number" min="1" max="<%=transaction.getStock()%>" step="1">
                         <input type="hidden" name="category_str" value="<%=category_num%>">
                         <input type="hidden" name="page_num" value="<%=page_num%>">
                         <input type="hidden" name="keyword" value="<%=keyword%>">
-                        <input type="hidden" name="add_commodity_cid" value="<%=commodity.getCid()%>">
+                        <input type="hidden" name="add_transaction_cid" value="<%=transaction.getCid()%>">
                         <input type="submit" value="add">
                     </form>
                     <% } %>
@@ -225,7 +215,7 @@
             <div class="next_page">
                 <form action="shop.jsp" method="post">
                     <input type="hidden" name="category_str" value="<%=category_num%>">
-                    <input type="hidden" name="page_num" value="<%=commodities.size()<10?page_num:page_num+1 %>">
+                    <input type="hidden" name="page_num" value="<%=transactions.size()<10?page_num:page_num+1 %>">
                     <%if (keyword != null) {%>
                     <input type="hidden" name="keyword" value="<%=keyword%>">
                     <%}%>
