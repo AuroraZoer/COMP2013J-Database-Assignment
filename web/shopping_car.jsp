@@ -49,7 +49,7 @@
         return;
     }
     if (user.getType()!=1){
-        response.sendRedirect(referenced);
+        response.sendRedirect("shop.jsp");
     }
     if (!login_status){
         response.sendRedirect("login.jsp");
@@ -61,7 +61,7 @@
 <%
     String page_str = request.getParameter("page_num");
     String keyword_str = request.getParameter("keyword");
-    String delete_tid_str = request.getParameter("delete_cid");
+    String delete_tid_str = request.getParameter("delete_tid");
     String modify_tid_str = request.getParameter("modify_tid");
     String modify_str = request.getParameter("modify_num");
 %>
@@ -95,19 +95,9 @@
     if (delete_tid != -1){
         TransactionDAO.deleteTransaction(delete_tid);
     }
-    if (modify_tid != -1){
+    if (modify_tid != -1 && modify_num >0){
         TransactionDAO.updateTransactionQuantity(modify_tid, modify_num);
     }
-%>
-
-<%--check parameters invalid--%>
-<%
-
-%>
-
-<%--change session--%>
-<%
-    session.setAttribute("referenced", "shopping_car.jsp");
 %>
 
 <%--pre-action--%>
@@ -128,7 +118,7 @@
 
 <html>
 <head>
-    <title>Shop</title>
+    <title>Shopping Car</title>
     <link rel="stylesheet" href="css/shop.css">
 
 
@@ -143,7 +133,7 @@
                     Please enter the category of the product you wish to search for:
                 </div>
                 <div class="right_input_box">
-                    <form action="shop.jsp" method="get">
+                    <form action="shopping_car.jsp" method="get">
                         <div class="input_wrapper">
                             <input type="input_search" name="keyword" width="80000px" height="50px" spellcheck="false"
                                    placeholder="Drink">
@@ -157,44 +147,38 @@
         </div>
         <div class="main_box">
             <% for (Transaction transaction : transactions) {
-                Commodity commodity = CommodityDAO.get(transaction.getCid())
+                Commodity commodity = CommodityDAO.getCommodityByCid(transaction.getCid());
             %>
             <div class="item_box" id="item_box1">
                 <div class="item_left_box">
-                    <%=transaction.getCid()%> <br>
-                    <% if (user_type == 0) { %>
-                    <a href="transaction_admin.jsp?category=<%=transaction.getCategory()%>&cid=<%=transaction.getCid()%>&name=<%=transaction.getItemName()%>&price=<%=transaction.getPrice()%>&stock=<%=transaction.getStock()%>">edit</a>
-                    <% } %>
+                    <%=commodity.getCategory()%> <br>
                 </div>
                 <div class="item_mid_box">
                     <div class="item_top_box">
-                        <%=transaction.getItemName()%> <br>
+                        <%=commodity.getItemName()%> <br>
 
                     </div>
                     <div class="item_bottom_box">
-                        <% if (user_type == 0) { %>
-                        Cid: <%=transaction.getCid()%> <br>
-                        <% } %>
+
                     </div>
                 </div>
                 <div class="item_right_box">
                     <span class="price">
-                        ¥ <%=transaction.getPrice()%> <br>
+                        ¥ <%=commodity.getPrice()%> <br>
                     </span>
-                    <% if (user_type == 0) { %>
-                    <span class="stock">
-                        Stock: <%=transaction.getStock()%> <br>
-                    </span>
-                    <% } else { %>
-                    <form action="shop.jsp" method="post">
-                        <input type="number" name="add_transaction_number" min="1" max="<%=transaction.getStock()%>" step="1">
-                        <input type="hidden" name="category_str" value="<%=category_num%>">
+                    <form class="stock" action="shopping_car.jsp" method="post">
+                        <input type="number" name="add_transaction_number" min="1" max="<%=commodity.getStock()%>" step="1">
                         <input type="hidden" name="page_num" value="<%=page_num%>">
                         <input type="hidden" name="keyword" value="<%=keyword%>">
-                        <input type="hidden" name="add_transaction_cid" value="<%=transaction.getCid()%>">
-                        <input type="submit" value="add">
+                        <input type="hidden" name="add_transaction_cid" value="<%=transaction.getTid()%>">
+                        <input type="submit" value="modify">
                     </form>
-                    <% } %>
+                    <form action="shopping_car.jsp" method="post">
+                        <input type="hidden" name="page_num" value="<%=page_num%>">
+                        <input type="hidden" name="keyword" value="<%=keyword%>">
+                        <input type="hidden" name="delete_tid" value="<%=transaction.getTid()%>">
+                        <input type="submit" value="delete">
+                    </form>
                 </div>
             </div>
             <% } %>
@@ -202,10 +186,9 @@
 
         <div class="pagination_box">
             <div class="last_page">
-                <form action="shop.jsp" method="post">
-                    <input type="hidden" name="category_str" value="<%=category_num%>">
+                <form action="shopping_car.jsp" method="post">
                     <input type="hidden" name="page_num" value="<%=page_num<=1?1:page_num-1 %>">
-                    <%if (keyword != null) {%>
+                    <%if (keyword_str != null) {%>
                     <input type="hidden" name="keyword" value="<%=keyword%>">
                     <%}%>
                     <input type="submit" value="last page">
@@ -213,10 +196,9 @@
             </div>
 
             <div class="next_page">
-                <form action="shop.jsp" method="post">
-                    <input type="hidden" name="category_str" value="<%=category_num%>">
+                <form action="shopping_car.jsp" method="post">
                     <input type="hidden" name="page_num" value="<%=transactions.size()<10?page_num:page_num+1 %>">
-                    <%if (keyword != null) {%>
+                    <%if (keyword_str != null) {%>
                     <input type="hidden" name="keyword" value="<%=keyword%>">
                     <%}%>
                     <input type="submit" value="next page">
@@ -227,6 +209,7 @@
 
 
     <div class="right_box">
+        
         <%--    用户界面--%>
         <div class="user">
             <a href="userMain.jsp">
@@ -236,42 +219,16 @@
         <br>
 
         <%--    购物车--%>
-        <div class="user_type">
-            usertype:
-            <br>
-            <%=user_type==1?"customer":"admin"%>
-        </div>
-        <br>
-
-        <div class="shopping_car">
-            <%
-                if (user_type == 1) {
-            %>
-            <a href="shopping_car.jsp">
-                <img src="img/shopping_car.jpg" alt="购物车" height="50" width="50">
+        <div>
+            <a href="shop.jsp">
+                <span>返回商城：</span>
+                <img src="img/shop.jpg" alt="商城" width="50" height="50">
             </a>
-            <%}%>
         </div>
 
     </div>
 </div>
 
-
-</body>
-</html>
-
-<html>
-<head>
-    <title>shopping_car</title>
-</head>
-<body>
-
-<div>
-    <a href="shop.jsp">
-        <span>返回商城：</span>
-        <img src="img/shop.jpg" alt="商城" width="50" height="50">
-    </a>
-</div>
 
 </body>
 </html>
