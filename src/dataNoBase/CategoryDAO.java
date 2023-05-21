@@ -15,7 +15,7 @@ public class CategoryDAO {
      * @param category The Category object representing the category to be inserted.
      */
     public static void insertCategory(Category category) {
-        String sql = "INSERT INTO categories (name) VALUES (?)";
+        String sql = "INSERT INTO categories (category) VALUES (?)";
         try (Connection conn = JDBCTool.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, category.getName());
@@ -37,7 +37,7 @@ public class CategoryDAO {
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
-                String name = rs.getString("name");
+                String name = rs.getString("category");
                 categories.add(new Category(name));
             }
         } catch (SQLException e) {
@@ -53,7 +53,7 @@ public class CategoryDAO {
      * @param newName The new name for the category.
      */
     public static void updateCategory(String oldName, String newName) {
-        String sql = "UPDATE categories SET name = ? WHERE name = ?";
+        String sql = "UPDATE categories SET category = ? WHERE category = ?";
         try (Connection conn = JDBCTool.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, newName);
@@ -70,7 +70,7 @@ public class CategoryDAO {
      * @param name The name of the category to be deleted.
      */
     public static void deleteCategory(String name) {
-        String sql = "DELETE FROM categories WHERE name = ?";
+        String sql = "DELETE FROM categories WHERE category = ?";
         try (Connection conn = JDBCTool.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, name);
