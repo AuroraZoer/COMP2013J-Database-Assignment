@@ -118,4 +118,31 @@ public class CommodityDAO {
         return commodities;
     }
 
+    /**
+     * Retrieves a commodity by its ID.
+     *
+     * @param cid The ID of the commodity to retrieve.
+     * @return The Commodity object if found, null otherwise.
+     */
+    public static Commodity getCommodityByCid(int cid) {
+        String sql = "SELECT * FROM commodity WHERE cid = ?";
+        try (Connection conn = JDBCTool.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, cid);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    String itemName = rs.getString("itemName");
+                    String category = rs.getString("category");
+                    float price = rs.getFloat("price");
+                    int stock = rs.getInt("stock");
+                    return new Commodity(cid, itemName, category, price, stock);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 }
