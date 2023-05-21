@@ -15,23 +15,12 @@
 <%--=========================================================================================================================================--%>
 <%--no session--%>
 <%
-    if (session.isNew()) {
-        response.sendRedirect("login.jsp");
-        return;
-    }
-%>
 
-<%--set referenced--%>
-<%
-    session.setAttribute("referenced", "login.jsp");
 %>
 
 <%--session outdate--%>
 <%
-    if (session.getMaxInactiveInterval() < 0) {
-        response.sendRedirect("login.jsp");
-        return;
-    }
+
 %>
 
 <%--session update--%>
@@ -74,7 +63,10 @@
 //            密码正确
             if (AdminDAO.isPasswordCorrect(username, password)) {
                 session.setAttribute("person", AdminDAO.getAdminByUsername(username));
-                session.setAttribute("test", 1);
+                session.setAttribute("login_status", true);
+                session.setAttribute("referenced", "login.jsp");
+                response.sendRedirect("shop.jsp");
+                return;
             }
         }
 //        用户登录
@@ -82,7 +74,10 @@
 //            密码正确
             if (UserDAO.isPasswordCorrect(username, password)) {
                 session.setAttribute("person", UserDAO.getUserByUsername(username));
-                session.setAttribute("test", 1);
+                session.setAttribute("login_status", true);
+                session.setAttribute("referenced", "login.jsp");
+                response.sendRedirect("shop.jsp");
+                return;
             }
         }
     }
@@ -127,6 +122,8 @@
         <a href="create_account.jsp">Click to create an account</a>
     </div>
 </div>
+<%=user_type%>
+<%=AdminDAO.isPasswordCorrect(username, password)%>
 
 </body>
 </html>
