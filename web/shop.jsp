@@ -191,17 +191,29 @@
 
                     </div>
                     <div class="item_bottom_box">
+                        <% if (user_type == 0) { %>
                         Cid: <%=commodity.getCid()%> <br>
+                        <% } %>
                     </div>
                 </div>
                 <div class="item_right_box">
                     <span class="price">
                         ¥ <%=commodity.getPrice()%> <br>
                     </span>
-
+                    <% if (user_type == 0) { %>
                     <span class="stock">
                         Stock: <%=commodity.getStock()%> <br>
                     </span>
+                    <% } else { %>
+                    <form action="shop.jsp" method="post">
+                        <input type="number" name="add_commodity_number" min="1" max="<%=commodity.getStock()%>" step="1">
+                        <input type="hidden" name="category_str" value="<%=category_num%>">
+                        <input type="hidden" name="page_num" value="<%=page_num%>">
+                        <input type="hidden" name="keyword" value="<%=keyword%>">
+                        <input type="hidden" name="add_commodity_cid" value="<%=commodity.getCid()%>">
+                        <input type="submit" value="add">
+                    </form>
+                    <% } %>
                 </div>
             </div>
             <% } %>
