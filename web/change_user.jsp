@@ -64,8 +64,9 @@
     email = email == null? "":email;
     password = password == null? "":password;
     back = true;
-  }if (type!=0 && type!=1){
-    back = true;
+  }if (type!=0 && type!=1) {
+  back = true;
+  }
   if (action==null){
     status = false;
   }else if (!action.equals("delete") && !action.equals("create") && !action.equals("modify")) {
@@ -174,14 +175,6 @@
   <input type="hidden" name="name" value="<%=name%>">
   <input type="submit" value="confirm">
 </form>
-
-<%=name%>
-<%=new_name%>
-
-<%=email%>
-<%=action%>
-<%=type%>
-
 
 </body>
 </html>
