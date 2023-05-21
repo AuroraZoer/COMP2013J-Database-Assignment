@@ -20,7 +20,6 @@
   Admin admin = (Admin) session.getAttribute("person");
   Boolean login_status = (Boolean) session.getAttribute("login_status");
   String referenced = (String) session.getAttribute("referenced");
-  boolean back = false;
   boolean status = true;
 %>
 
@@ -28,6 +27,7 @@
 <%
   if (session.getMaxInactiveInterval() < 0) {
     response.sendRedirect("login.jsp");
+    return;
   }
 %>
 
@@ -60,12 +60,12 @@
   
 
   if (name == null || email==null || password==null) {
-    name = name == null? "":name;
-    email = email == null? "":email;
-    password = password == null? "":password;
-    back = true;
-  }if (type!=0 && type!=1){
-    back = true;
+    response.sendRedirect("manage.jsp");
+    return;
+  }if (type!=0 && type!=1) {
+    response.sendRedirect("manage.jsp");
+    return;
+  }
   if (action==null){
     status = false;
   }else if (!action.equals("delete") && !action.equals("create") && !action.equals("modify")) {
@@ -84,10 +84,12 @@
 <%--check session msg--%>
 <%
   if (admin == null) {
-//    back = true;
+    response.sendRedirect("manage.jsp");
+    return;
   }
   if (!login_status) {
-//    back = true;
+    response.sendRedirect("manage.jsp");
+    return;
   }
 %>
 
@@ -98,11 +100,6 @@
 
 <%--pre-action--%>
 <%
-//  if (back){
-//    response.sendRedirect("manage.jsp");
-//    return;
-//  }
-
   if (status) {
     switch (action) {
       case "create":
@@ -174,14 +171,6 @@
   <input type="hidden" name="name" value="<%=name%>">
   <input type="submit" value="confirm">
 </form>
-
-<%=name%>
-<%=new_name%>
-
-<%=email%>
-<%=action%>
-<%=type%>
-
 
 </body>
 </html>

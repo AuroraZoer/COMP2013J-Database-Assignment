@@ -3,22 +3,39 @@
 <%@ page import="dataNoBase.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%--
+  Created by IntelliJ IDEA.
+  User: 张子毅
+  Date: 2023/4/18
+  Time: 13:47
+  To change this template use File | Settings | File Templates.
+--%>
+
 <%--session事件--%>
 <%--=========================================================================================================================================--%>
 <%--no session--%>
 <%
-%>
 
-<%--recv session msg--%>
-<%
-    Boolean login_status = true;
 %>
 
 <%--session outdate--%>
 <%
-    if (session.getMaxInactiveInterval() < 0) {
-        response.sendRedirect("login.jsp");
-    }
+
+%>
+
+<%--session update--%>
+<%
+    session.setMaxInactiveInterval(1800);
+%>
+
+<%--recv session msg--%>
+<%
+    String referenced = (String) session.getAttribute("referenced");
+%>
+
+<%--session invalid--%>
+<%
+
 %>
 
 <%--recv parameters--%>
@@ -28,47 +45,42 @@
     String user_type = request.getParameter("user_type");
 %>
 
+<%--NullPointerException && NumberFormatException--%>
+<%
+
+%>
+
+<%--parameters invalid--%>
+<%
+
+%>
+
 <%--parameters react--%>
 <%
-    if (username == null || password == null || user_type == null) {
-        login_status = false;
-    }
-%>
-
-<%--check parameters invalid--%>
-<%
-    if (login_status) {
+    if (user_type != null){
+//        管理员登陆
         if (user_type.equals("admin")) {
+//            密码正确
             if (AdminDAO.isPasswordCorrect(username, password)) {
                 session.setAttribute("person", AdminDAO.getAdminByUsername(username));
-                session.setAttribute("test", 1);
+                session.setAttribute("login_status", true);
+                session.setAttribute("referenced", "login.jsp");
+                response.sendRedirect("shop.jsp");
+                return;
             }
-        } else if (user_type.equals("customer")) {
+        }
+//        用户登录
+        else if (user_type.equals("customer")) {
+//            密码正确
             if (UserDAO.isPasswordCorrect(username, password)) {
                 session.setAttribute("person", UserDAO.getUserByUsername(username));
-                session.setAttribute("test", 1);
+                session.setAttribute("login_status", true);
+                session.setAttribute("referenced", "login.jsp");
+                response.sendRedirect("shop.jsp");
+                return;
             }
-        } else {
-            login_status = false;
         }
     }
-%>
-
-<%--change session msg by param--%>
-<%
-    if (login_status) {
-        session.setAttribute("login_status", true);
-        response.sendRedirect("shop.jsp");
-    }
-%>
-
-<%--check session msg--%>
-<%
-%>
-
-<%--change session--%>
-<%
-    session.setAttribute("referenced", "login");
 %>
 
 <%--pre-action--%>
@@ -110,6 +122,8 @@
         <a href="create_account.jsp">Click to create an account</a>
     </div>
 </div>
+<%=user_type%>
+<%=AdminDAO.isPasswordCorrect(username, password)%>
 
 </body>
 </html>
