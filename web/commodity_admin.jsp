@@ -1,13 +1,7 @@
 <%@ page import="dataNoBase.Admin" %>
 <%@ page import="dataNoBase.CommodityDAO" %>
 <%@ page import="dataNoBase.Commodity" %>
-<%@ page import="dataNoBase.Person" %><%--
-  Created by IntelliJ IDEA.
-  User: zzy13
-  Date: 2023/5/17
-  Time: 21:14
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="dataNoBase.Person" %>
 
 <%--session事件--%>
 <%--=========================================================================================================================================--%>
@@ -134,44 +128,50 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Edit commodity</title>
+    <link rel="stylesheet" href="css/commodity_admin.css">
 </head>
 <body>
-
+<div class="container">
 <form action="commodity_admin.jsp">
+    <div class="line">
     <label>Category:
         <input type="text" name="category" value="<%=category%>">
     </label>
-    <br>
-    <label>Name
+    </div>
+    <div class="line">
+    <label>Name:
         <input type="text" name="name" value="<%=name%>">
     </label>
-    <br>
-    <label>Cid
+    </div>
+    <div class="line">
+    <label>Cid:
         <input type="text" name="cid" value="<%=cid==-1?"":cid%>">
     </label>
-    <br>
-    <label>Price
+    </div>
+    <div class="line">
+    <label>Price:
         <input type="text" name="price" value="<%=price==-1F?"":price%>">
     </label>
-    <br>
-    <label>Stock
+    </div>
+    <div class="line">
+    <label>Stock:
         <input type="text" name="stock" value="<%=stock==-1?"":stock%>">
     </label>
-    <br>
+    </div>
+    <div class="line">
     <label>Delete
         <input type="radio" name="action" value="delete">
     </label>
     <label>Create
         <input type="radio" name="action" value="create">
     </label>
-    <br>
     <label>Modify
         <input type="radio" name="action" value="modify">
     </label>
     <input type="submit" value="confirm">
+    </div>
 </form>
-
-
+</div>
 </body>
 </html>

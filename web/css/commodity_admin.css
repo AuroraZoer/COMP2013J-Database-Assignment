@@ -1,0 +1,21 @@
+body {
+    font-family: "Comic Sans MS", sans-serif;
+    background-image: url('../img/bg.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.container {
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.line {
+    margin-top: 5px;
+    padding: 5px;
+}
+
