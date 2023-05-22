@@ -64,7 +64,7 @@ body {
     width: 100%;
 }
 .left_input_box {
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .right_input_box {
@@ -112,7 +112,7 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 30px;
+    margin-top: 5px;
 }
 
 .user img,
@@ -147,7 +147,7 @@ img {
     gap: 5px;
 }
 .item_top_box {
-    font-size: 20px;
+    font-size: 22px;
     padding: 5px;
 }
 
@@ -201,3 +201,12 @@ img {
 .price {
     text-decoration: underline;
 }
+
+.price-wrapper {
+    margin-bottom: 10px;
+}
+
+.user_type {
+    text-align: center;
+}
+

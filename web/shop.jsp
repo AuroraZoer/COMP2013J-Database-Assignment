@@ -211,18 +211,14 @@
                 <div class="item_mid_box">
                     <div class="item_top_box">
                         <%=commodity.getItemName()%> <br>
-
-                    </div>
-                    <div class="item_bottom_box">
-                        <% if (person.getType() == 0) { %>
-                        Cid: <%=commodity.getCid()%> <br>
-                        <% } %>
                     </div>
                 </div>
                 <div class="item_right_box">
-                    <span class="price">
-                        ¥ <%=commodity.getPrice()%> <br>
-                    </span>
+                    <div class="price-wrapper">
+        <span class="price">
+            ¥ <%=commodity.getPrice()%> <br>
+        </span>
+                    </div>
                     <% if (person.getType() == 0) { %>
                     <span class="stock">
                         Stock: <%=commodity.getStock()%> <br>
@@ -277,16 +273,11 @@
                 <img src="img/user_icon.jpg" alt="用户" height="50" width="50">
             </a>
         </div>
-        <br>
-
-        <%--    购物车--%>
         <div class="user_type">
-            usertype:
-            <br>
             <%=person.getType()==1?"customer":"admin"%>
         </div>
         <br>
-
+        <%--    购物车--%>
         <div class="shopping_car">
             <%
                 if (person.getType() == 1) {
@@ -296,10 +287,15 @@
             </a>
             <%}%>
         </div>
-
+        <%
+            if (person.getType() == 1) {
+        %>
+        <div class="user_type">
+            shopping cart
+        </div>
+        <%}%>
     </div>
 </div>
-
 
 </body>
 </html>
