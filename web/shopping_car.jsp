@@ -1,5 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="dataNoBase.Person" %>
 <%@ page import="dataNoBase.*" %><%--
   Created by IntelliJ IDEA.
   User: 张子毅
@@ -59,6 +60,7 @@
 
 <%--recv parameters--%>
 <%
+    Person person = (Person) session.getAttribute("person");
     String page_str = request.getParameter("page_num");
     String keyword_str = request.getParameter("keyword");
     String delete_tid_str = request.getParameter("delete_tid");
@@ -127,32 +129,14 @@
 <html>
 <head>
     <title>Shopping Car</title>
-    <link rel="stylesheet" href="css/shop.css">
-
+    <link rel="stylesheet" href="css/shopping_car.css">
 
 </head>
 <body>
 
 <div class="whole">
     <div class="mid_box">
-        <div class="top_box">
-            <div class="outer_search_box">
-                <div class="left_input_box">
-                    Please enter the category of the product you wish to search for:
-                </div>
-                <div class="right_input_box">
-                    <form action="shopping_car.jsp" method="get">
-                        <div class="input_wrapper">
-                            <input type="input_search" name="keyword" width="80000px" height="50px" spellcheck="false"
-                                   placeholder="Drink">
-                            <button type="submit">
-                                <img src="img/search_icon.png" alt="搜索" width="40px" height="40px">
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+        <div class="intro_text">Welcome <%=person.getName()%>, this is your shopping cart:</div>
         <div class="main_box">
             <% for (Transaction transaction : transactions) {
                 Commodity commodity = CommodityDAO.getCommodityByCid(transaction.getCid());
@@ -180,12 +164,14 @@
                             <input type="submit" value="pay">
                         </form>
                     </div>
+                </div>
                 <div class="item_right_box">
                     <span class="price">
                         ¥ <%=commodity.getPrice()%> <br>
                     </span>
                     <form class="stock" action="shopping_car.jsp" method="post">
-                        <input type="number" name="add_transaction_number" min="1" max="<%=commodity.getStock()%>" step="1" placeholder="<%=transaction.getQuantity()%>">
+                        <input type="number" name="add_transaction_number" min="1" max="<%=commodity.getStock()%>"
+                               step="1" placeholder="<%=transaction.getQuantity()%>">
                         <input type="hidden" name="page_num" value="<%=page_num%>">
                         <%if (keyword_str != null) {%>
                         <input type="hidden" name="keyword" value="<%=keyword%>">
@@ -203,16 +189,15 @@
                     </form>
                 </div>
             </div>
-        </div>
             <% } %>
 
-        <div class="pagination_box">
-            <div class="last_page">
-                <form action="shopping_car.jsp" method="post">
-                    <input type="hidden" name="page_num" value="<%=page_num<=1?1:page_num-1 %>">
-                    <%if (keyword_str != null) {%>
-                    <input type="hidden" name="keyword" value="<%=keyword%>">
-                    <%}%>
+            <div class="pagination_box">
+                <div class="last_page">
+                    <form action="shopping_car.jsp" method="post">
+                        <input type="hidden" name="page_num" value="<%=page_num<=1?1:page_num-1 %>">
+                        <%if (keyword_str != null) {%>
+                        <input type="hidden" name="keyword" value="<%=keyword%>">
+                        <%}%>
                     <input type="submit" value="last page">
 
                 </form>
