@@ -1,5 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="dataNoBase.Person" %>
 <%@ page import="dataNoBase.*" %><%--
   Created by IntelliJ IDEA.
   User: 张子毅
@@ -59,6 +60,7 @@
 
 <%--recv parameters--%>
 <%
+    Person person = (Person) session.getAttribute("person");
     String page_str = request.getParameter("page_num");
     String keyword_str = request.getParameter("keyword");
     String delete_tid_str = request.getParameter("delete_tid");
@@ -134,7 +136,7 @@
 
 <div class="whole">
     <div class="mid_box">
-        <div class="intro_text">This is your shopping cart:</div>
+        <div class="intro_text">Welcome <%=person.getName()%>, this is your shopping cart:</div>
         <div class="main_box">
             <% for (Transaction transaction : transactions) {
                 Commodity commodity = CommodityDAO.getCommodityByCid(transaction.getCid());

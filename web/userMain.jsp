@@ -1,4 +1,3 @@
-<%@ page import="dataNoBase.User" %>
 <%@ page import="dataNoBase.UserDAO" %>
 <%@ page import="dataNoBase.Person" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
