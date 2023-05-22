@@ -58,12 +58,14 @@
     if (user_logout!=null){
         session.removeAttribute("login_status");
         response.sendRedirect("login.jsp");
+        session.removeAttribute("person");
         return;
     }
 //    删除账户操作
     if (delete_account!=null && delete_account.equals("true")){
         UserDAO.deleteUserByUsername(person.getName());
-        session.setAttribute("login_status", false);
+        session.removeAttribute("login_status");
+        session.removeAttribute("person");
         response.sendRedirect("login.jsp");
         return;
     }
