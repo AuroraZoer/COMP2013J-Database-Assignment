@@ -81,9 +81,8 @@
 
 <html>
 <head>
+    <title><%=person.getName()%></title>
     <link rel="stylesheet" href="css/userMain.css">
-    <title><%=person.getName()%>
-    </title>
 </head>
 <body>
 <div class="container">
@@ -95,46 +94,42 @@
                 </button>
             </div>
         </form>
-
     </div>
-
-    <div>
-        <div>
+    <div class="text">
+        <div class="line">
             Welcome <%=person.getName()%>
         </div>
-        <div>
+        <div class="line">
             Identity: <%=person.getType()==1?"Admin":"Customer"%>
         </div>
-        <div>
+        <div class="line">
             Email: <%=person.getEmail()%>
         </div>
-        <div>
+        <div class="line">
             Cid: <%=person.getId()%>
         </div>
-
     </div>
 
 
 <%--    修改密码--%>
-    <div>
+    <div class="line">
         <a href="change_password.jsp">Click here to modify password</a>
     </div>
 
 
 <%--    退出登录按钮--%>
-    <div>
+    <div class="user_button">
         <form action="userMain.jsp" method="post">
             <input type="hidden" name="user_logout">
-            <button type="submit">退出登录</button>
+            <button type="submit">Log Out</button>
         </form>
     </div>
-
 <%--    删除账户按钮--%>
-    <div>
+    <div class="delete_button">
         <%if (person.getType()==1){%>
         <form action="userMain.jsp" method="post">
             <input type="hidden" name="delete_account" value="true">
-            <input type="submit" value="删除账户">
+            <input type="submit" value="Delete Account">
         </form>
         <%}%>
     </div>
