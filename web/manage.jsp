@@ -5,16 +5,8 @@
   Time: 10:39
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 <%@ page import="dataNoBase.*" %>
-<%@ page import="java.sql.Timestamp" %><%--
-  Created by IntelliJ IDEA.
-  User: 张子毅
-  Date: 2023/4/21
-  Time: 19:49
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%--session事件--%>
@@ -24,13 +16,6 @@
   if (session.isNew()) {
     response.sendRedirect("login.jsp");
   }
-%>
-
-<%--recv session msg--%>
-<%
-  Person person = (Person) session.getAttribute("person");
-  Boolean login_status = (Boolean) session.getAttribute("login_status");
-  String referenced = (String) session.getAttribute("referenced");
 %>
 
 <%--session outdate--%>
@@ -45,12 +30,18 @@
   session.setMaxInactiveInterval(1800);
 %>
 
+<%--recv session msg--%>
+<%
+  Person person = (Person) session.getAttribute("person");
+  Boolean login_status = (Boolean) session.getAttribute("login_status");
+  String referenced = (String) session.getAttribute("referenced");
+%>
+
 <%--recv parameters--%>
 <%
   String keyword = request.getParameter("keyword");
   String page_str = request.getParameter("page_num");
   String type = request.getParameter("type");
-  Boolean status = true;
 %>
 
 <%--check parameters invalid--%>
@@ -78,29 +69,21 @@
 <%--check session msg--%>
 <%
   if (person == null) {
+    session.setAttribute("referenced", "manage");
     response.sendRedirect("login.jsp");
+    return;
   } else if (!login_status) {
+    session.setAttribute("referenced", "manage");
     response.sendRedirect("login.jsp");
+    return;
   } else if (person.getType() != 0 && person.getType() != 1) {
+    session.setAttribute("referenced", "manage");
     response.sendRedirect("login.jsp");
+    return;
   }
 %>
 
-<%--change session--%>
-<%
-  session.setAttribute("referenced", "manage");
-
-%>
-
 <%--pre-action--%>
-<%
-
-%>
-
-<%--页面事件--%>
-<%--========================================================================================================================================--%>
-
-<%--初始化--%>
 <%
   List<Person> persons = null;
   if (type.equals("customer")) {
@@ -109,13 +92,10 @@
   else {
     persons = AdminDAO.getaAdminsByPage(page_num);
   }
-//  List<Commodity> commodities = null;
-//  if (keyword == null)
-//    commodities = CommodityDAO.getCommoditiesByCategory(categories.get(category_num - 1).getName(), page_num);
-//  else
-//    commodities = CommodityDAO.getCommoditiesByCategory(keyword, page_num);
 %>
 
+<%--页面事件--%>
+<%--========================================================================================================================================--%>
 
 <html>
 <head>
