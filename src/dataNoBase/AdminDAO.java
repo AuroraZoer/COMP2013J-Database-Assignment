@@ -78,4 +78,17 @@ public class AdminDAO {
         return persons;
     }
 
+    /**
+     * Updates the password for an admin in the database.
+     *
+     * @param adminName the username of the admin
+     * @param password  the new password
+     */
+    public static void updateAdminPassword(String adminName, String password) {
+        PersonDAO.setTableName("admin");
+        PersonDAO.setNameColumnName("admin_name");
+        PersonDAO.updatePassword(adminName, password);
+    }
+
+
 }
