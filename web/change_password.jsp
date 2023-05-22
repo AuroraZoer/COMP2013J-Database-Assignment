@@ -11,20 +11,18 @@
 <%--no session--%>
 <%
   if (session.isNew()){
+    session.setAttribute("referenced", "change_password.jsp");
     response.sendRedirect("login.jsp");
     return;
   }
 %>
 
-<%--set referenced--%>
-<%
-  session.setAttribute("referenced", "change_password.jsp");
-%>
-
 <%--session outdate--%>
 <%
   if (session.getMaxInactiveInterval() < 0) {
+    session.setAttribute("referenced", "change_password.jsp");
     response.sendRedirect("login.jsp");
+    return;
   }
 %>
 
@@ -71,7 +69,7 @@
 
 <%--parameters react--%>
 <%
-  if (confirm!=null && password!=null) {
+  if (confirm!=null && password!=null && confirm.equals("password")) {
     if (person.getType() == 0) {
       AdminDAO.deleteAdminByUsername(person.getName());
       AdminDAO.insertAdmin(new Admin(1, person.getName(), password, person.getEmail(), person.getCreateTime()));
@@ -81,6 +79,7 @@
       UserDAO.insertUser(new User(1, person.getName(), password, person.getEmail(), person.getCreateTime()));
       session.setAttribute("person", UserDAO.getUserByUsername(person.getName()));
     }
+    session.setAttribute("referenced", "change_password.jsp");
     response.sendRedirect("userMain.jsp");
     return;
   }
@@ -88,18 +87,7 @@
 
 <%--pre-action--%>
 <%
-  if (login_status){
-    if (person.getType()==0) {
-      AdminDAO.deleteAdminByUsername(person.getName());
-      AdminDAO.insertAdmin(new Admin(person.getId(), person.getName(), password, person.getEmail(), person.getCreateTime()));
-      session.setAttribute("person", AdminDAO.getAdminByUsername(person.getName()));
-    }else {
-      UserDAO.deleteUserByUsername(person.getName());
-      UserDAO.insertUser(new User(person.getId(), person.getName(), password, person.getEmail(), person.getCreateTime()));
-      session.setAttribute("person", UserDAO.getUserByUsername(person.getName()));
-    }
-      response.sendRedirect("userMain.jsp");
-  }
+
 %>
 
 <%--page--%>
@@ -126,9 +114,8 @@
         <input type="password" name="confirm" size="30" maxlength="20">
       </label><br>
 
-      <input type="submit" name="submit" value="Login">
+      <input type="submit" name="submit" value="Modify">
     </form>
-    <a href="create_account.jsp">Click to create an account</a>
   </div>
 </div>
 
