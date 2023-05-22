@@ -12,20 +12,17 @@
 <%--no session--%>
 <%
     if (session.isNew()) {
+        session.setAttribute("referenced", "shopping_car.jsp");
         response.sendRedirect("login.jsp");
         return;
     }
 %>
 
-<%--set referenced--%>
-<%
-    session.setAttribute("referenced", "shopping_car.jsp");
-%>
-
 <%--session outdate--%>
 <%
     if (session.getMaxInactiveInterval() < 0) {
-        session.setAttribute("login_status", "true");
+        session.setAttribute("referenced", "shopping_car.jsp");
+        response.sendRedirect("login.jsp");
     }
 %>
 
@@ -45,13 +42,16 @@
 <%--session invalid--%>
 <%
     if (user == null){
+        session.setAttribute("referenced", "shopping_car.jsp");
         response.sendRedirect("login.jsp");
         return;
     }
     if (user.getType()!=1){
-        response.sendRedirect("shop.jsp");
+        session.setAttribute("referenced", "shopping_car.jsp");
+        response.sendRedirect(referenced);
     }
     if (!login_status){
+        session.setAttribute("referenced", "shopping_car.jsp");
         response.sendRedirect("login.jsp");
         return;
     }

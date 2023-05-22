@@ -8,18 +8,15 @@
 <%--no session--%>
 <%
     if (session.isNew()) {
+        session.setAttribute("referenced", "shop.jsp");
         response.sendRedirect("login.jsp");
     }
-%>
-
-<%--set referenced--%>
-<%
-    session.setAttribute("referenced", "shop.jsp");
 %>
 
 <%--session outdate--%>
 <%
     if (session.getMaxInactiveInterval() < 0) {
+        session.setAttribute("referenced", "shop.jsp");
         response.sendRedirect("login.jsp");
     }
 %>
@@ -38,15 +35,21 @@
 
 <%--session invalid--%>
 <%
+//    用户不存在,返回登陆
     if (person == null){
+        session.setAttribute("referenced", "shop.jsp");
         response.sendRedirect("login.jsp");
         return;
     }
+//    用户信息异常,返回登录
     if (person.getType()!= 1 && person.getType()!=0){
+        session.setAttribute("referenced", "shop.jsp");
         response.sendRedirect("login.jsp");
         return;
     }
-    if (!login_status){
+//    登录状态异常,返回登录
+    if (login_status==null || !login_status){
+        session.setAttribute("referenced", "shop.jsp");
         response.sendRedirect("login.jsp");
         return;
     }
@@ -113,7 +116,10 @@
 
 <%--pre-action--%>
 <%
+//    类别列表
     List<Category> categories = CategoryDAO.getAllCategories();
+    
+//    商品列表
     List<Commodity> commodities = null;
     if (keyword == null)
         commodities = CommodityDAO.getCommoditiesByCategory(categories.get(category_num - 1).getName(), page_num);
