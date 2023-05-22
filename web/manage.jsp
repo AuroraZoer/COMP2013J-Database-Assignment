@@ -7,6 +7,7 @@
 --%>
 <%@ page import="java.util.List" %>
 <%@ page import="dataNoBase.*" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%--session事件--%>
@@ -60,12 +61,6 @@
   }
 %>
 
-
-<%--change session msg by param--%>
-<%
-
-%>
-
 <%--check session msg--%>
 <%
   if (person == null) {
@@ -85,12 +80,19 @@
 
 <%--pre-action--%>
 <%
-  List<Person> persons = null;
-  if (type.equals("customer")) {
-    persons =  UserDAO.getUsersByPage(page_num);
-  }
-  else {
-    persons = AdminDAO.getaAdminsByPage(page_num);
+  List<Person> persons = new ArrayList<>();
+  if (keyword==null) {
+    if (type.equals("customer")) {
+      persons = UserDAO.getUsersByPage(page_num);
+    } else {
+      persons = AdminDAO.getaAdminsByPage(page_num);
+    }
+  }else {
+      if (type.equals("customer")) {
+        persons.add(UserDAO.getUserByUsername(keyword));
+      } else {
+        persons.add(AdminDAO.getAdminByUsername(keyword));
+      }
   }
 %>
 

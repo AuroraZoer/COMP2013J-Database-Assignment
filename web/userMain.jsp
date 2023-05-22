@@ -57,6 +57,7 @@
 <%
 //    退出登录操作
     if (user_logout!=null){
+        session.removeAttribute("login_status");
         response.sendRedirect("login.jsp");
         return;
     }
