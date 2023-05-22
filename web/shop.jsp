@@ -235,6 +235,10 @@
         </div>
 
         <div class="pagination_box">
+            <div class="create_button">
+                create
+            </div>
+            <div class="page">
             <div class="last_page">
                 <form action="shop.jsp" method="post">
                     <input type="hidden" name="category_str" value="<%=category_num%>">
@@ -255,6 +259,7 @@
                     <%}%>
                     <input type="submit" value="next page">
                 </form>
+            </div>
             </div>
         </div>
     </div>
