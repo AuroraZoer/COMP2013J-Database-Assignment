@@ -76,4 +76,17 @@ public class UserDAO{
         List<Person> persons = PersonDAO.getPersonsByPage(pageNumber);
         return persons;
     }
+
+    /**
+     * Updates the password for a user in the database.
+     *
+     * @param username the username of the user
+     * @param password the new password
+     */
+    public static void updateUserPassword(String username, String password) {
+        PersonDAO.setTableName("user");
+        PersonDAO.setNameColumnName("username");
+        PersonDAO.updatePassword(username, password);
+    }
+
 }

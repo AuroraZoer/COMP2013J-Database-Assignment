@@ -178,4 +178,23 @@ public class PersonDAO {
         return persons;
     }
 
+    /**
+     * Updates the password for a person in the database.
+     *
+     * @param name     the name of the person
+     * @param password the new password
+     */
+    public static void updatePassword(String name, String password) {
+        String sql = "UPDATE " + tableName + " SET password = ? WHERE " + nameColumnName + " = ?";
+        try (Connection conn = JDBCTool.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, password);
+            pstmt.setString(2, name);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
