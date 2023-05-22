@@ -276,7 +276,6 @@
         <div class="user_type">
             <%=person.getType()==1?"customer":"admin"%>
         </div>
-        <br>
         <%--    购物车--%>
         <div class="shopping_car">
             <%

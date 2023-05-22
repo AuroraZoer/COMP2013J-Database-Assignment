@@ -1,13 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="dataNoBase.Person" %>
-<%@ page import="dataNoBase.*" %><%--
-  Created by IntelliJ IDEA.
-  User: 张子毅
-  Date: 2023/4/24
-  Time: 10:48
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="dataNoBase.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%--no session--%>
@@ -136,7 +130,7 @@
 
 <div class="whole">
     <div class="mid_box">
-        <div class="intro_text">Welcome <%=person.getName()%>, this is your shopping cart:</div>
+        <div class="intro_text">Welcome <%=person.getName()%>, this is your shopping cart !</div>
         <div class="main_box">
             <% for (Transaction transaction : transactions) {
                 Commodity commodity = CommodityDAO.getCommodityByCid(transaction.getCid());
@@ -151,7 +145,6 @@
                 <div class="item_mid_box">
                     <div class="item_top_box">
                         <%=commodity.getItemName()%> <br>
-
                     </div>
                     <div class="item_bottom_box">
                         <span><%=transaction.isPaid()?"is paid":"not paid"%></span>
@@ -217,22 +210,24 @@
     </div>
 
     <div class="right_box">
-
         <%--    用户界面--%>
         <div class="user">
             <a href="userMain.jsp">
                 <img src="img/user_icon.jpg" alt="用户" height="50" width="50">
             </a>
         </div>
-        <br>
-
-    <%--    购物车--%>
-        <div>
+        <div class="user_type">
+                <%=person.getType()==1?"customer":"admin"%>
+        </div>
+        <%--    购物车--%>
+        <div class="shopping_car">
             <a href="shop.jsp">
-                <span>返回商城：</span>
                 <img src="img/shop.jpg" alt="商城" width="50" height="50">
             </a>
         </div>
+            <div class="user_type">
+                shopping
+            </div>
     </div>
 </div>
 

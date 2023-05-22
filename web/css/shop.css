@@ -107,17 +107,25 @@ img {
     height: auto;
 }
 
-.user,
-.shopping_car {
+.right_box {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 5px;
+    text-align: center;
+}
+.user,
+.shopping_car {
+    margin-top: 15px;
 }
 
 .user img,
 .shopping_car img {
     cursor: pointer;
+}
+
+.user_type {
+    margin-top: 5px;
 }
 
 .main_box {
@@ -204,9 +212,5 @@ img {
 
 .price-wrapper {
     margin-bottom: 10px;
-}
-
-.user_type {
-    text-align: center;
 }
 
