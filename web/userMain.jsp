@@ -6,8 +6,24 @@
 <%--no session--%>
 <%
     if (session.isNew()){
+        session.setAttribute("referenced", "userMain.jsp");
         response.sendRedirect("login.jsp");
+        return;
     }
+%>
+
+<%--session outdate--%>
+<%
+    if (session.getMaxInactiveInterval()<0){
+        session.setAttribute("referenced", "userMain.jsp");
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
+
+<%--sessionn update--%>
+<%
+    session.setMaxInactiveInterval(1800);
 %>
 
 <%--recv session msg--%>
@@ -16,20 +32,19 @@
     Boolean login_status = (Boolean) session.getAttribute("login_status");
 %>
 
+<%--session invalid--%>
 <%
-
-%>
-
-<%--session outdate--%>
-<%
-    if (session.getMaxInactiveInterval()<0){
+//    用户信息错误，重新登陆
+    if (person == null){
+        session.setAttribute("referenced", "userMain.jsp");
         response.sendRedirect("login.jsp");
+        return;
     }
-%>
-
-<%--sessionn update--%>
-<%
-    session.setMaxInactiveInterval(1800);
+    if (login_status==null || !login_status){
+        session.setAttribute("referenced", "userMain.jsp");
+        response.sendRedirect("login.jsp");
+        return;
+    }
 %>
 
 <%--recv parameters--%>
@@ -40,42 +55,18 @@
 
 <%--parameters react--%>
 <%
+//    退出登录操作
     if (user_logout!=null){
         response.sendRedirect("login.jsp");
+        return;
     }
+//    删除账户操作
     if (delete_account!=null && delete_account.equals("true")){
         UserDAO.deleteUserByUsername(person.getName());
-        response.sendRedirect("login.jsp");
-    }
-%>
-
-<%--check parameters invalid--%>
-<%
-    if (user_logout!=null){
         session.setAttribute("login_status", false);
-    }
-%>
-
-<%--change session msg by param--%>
-<%
-    
-%>
-
-<%--check session msg--%>
-<%
-    if (person == null){
         response.sendRedirect("login.jsp");
         return;
     }
-    if (!login_status){
-        response.sendRedirect("login.jsp");
-        return;
-    }
-%>
-
-<%--change session--%>
-<%
-    session.setAttribute("referenced", "userMain.jsp");
 %>
 
 <%--pre-action--%>
@@ -85,12 +76,6 @@
 
 <%--页面事件--%>
 <%--========================================================================================================================================--%>
-
-<%--check parameters--%>
-<%
-    
-%>
-
 
 <html>
 <head>
@@ -106,17 +91,10 @@
 
 
     <div>
-        <form action="userMain.jsp" method="post">
-            <input type="hidden" name="user_logout">
-            <button type="submit">退出登录</button>
-        </form>
-</div>
-
-    <div>
         <form action="shop.jsp">
             <div>
                 <button>
-                    <img src="img/shop.jpg" alt="商店" height="50" , width="50">
+                    <img src="img/shop.jpg" alt="商店" height="50" width="50">
                 </button>
             </div>
         </form>
@@ -137,10 +115,24 @@
             Cid:<%=person.getId()%>
         </div>
 
-        <a href="change_password.jsp"></a>
-
     </div>
 
+
+<%--    修改密码--%>
+    <div>
+        <a href="change_password.jsp">Click here to modify password</a>
+    </div>
+
+
+<%--    退出登录按钮--%>
+    <div>
+        <form action="userMain.jsp" method="post">
+            <input type="hidden" name="user_logout">
+            <button type="submit">退出登录</button>
+        </form>
+    </div>
+
+<%--    删除账户按钮--%>
     <div>
         <%if (person.getType()==1){%>
         <form action="userMain.jsp" method="post">
