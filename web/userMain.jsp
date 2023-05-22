@@ -88,11 +88,6 @@
 <body>
 <div class="container">
     <div>
-        用户名：<%=person.getName()%><br>
-</div>
-
-
-    <div>
         <form action="shop.jsp">
             <div>
                 <button>
@@ -108,13 +103,13 @@
             Welcome <%=person.getName()%>
         </div>
         <div>
-            Identity:<%=person.getType()==1?"Admin":"Customer"%>
+            Identity: <%=person.getType()==1?"Admin":"Customer"%>
         </div>
         <div>
-            Email:<%=person.getEmail()%>
+            Email: <%=person.getEmail()%>
         </div>
         <div>
-            Cid:<%=person.getId()%>
+            Cid: <%=person.getId()%>
         </div>
 
     </div>
