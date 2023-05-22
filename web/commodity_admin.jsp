@@ -19,11 +19,6 @@
     }
 %>
 
-<%--set referenced--%>
-<%
-    session.setAttribute("referenced", "commodity_admin.jsp");
-%>
-
 <%--session outdate--%>
 <%
     if (session.getMaxInactiveInterval() < 0) {
@@ -41,20 +36,20 @@
     Person admin = (Person) session.getAttribute("person");
     boolean login_status = (boolean) session.getAttribute("login_status");
     String referenced = (String) session.getAttribute("referenced");
-//    boolean back = false;
-//    boolean finish = true;
 %>
 
 <%--session invalid--%>
 <%
     //登录状态不正常，重新登陆
     if (!login_status){
+        session.setAttribute("referenced", "commodity_admin");
         response.sendRedirect("login.jsp");
         return;
     }
 
 //    session获取不到用户信息，重新登录
     if (admin == null){
+        session.setAttribute("referenced", "commodity_admin");
         response.sendRedirect("login.jsp");
         return;
     }
