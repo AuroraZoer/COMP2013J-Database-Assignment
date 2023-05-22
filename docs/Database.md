@@ -166,7 +166,7 @@ VALUES
 	( 'eggplant', 'Vegetable', 3, 10 ),
 	( 'pork ribs', 'Meat', 19, 8 ),
 	( 'pork belly', 'Meat', 12.5, 20 ),
-	( 'pig' s foot', 'Meat', 8, 8 ),
+	( "pig' s foot", 'Meat', 8, 8 ),
 	( 'pork steak', 'Meat', 12.5, 8 ),
 	( 'pork chop', 'Meat', 11.5, 8 ),
 	( 'pork filling', 'Meat', 11, 7 ),
