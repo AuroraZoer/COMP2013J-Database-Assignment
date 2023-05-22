@@ -1,7 +1,13 @@
-<%@ page import="java.util.ArrayList" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: zzy13
+  Date: 2023/5/20
+  Time: 10:39
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page import="java.util.List" %>
 <%@ page import="dataNoBase.*" %>
-<%@ page import="java.sql.Timestamp" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%--session事件--%>
@@ -11,13 +17,6 @@
   if (session.isNew()) {
     response.sendRedirect("login.jsp");
   }
-%>
-
-<%--recv session msg--%>
-<%
-  Person person = (Person) session.getAttribute("person");
-  Boolean login_status = (Boolean) session.getAttribute("login_status");
-  String referenced = (String) session.getAttribute("referenced");
 %>
 
 <%--session outdate--%>
@@ -32,12 +31,18 @@
   session.setMaxInactiveInterval(1800);
 %>
 
+<%--recv session msg--%>
+<%
+  Person person = (Person) session.getAttribute("person");
+  Boolean login_status = (Boolean) session.getAttribute("login_status");
+  String referenced = (String) session.getAttribute("referenced");
+%>
+
 <%--recv parameters--%>
 <%
   String keyword = request.getParameter("keyword");
   String page_str = request.getParameter("page_num");
   String type = request.getParameter("type");
-  Boolean status = true;
 %>
 
 <%--check parameters invalid--%>
@@ -56,53 +61,60 @@
   }
 %>
 
-
-<%--change session msg by param--%>
-<%
-
-%>
-
 <%--check session msg--%>
 <%
   if (person == null) {
+    session.setAttribute("referenced", "manage");
     response.sendRedirect("login.jsp");
+    return;
   } else if (!login_status) {
+    session.setAttribute("referenced", "manage");
     response.sendRedirect("login.jsp");
+    return;
   } else if (person.getType() != 0 && person.getType() != 1) {
+    session.setAttribute("referenced", "manage");
     response.sendRedirect("login.jsp");
+    return;
   }
-%>
-
-<%--change session--%>
-<%
-  session.setAttribute("referenced", "manage");
-
 %>
 
 <%--pre-action--%>
 <%
+  List<Person> persons = new ArrayList<>();
+  if (keyword==null) {
+    if (type.equals("customer")) {
+      persons = UserDAO.getUsersByPage(page_num);
+    } else {
+      persons = AdminDAO.getaAdminsByPage(page_num);
+    }
+  }else {
+    Person person1 = null;
+      if (type.equals("customer")) {
+        person1 = UserDAO.getUserByUsername(keyword);
+      }
+      if (type.equals("admin")){
+        person1 = AdminDAO.getAdminByUsername(keyword);
+      }
 
+    if (person1 != null)
+      persons.add(person1);
+  }
 %>
 
 <%--页面事件--%>
 <%--========================================================================================================================================--%>
 
-<%--初始化--%>
-<%
-  List<Person> persons = null;
-  if (type.equals("customer")) {
-    persons =  UserDAO.getUsersByPage(page_num);
-  }
-  else {
-    persons = AdminDAO.getaAdminsByPage(page_num);
-  }
-%>
-
-
 <html>
 <head>
   <title>Shop</title>
   <link rel="stylesheet" href="css/shop.css">
+<%--  <style>--%>
+<%--    #cate<%=category_num%> {--%>
+<%--      /*    高亮显示span*/--%>
+<%--    }--%>
+<%--  </style>--%>
+
+
 </head>
 <body>
 
@@ -128,18 +140,16 @@
   <div class="mid_box">
     <div class="top_box">
       <div class="outer_search_box">
-        <div class="left_input_box">
-          Please enter the name of the user you are looking for:
-        </div>
-        <div class="right_input_box">
+        <div class="inner_search_box">
           <form action="manage.jsp" method="get">
-            <div class="input_wrapper">
-              <input type="input_search" name="keyword" width="80000px" height="50px" spellcheck="false"
-                     placeholder="name">
+            <label>
+              <input type="search" name="keyword" width="300px" height="50px" spellcheck="false"
+                     placeholder="员工姓名">
+            </label>
+            <input type="hidden" name="type" value="<%=type%>">
             <button type="submit">
-              <img src="img/search_icon.png" alt="搜索" width="40px" height="40px">
+              <img src="img/search_icon.png" alt="搜索" width="50px" height="50px">
             </button>
-            </div>
           </form>
         </div>
       </div>

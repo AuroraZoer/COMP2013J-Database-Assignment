@@ -20,11 +20,6 @@
     }
 %>
 
-<%--set referenced--%>
-<%
-    session.setAttribute("referenced", "create_account.jsp");
-%>
-
 <%--session outdate--%>
 <%
     if (session.getMaxInactiveInterval() < 0) {
@@ -54,7 +49,6 @@
 <%
     String username = request.getParameter("username");
     String password = request.getParameter("password");
-    String user_type = request.getParameter("user_type");
     String confirm = request.getParameter("confirm");
     String email = request.getParameter("email");
 %>
@@ -72,11 +66,12 @@
 
 <%--parameters react--%>
 <%
-    if (username != null && password != null && user_type != null && confirm != null && email != null && confirm.equals(password)){
+    if (username != null && confirm != null && email != null && confirm.equals(password)){
 //        参数正常，注册
         UserDAO.insertUser(new User(1, username, password, email, new Timestamp(new java.util.Date().getTime())));
     }
 %>
+
 <%--pre-action--%>
 <%
 

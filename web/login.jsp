@@ -128,8 +128,9 @@
         <a href="create_account.jsp">Click to create an account</a>
     </div>
 </div>
-<%=user_type%>
-<%=AdminDAO.isPasswordCorrect(username, password)%>
+<%=username%>
+<%=password%>
 
+<%=AdminDAO.isPasswordCorrect(username, password)%>
 </body>
 </html>

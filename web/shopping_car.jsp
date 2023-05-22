@@ -51,7 +51,7 @@
         session.setAttribute("referenced", "shopping_car.jsp");
         response.sendRedirect(referenced);
     }
-    if (!login_status){
+    if (login_status==null || !login_status){
         session.setAttribute("referenced", "shopping_car.jsp");
         response.sendRedirect("login.jsp");
         return;
