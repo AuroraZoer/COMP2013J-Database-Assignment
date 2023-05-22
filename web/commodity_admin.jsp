@@ -2,6 +2,8 @@
 <%@ page import="dataNoBase.CommodityDAO" %>
 <%@ page import="dataNoBase.Commodity" %>
 <%@ page import="dataNoBase.Person" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
 
 <%--session事件--%>
 <%--=========================================================================================================================================--%>

@@ -1,13 +1,8 @@
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.util.Date" %>
-<%@ page import="dataNoBase.*" %><%--
-  Created by IntelliJ IDEA.
-  User: zzy13
-  Date: 2023/5/20
-  Time: 13:12
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="dataNoBase.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
 
 <%
   if (session.isNew()) {
