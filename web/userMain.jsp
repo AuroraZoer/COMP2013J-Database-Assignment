@@ -100,7 +100,7 @@
             Welcome <%=person.getName()%>
         </div>
         <div class="line">
-            Identity: <%=person.getType()==1?"Admin":"Customer"%>
+            Identity: <%=person.getType()==1?"Customer":"Admin"%>
         </div>
         <div class="line">
             Email: <%=person.getEmail()%>
