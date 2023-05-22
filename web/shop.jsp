@@ -135,13 +135,6 @@
 <head>
     <title>Shop</title>
     <link rel="stylesheet" href="css/shop.css">
-    <style>
-        #cate<%=category_num%> {
-            /*    高亮显示span*/
-        }
-    </style>
-
-
 </head>
 <body>
 
@@ -169,13 +162,14 @@
 
             <% if (person.getType() == 0) {%>
             <form action="shop.jsp" method="post">
-                <label> Category:name
+                <label> Category: name
                     <input type="text" name="create_category_name">
                 </label>
                 <button type="submit">add</button>
             </form>
-
+            <div class="manageUser">
             <a href="manage.jsp">Click here to manage users</a>
+            </div>
             <%}%>
         </div>
     </div>
