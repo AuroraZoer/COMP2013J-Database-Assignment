@@ -1,13 +1,7 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: zzy13
-  Date: 2023/5/20
-  Time: 10:39
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 <%@ page import="dataNoBase.*" %>
-<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.sql.Timestamp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%--session事件--%>
@@ -108,13 +102,6 @@
 <head>
   <title>Shop</title>
   <link rel="stylesheet" href="css/shop.css">
-<%--  <style>--%>
-<%--    #cate<%=category_num%> {--%>
-<%--      /*    高亮显示span*/--%>
-<%--    }--%>
-<%--  </style>--%>
-
-
 </head>
 <body>
 
@@ -140,16 +127,21 @@
   <div class="mid_box">
     <div class="top_box">
       <div class="outer_search_box">
-        <div class="inner_search_box">
+        <div class="left_input_box">
+          Please enter the name of the user you are looking for:
+        </div>
+        <div class="right_input_box">
           <form action="manage.jsp" method="get">
+            <div class="input_wrapper">
             <label>
-              <input type="search" name="keyword" width="300px" height="50px" spellcheck="false"
-                     placeholder="员工姓名">
+              <input type="input_search" name="keyword" width="300px" height="50px" spellcheck="false"
+                     placeholder="name">
             </label>
             <input type="hidden" name="type" value="<%=type%>">
             <button type="submit">
-              <img src="img/search_icon.png" alt="搜索" width="50px" height="50px">
+              <img src="img/search_icon.png" alt="搜索" width="40px" height="40px">
             </button>
+            </div>
           </form>
         </div>
       </div>
