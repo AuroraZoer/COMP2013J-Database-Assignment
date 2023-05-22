@@ -26,13 +26,12 @@ body {
 .button {
     background-color: dodgerblue;
     color: white;
-    font-size: 16px;
+    font-size: 20px;
     padding: 10px;
     border: none;
-    border-radius: 3px;
+    border-radius: 5px;
     cursor: pointer;
     width: 100%;
-    margin-top: 10px;
 }
 
 .button:hover {
@@ -41,7 +40,7 @@ body {
 
 .label {
     display: block;
-    font-size: 14px;
+    font-size: 20px;
     margin-bottom: 5px;
 }
 
@@ -53,4 +52,29 @@ body {
 .error-message {
     color: #f44336;
     font-weight: bold;
+}
+
+.line {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 5px;
+    padding: 2px;
+}
+
+.user_button {
+    margin-top: 15px;
+}
+
+button[type="submit"] {
+    margin-top: 10px;
+    padding: 3px 10px 3px 10px;
+    font-size: 18px;
+    font-family: "Comic Sans MS", sans-serif;
+}
+
+input[type="submit"] {
+    margin-top: 10px;
+    padding: 3px 10px 3px 10px;
+    font-size: 18px;
+    font-family: "Comic Sans MS", sans-serif;
 }
