@@ -64,6 +64,7 @@
     String delete_tid_str = request.getParameter("delete_tid");
     String modify_tid_str = request.getParameter("modify_tid");
     String modify_str = request.getParameter("modify_num");
+    String paid_tid_str = request.getParameter("paid_tid");
 %>
 
 <%--NullPointerException && NumberFormatException--%>
@@ -88,6 +89,10 @@
     try {
         keyword = Integer.parseInt(keyword_str);
     } catch (Exception ignored) {}
+    int paid_tid = -1;
+    try {
+        paid_tid = Integer.parseInt(paid_tid_str);
+    } catch (Exception ignored) {}
 %>
 
 <%--parameters react--%>
@@ -97,6 +102,9 @@
     }
     if (modify_tid != -1 && modify_num >0){
         TransactionDAO.updateTransactionQuantity(modify_tid, modify_num);
+    }
+    if (paid_tid != -1) {
+        TransactionDAO.updateTransactionPaymentStatus(paid_tid);
     }
 %>
 
@@ -152,7 +160,7 @@
                     continue;
                 }
             %>
-            <div class="item_box" id="item_box1">
+            <div class="item_box">
                 <div class="item_left_box">
                     <%=commodity.getCategory()%> <br>
                 </div>
@@ -162,9 +170,16 @@
 
                     </div>
                     <div class="item_bottom_box">
-
+                        <span><%=transaction.isPaid()?"is paid":"not paid"%></span>
+                        <form action="shopping_car.jsp" method="post">
+                            <input type="hidden" name="page_num" value="<%=page_num%>">
+                            <%if (keyword_str != null) {%>
+                            <input type="hidden" name="keyword" value="<%=keyword%>">
+                            <%}%>
+                            <input type="hidden" name="paid_tid" value="<%=transaction.getTid()%>">
+                            <input type="submit" value="pay">
+                        </form>
                     </div>
-                </div>
                 <div class="item_right_box">
                     <span class="price">
                         ¥ <%=commodity.getPrice()%> <br>
@@ -188,8 +203,8 @@
                     </form>
                 </div>
             </div>
-            <% } %>
         </div>
+            <% } %>
 
         <div class="pagination_box">
             <div class="last_page">
@@ -199,6 +214,7 @@
                     <input type="hidden" name="keyword" value="<%=keyword%>">
                     <%}%>
                     <input type="submit" value="last page">
+
                 </form>
             </div>
 
@@ -213,7 +229,7 @@
             </div>
         </div>
     </div>
-
+    </div>
 
     <div class="right_box">
 
@@ -225,14 +241,13 @@
         </div>
         <br>
 
-        <%--    购物车--%>
+    <%--    购物车--%>
         <div>
             <a href="shop.jsp">
                 <span>返回商城：</span>
                 <img src="img/shop.jpg" alt="商城" width="50" height="50">
             </a>
         </div>
-
     </div>
 </div>
 

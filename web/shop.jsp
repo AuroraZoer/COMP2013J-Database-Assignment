@@ -195,7 +195,7 @@
         </div>
         <div class="main_box">
             <% for (Commodity commodity : commodities) { %>
-            <div class="item_box" id="item_box1">
+            <div class="item_box">
                 <div class="item_left_box">
                     <%=commodity.getCategory()%> <br>
                     <% if (person.getType() == 0) { %>
