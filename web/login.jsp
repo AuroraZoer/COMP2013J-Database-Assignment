@@ -35,7 +35,10 @@
 
 <%--session invalid--%>
 <%
-
+//    默认跳转shop.jsp
+    if (referenced==null){
+        referenced = "shop.jsp";
+    }
 %>
 
 <%--recv parameters--%>
@@ -65,7 +68,7 @@
                 session.setAttribute("person", AdminDAO.getAdminByUsername(username));
                 session.setAttribute("login_status", true);
                 session.setAttribute("referenced", "login.jsp");
-                response.sendRedirect("shop.jsp");
+                response.sendRedirect(referenced);
                 return;
             }
         }
@@ -76,7 +79,7 @@
                 session.setAttribute("person", UserDAO.getUserByUsername(username));
                 session.setAttribute("login_status", true);
                 session.setAttribute("referenced", "login.jsp");
-                response.sendRedirect("shop.jsp");
+                response.sendRedirect(referenced);
                 return;
             }
         }
@@ -85,7 +88,11 @@
 
 <%--pre-action--%>
 <%
+
 %>
+
+<%--页面事件--%>
+<%--========================================================================================================================================--%>
 
 
 <html>
@@ -115,7 +122,6 @@
                 <div class="right_box">
                     <label><input type="radio" id="admin" name="user_type" value="admin">Admin</label>
                 </div>
-
             </div>
             <input type="submit" name="submit" value="Login">
         </form>
