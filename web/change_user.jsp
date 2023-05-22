@@ -15,14 +15,6 @@
   }
 %>
 
-<%--recv session msg--%>
-<%
-  Admin admin = (Admin) session.getAttribute("person");
-  Boolean login_status = (Boolean) session.getAttribute("login_status");
-  String referenced = (String) session.getAttribute("referenced");
-  boolean status = true;
-%>
-
 <%--session outdate--%>
 <%
   if (session.getMaxInactiveInterval() < 0) {
@@ -36,6 +28,32 @@
   session.setMaxInactiveInterval(1800);
 %>
 
+<%--recv session msg--%>
+<%
+  Admin admin = (Admin) session.getAttribute("person");
+  Boolean login_status = (Boolean) session.getAttribute("login_status");
+  String referenced = (String) session.getAttribute("referenced");
+  boolean status = true;
+%>
+
+<%--session invalid--%>
+<%
+  if (admin == null){
+    session.setAttribute("referenced", "change_user.jsp");
+    response.sendRedirect("login.jsp");
+    return;
+  }
+  if (admin.getType()!=1){
+    session.setAttribute("referenced", "change_user.jsp");
+    response.sendRedirect(referenced);
+  }
+  if (login_status==null || !login_status){
+    session.setAttribute("referenced", "change_user.jsp");
+    response.sendRedirect("login.jsp");
+    return;
+  }
+%>
+
 <%--recv parameters--%>
 <%
   String name = request.getParameter("name");
@@ -46,64 +64,33 @@
   String new_name = request.getParameter("new_name");
 %>
 
-<%--check parameters invalid--%>
-<%
-  
-%>
-
-<%--parameters react--%>
+<%--NullPointerException && NumberFormatException--%>
 <%
   int type = -1;
   try {
     type = Integer.parseInt(type_str);
   }catch (Exception ignored){}
-  
 
-  if (name == null || email==null || password==null) {
-    response.sendRedirect("manage.jsp");
-    return;
-  }if (type!=0 && type!=1) {
-    response.sendRedirect("manage.jsp");
-    return;
-  }
-  if (action==null){
-    status = false;
-  }else if (!action.equals("delete") && !action.equals("create") && !action.equals("modify")) {
-    status = false;
-  } if (new_name==null){
-    status = false;
-  }
+  name = name==null?"":name;
+  email = email==null?"":email;
+  password = password==null?"":password;
+  new_name = new_name==null?"":new_name;
 %>
 
-
-<%--change session msg by param--%>
+<%--parameters invalid--%>
 <%
-
-%>
-
-<%--check session msg--%>
-<%
-  if (admin == null) {
-    response.sendRedirect("manage.jsp");
-    return;
-  }
-  if (!login_status) {
+  if (type!=0 && type!=1) {
+    session.setAttribute("referenced", "change_user.jsp");
     response.sendRedirect("manage.jsp");
     return;
   }
 %>
 
-<%--change session--%>
+<%--parameters react--%>
 <%
-  session.setAttribute("referenced", "change_user");
-%>
-
-<%--pre-action--%>
-<%
-  if (status) {
+  if (action!=null && (action.equals("delete") || action.equals("modify") || action.equals("create"))) {
     switch (action) {
       case "create":
-//        set param from admindao/userdao
         if (type == 0)
           AdminDAO.insertAdmin(new Admin(1, new_name, password, email, new Timestamp(new Date().getTime())));
         else
@@ -112,24 +99,29 @@
       case "delete":
         if (type == 0) {
           AdminDAO.deleteAdminByUsername(name);
-        }
-        else {
+        } else {
           UserDAO.deleteUserByUsername(name);
         }
-       break;
+        break;
       case "modify":
         if (type == 0) {
           AdminDAO.deleteAdminByUsername(name);
           AdminDAO.insertAdmin(new Admin(1, new_name, password, email, new Timestamp(new Date().getTime())));
-        }else {
+        } else {
           UserDAO.deleteUserByUsername(name);
           UserDAO.insertUser(new User(1, new_name, password, email, new Timestamp(new Date().getTime())));
         }
         break;
     }
+    session.setAttribute("referenced", "change_user.jsp");
     response.sendRedirect("manage.jsp");
     return;
   }
+%>
+
+<%--pre-action--%>
+<%
+
 %>
 <%--session事件--%>
 <%--=========================================================================================================================================--%>

@@ -88,11 +88,16 @@
       persons = AdminDAO.getaAdminsByPage(page_num);
     }
   }else {
+    Person person1 = null;
       if (type.equals("customer")) {
-        persons.add(UserDAO.getUserByUsername(keyword));
-      } else {
-        persons.add(AdminDAO.getAdminByUsername(keyword));
+        person1 = UserDAO.getUserByUsername(keyword);
       }
+      if (type.equals("admin")){
+        person1 = AdminDAO.getAdminByUsername(keyword);
+      }
+
+    if (person1 != null)
+      persons.add(person1);
   }
 %>
 
@@ -141,6 +146,7 @@
               <input type="search" name="keyword" width="300px" height="50px" spellcheck="false"
                      placeholder="员工姓名">
             </label>
+            <input type="hidden" name="type" value="<%=type%>">
             <button type="submit">
               <img src="img/search_icon.png" alt="搜索" width="50px" height="50px">
             </button>

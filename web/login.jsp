@@ -128,7 +128,9 @@
         <a href="create_account.jsp">Click to create an account</a>
     </div>
 </div>
-<%=referenced%>
+<%=username%>
+<%=password%>
 
+<%=AdminDAO.isPasswordCorrect(username, password)%>
 </body>
 </html>

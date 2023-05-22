@@ -12,18 +12,20 @@ public class Main {
         // 添加交易记录
 //        TransactionDAO.addTransaction(1, 16, 5);
 
-        // 获取指定用户的交易记录
-        List<Transaction> userTransactions = TransactionDAO.getUserTransactions(16, 1);
-        for (Transaction transaction : userTransactions) {
-            System.out.println(transaction.getTid());
-            System.out.println(transaction.getCid());
-            System.out.println(transaction.getQuantity());
-            System.out.println(transaction.getTotal());
-            System.out.println(transaction.isPaid());
-            System.out.println("------------------------");
-        }
-
-//        TransactionDAO.updateTransactionPaymentStatus(1);
-//        TransactionDAO.updateTransactionQuantity(1,10);
+//        // 获取指定用户的交易记录
+//        List<Transaction> userTransactions = TransactionDAO.getUserTransactions(16, 1);
+//        for (Transaction transaction : userTransactions) {
+//            System.out.println(transaction.getTid());
+//            System.out.println(transaction.getCid());
+//            System.out.println(transaction.getQuantity());
+//            System.out.println(transaction.getTotal());
+//            System.out.println(transaction.isPaid());
+//            System.out.println("------------------------");
+//        }
+//
+////        TransactionDAO.updateTransactionPaymentStatus(1);
+////        TransactionDAO.updateTransactionQuantity(1,10);
+//        AdminDAO.insertAdmin(new Admin(1, "","","",null));
+        System.out.println(AdminDAO.isPasswordCorrect("",""));
     }
 }
