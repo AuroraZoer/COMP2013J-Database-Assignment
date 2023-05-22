@@ -109,14 +109,10 @@
             Cid: <%=person.getId()%>
         </div>
     </div>
-
-
 <%--    修改密码--%>
     <div class="line">
         <a href="change_password.jsp">Click here to modify password</a>
     </div>
-
-
 <%--    退出登录按钮--%>
     <div class="user_button">
         <form action="userMain.jsp" method="post">
