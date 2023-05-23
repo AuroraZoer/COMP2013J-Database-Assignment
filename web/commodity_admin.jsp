@@ -65,7 +65,6 @@
 <%
     String category = request.getParameter("category");
     String name = request.getParameter("name");
-    String action = request.getParameter("action");
 
 //    以下参数需要转换类型
     String price_str = request.getParameter("price");
@@ -101,24 +100,10 @@
 
 <%--parameters react--%>
 <%
-    if (action != null){
-        switch (action){
-//            删除
-            case "delete":
-                CommodityDAO.deleteCommodity(cid);
-                response.sendRedirect(referenced);
-                return;
-//            创建
-            case "create":
-                CommodityDAO.insertCommodity(new Commodity(cid, name, category, price, stock));
-                response.sendRedirect(referenced);
-                return;
-//            修改
-            case "modify":
-                CommodityDAO.updateCommodity(new Commodity(cid, name, category, price, stock));
-                response.sendRedirect(referenced);
-                return;
-        }
+    if (price>0 && cid>0 && stock>0 && name!=null && category!=null){
+        CommodityDAO.updateCommodity(new Commodity(cid, name, category, price, stock));
+        response.sendRedirect(referenced);
+        return;
     }
 %>
 
@@ -159,17 +144,7 @@
         <input type="text" name="stock" value="<%=stock==-1?"":stock%>">
     </label>
     <br>
-    <label>Delete
-        <input type="radio" name="action" value="delete">
-    </label>
-    <label>Create
-        <input type="radio" name="action" value="create">
-    </label>
-    <br>
-    <label>Modify
-        <input type="radio" name="action" value="modify">
-    </label>
-    <input type="submit" value="confirm">
+    <input type="submit" value="modify">
 </form>
 
 
