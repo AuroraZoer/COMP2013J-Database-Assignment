@@ -33,7 +33,6 @@
   Admin admin = (Admin) session.getAttribute("person");
   Boolean login_status = (Boolean) session.getAttribute("login_status");
   String referenced = (String) session.getAttribute("referenced");
-  boolean status = true;
 %>
 
 <%--session invalid--%>
@@ -57,7 +56,6 @@
 <%--recv parameters--%>
 <%
   String name = request.getParameter("name");
-  String action = request.getParameter("action");
   String type_str = request.getParameter("type");
   String email = request.getParameter("email");
   String password = request.getParameter("password");
@@ -88,7 +86,7 @@
 
 <%--parameters react--%>
 <%
-  if (action!=null && action.equals("modify")) {
+  if (!new_name.equals("") && !password.equals("") && !email.equals("")) {
     if (type==1){
       UserDAO.deleteUserByUsername(name);
       UserDAO.insertUser(new User(1, new_name, password, email, null));
