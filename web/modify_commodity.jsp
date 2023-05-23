@@ -62,13 +62,14 @@
 <%
     String category = request.getParameter("category");
     String name = request.getParameter("name");
-    String second = request.getParameter("second");
+    String once = request.getParameter("once");
 
 //    以下参数需要转换类型
     String price_str = request.getParameter("price");
     String cid_str = request.getParameter("cid");
     String stock_str = request.getParameter("stock");
     String delete_cid_str = request.getParameter("delete_cid");
+    String isvisable_str = request.getParameter("isvisable");
 %>
 
 <%--parameters invalid--%>
@@ -83,12 +84,14 @@
     int cid = -1;
     int stock = -1;
     int delete_cid = -1;
+    int isvisable = -1;
 
 //    转换
     try {
         price = Float.parseFloat(price_str);
         cid = Integer.parseInt(cid_str);
         stock = Integer.parseInt(stock_str);
+        isvisable = Integer.parseInt(isvisable_str);
     }catch (Exception ignored){}
     try{
         delete_cid = Integer.parseInt(delete_cid_str);
@@ -97,17 +100,19 @@
 
 <%--parameters react--%>
 <%
-    if (price>0 && cid>0 && stock>0 && name!=null && category!=null && second!=null){
-        CommodityDAO.updateCommodity(new Commodity(cid, name, category, price, stock));
+    if (price>0 && cid>0 && stock>0 && name!=null && category!=null && isvisable!=-1 && once==null){
+        CommodityDAO.updateCommodity(new Commodity(cid, name, category, price, stock, isvisable==1));
         session.setAttribute("referenced", "modify_commodity.jsp");
         response.sendRedirect(referenced);
         return;
     }
-    else if (delete_cid >0){
+    else if (delete_cid >0 && once!=null && once.equals("modify")){
         CommodityDAO.deleteCommodity(delete_cid);
         session.setAttribute("referenced", "modify_commodity.jsp");
         response.sendRedirect(referenced);
         return;
+    }else if (cid>0 && isvisable_str != null && once!=null && once.equals("delete")){
+        CommodityDAO.updateCommodityAvailability(cid, isvisable==1);
     }
 %>
 
@@ -147,7 +152,6 @@
     <label>Stock:
         <input type="text" name="stock" value="<%=stock==-1?"":stock%>">
     </label>
-        <input type="hidden" name="second" value="true">
     </div>
     <div class="button">
         <input type="submit" value="modify">

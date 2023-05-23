@@ -202,7 +202,9 @@
                     <% if (person.getType() == 0) { %>
                     <a href="modify_commodity.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>">edit</a>
                     <br>
-                    <a href="modify_commodity.jsp?delete_cid=<%=commodity.getCid()%>">delete</a>
+                    <a href="modify_commodity.jsp?cid=<%=commodity.getCid()%>&once=modify"><%=commodity.isAvailable()?"on shelve":"off shelve"%></a>
+                    <br>
+                    <a href="modify_commodity.jsp?delete_cid=<%=commodity.getCid()%>&once=delete">delete</a>
                     <% } %>
                 </div>
                 <div class="item_mid_box">
