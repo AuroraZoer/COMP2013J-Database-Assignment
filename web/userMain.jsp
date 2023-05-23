@@ -30,6 +30,7 @@
 <%
     Person person = (Person) session.getAttribute("person");
     Boolean login_status = (Boolean) session.getAttribute("login_status");
+    String referenced = (String) session.getAttribute("referenced");
 %>
 
 <%--session invalid--%>
@@ -88,13 +89,7 @@
 <body>
 <div class="container">
     <div>
-        <form action="shop.jsp">
-            <div>
-                <button>
-                    <img src="img/shop.jpg" alt="商店" height="50" width="50">
-                </button>
-            </div>
-        </form>
+        <a href="<%=referenced%>">Click here to return</a>
     </div>
     <div class="text">
         <div class="line">
