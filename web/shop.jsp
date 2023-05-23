@@ -122,10 +122,20 @@
     
 //    商品列表
     List<Commodity> commodities = null;
-    if (keyword == null)
-        commodities = CommodityDAO.getCommoditiesByCategory(categories.get(category_num - 1).getName(), page_num);
-    else
-        commodities = CommodityDAO.getCommoditiesByCategory(keyword, page_num);
+    if (keyword == null){
+        if (person.getType()==1) {
+            commodities = CommodityDAO.getCommoditiesByCategory(categories.get(category_num - 1).getName(), page_num);
+        }else {
+            commodities = CommodityDAO.getAvailableCommoditiesByCategory(categories.get(category_num - 1).getName(), page_num);
+        }
+    }else {
+        if (person.getType() == 1) {
+            commodities = CommodityDAO.getCommoditiesByCategory(categories.get(category_num - 1).getName(), page_num);
+        } else {
+            commodities = CommodityDAO.getAvailableCommoditiesByCategory(categories.get(category_num - 1).getName(), page_num);
+        }
+    }
+    commodities = CommodityDAO.getCommoditiesByCategory(keyword, page_num);
 %>
 
 <%--页面事件--%>
