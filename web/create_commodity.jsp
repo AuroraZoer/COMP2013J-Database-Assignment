@@ -102,7 +102,7 @@
 <%--parameters react--%>
 <%
     if (price>0 && cid>0 && stock>0 && name!=null && category!=null && second!=null){
-        CommodityDAO.insertCommodity(new Commodity(cid, name, category, price, stock));
+        CommodityDAO.insertCommodity(new Commodity(cid, name, category, price, stock, true));
         session.setAttribute("referenced", "create_commodity.jsp");
         response.sendRedirect(referenced);
         return;
