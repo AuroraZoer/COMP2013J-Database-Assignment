@@ -43,7 +43,7 @@
     response.sendRedirect("login.jsp");
     return;
   }
-  if (admin.getType()!=1){
+  if (admin.getType()!=0){
     session.setAttribute("referenced", "change_user.jsp");
     response.sendRedirect(referenced);
   }
