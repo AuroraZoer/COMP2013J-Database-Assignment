@@ -88,30 +88,14 @@
 
 <%--parameters react--%>
 <%
-  if (action!=null && (action.equals("delete") || action.equals("modify") || action.equals("create"))) {
-    switch (action) {
-      case "create":
-        if (type == 0)
-          AdminDAO.insertAdmin(new Admin(1, new_name, password, email, new Timestamp(new Date().getTime())));
-        else
-          UserDAO.insertUser(new User(1, new_name, password, email, new Timestamp(new Date().getTime())));
-        break;
-      case "delete":
-        if (type == 0) {
-          AdminDAO.deleteAdminByUsername(name);
-        } else {
-          UserDAO.deleteUserByUsername(name);
-        }
-        break;
-      case "modify":
-        if (type == 0) {
-          AdminDAO.deleteAdminByUsername(name);
-          AdminDAO.insertAdmin(new Admin(1, new_name, password, email, new Timestamp(new Date().getTime())));
-        } else {
-          UserDAO.deleteUserByUsername(name);
-          UserDAO.insertUser(new User(1, new_name, password, email, new Timestamp(new Date().getTime())));
-        }
-        break;
+  if (action!=null && action.equals("modify")) {
+    if (type==1){
+      UserDAO.deleteUserByUsername(name);
+      UserDAO.insertUser(new User(1, new_name, password, email, null));
+    }
+    if (type==0){
+      AdminDAO.deleteAdminByUsername(name);
+      AdminDAO.insertAdmin(new Admin(1, new_name, password, email, null));
     }
     session.setAttribute("referenced", "change_user.jsp");
     response.sendRedirect("manage.jsp");
@@ -151,17 +135,7 @@
     <input type="text" name="password" value="<%=password%>">
   </label>
   <br>
-  <label>Delete
-    <input type="radio" name="action" value="delete">
-  </label>
-  <label>Create
-    <input type="radio" name="action" value="create">
-  </label>
-  <label>Modify
-    <input type="radio" name="action" value="modify">
-  </label>
-  <input type="hidden" name="name" value="<%=name%>">
-  <input type="submit" value="confirm">
+  <input type="submit" value="modify">
 </form>
 
 </body>
