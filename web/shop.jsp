@@ -122,10 +122,19 @@
     
 //    商品列表
     List<Commodity> commodities = null;
-    if (keyword == null)
-        commodities = CommodityDAO.getCommoditiesByCategory(categories.get(category_num - 1).getName(), page_num);
-    else
-        commodities = CommodityDAO.getCommoditiesByCategory(keyword, page_num);
+    if (keyword == null){
+        if (person.getType()==0) {
+            commodities = CommodityDAO.getCommoditiesByCategory(categories.get(category_num - 1).getName(), page_num);
+        }else {
+            commodities = CommodityDAO.getAvailableCommoditiesByCategory(categories.get(category_num - 1).getName(), page_num);
+        }
+    }else {
+        if (person.getType() == 0) {
+            commodities = CommodityDAO.getCommoditiesByCategory(keyword, page_num);
+        } else {
+            commodities = CommodityDAO.getAvailableCommoditiesByCategory(keyword, page_num);
+        }
+    }
 %>
 
 <%--页面事件--%>
@@ -202,7 +211,9 @@
                     <% if (person.getType() == 0) { %>
                     <a href="modify_commodity.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>">edit</a>
                     <br>
-                    <a href="modify_commodity.jsp?delete_cid=<%=commodity.getCid()%>">delete</a>
+                    <a href="modify_commodity.jsp?cid=<%=commodity.getCid()%>&once=modify&isvisable=<%=commodity.isAvailable()?1:0%>"><%=commodity.isAvailable()?"on shelve":"off shelve"%></a>
+                    <br>
+                    <a href="modify_commodity.jsp?delete_cid=<%=commodity.getCid()%>&once=delete">delete</a>
                     <% } %>
                 </div>
                 <div class="item_mid_box">
