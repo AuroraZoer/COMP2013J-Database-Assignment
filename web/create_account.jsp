@@ -96,6 +96,7 @@
             <input type="hidden" name="user_type" value="user">
             <input type="submit" name="submit" value="sign up">
         </form>
+        <a href="login.jsp">Click here to return</a>
     </div>
 </div>
 

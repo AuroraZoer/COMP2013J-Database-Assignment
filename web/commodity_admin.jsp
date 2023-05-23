@@ -156,6 +156,7 @@
     </div>
     <input type="submit" value="modify">
 </form>
+    <a href="<%=referenced%>">Click here to return</a>
 </div>
 </body>
 </html>
