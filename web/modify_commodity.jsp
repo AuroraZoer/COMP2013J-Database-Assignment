@@ -139,11 +139,6 @@
     </label>
     </div>
     <div class="line">
-    <label>Cid:
-        <input type="text" name="cid" value="<%=cid==-1?"":cid%>">
-    </label>
-    </div>
-    <div class="line">
     <label>Price:
         <input type="text" name="price" value="<%=price==-1F?"":price%>">
     </label>

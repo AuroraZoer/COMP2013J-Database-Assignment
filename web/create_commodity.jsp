@@ -45,7 +45,7 @@
 <%
     //登录状态不正常，重新登陆
     if (login_status==null || !login_status){
-        session.setAttribute("referenced", "commodity_admin");
+        session.setAttribute("referenced", "create_commodity");
         response.sendRedirect("login.jsp");
         return;
     }
@@ -75,7 +75,6 @@
     String price_str = request.getParameter("price");
     String cid_str = request.getParameter("cid");
     String stock_str = request.getParameter("stock");
-    String delete_cid_str = request.getParameter("delete_cid");
 %>
 
 <%--parameters invalid--%>
@@ -89,7 +88,6 @@
     float price = -1F;
     int cid = -1;
     int stock = -1;
-    int delete_cid = -1;
 
 //    转换
     try {
@@ -98,7 +96,6 @@
         stock = Integer.parseInt(stock_str);
     }catch (Exception ignored){}
     try{
-        delete_cid = Integer.parseInt(delete_cid_str);
     }catch (Exception ignored){}
 %>
 
@@ -140,11 +137,6 @@
             </label>
         </div>
         <div class="line">
-            <label>Cid:
-                <input type="text" name="cid" value="<%=cid==-1?"":cid%>">
-            </label>
-        </div>
-        <div class="line">
             <label>Price:
                 <input type="text" name="price" value="<%=price==-1F?"":price%>">
             </label>
@@ -155,7 +147,7 @@
             </label>
             <input type="hidden" name="second" value="true">
         </div>
-        <input type="submit" value="modify">
+        <input type="submit" value="create">
     </form>
     <a href="<%=referenced%>">Click here to return</a>
 </div>
