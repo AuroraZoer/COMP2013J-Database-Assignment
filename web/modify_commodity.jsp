@@ -45,14 +45,14 @@
 
 //    session获取不到用户信息，重新登录
     if (admin == null){
-        session.setAttribute("referenced", "commodity_admin.jsp");
+        session.setAttribute("referenced", "modify_commodity.jsp");
         response.sendRedirect("login.jsp");
         return;
     }
 
 //    用户权限不足，返回原界面
     if (admin.getType()!=0){
-        session.setAttribute("referenced", "commodity_admin.jsp");
+        session.setAttribute("referenced", "modify_commodity.jsp");
         response.sendRedirect(referenced);
         return;
     }
@@ -99,13 +99,13 @@
 <%
     if (price>0 && cid>0 && stock>0 && name!=null && category!=null && second!=null){
         CommodityDAO.updateCommodity(new Commodity(cid, name, category, price, stock));
-        session.setAttribute("referenced", "commodity_admin.jsp");
+        session.setAttribute("referenced", "modify_commodity.jsp");
         response.sendRedirect(referenced);
         return;
     }
     else if (delete_cid >0){
         CommodityDAO.deleteCommodity(delete_cid);
-        session.setAttribute("referenced", "commodity_admin.jsp");
+        session.setAttribute("referenced", "modify_commodity.jsp");
         response.sendRedirect(referenced);
         return;
     }
@@ -127,7 +127,7 @@
 </head>
 <body>
 <div class="container">
-<form action="commodity_admin.jsp">
+<form action="modify_commodity.jsp">
     <div class="line">
     <label>Category:
         <input type="text" name="category" value="<%=category==null?"":category%>">

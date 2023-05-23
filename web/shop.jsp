@@ -200,9 +200,9 @@
                 <div class="item_left_box">
                     <%=commodity.getCategory()%> <br>
                     <% if (person.getType() == 0) { %>
-                    <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>">edit</a>
+                    <a href="modify_commodity.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>">edit</a>
                     <br>
-                    <a href="commodity_admin.jsp?delete_cid=<%=commodity.getCid()%>">delete</a>
+                    <a href="modify_commodity.jsp?delete_cid=<%=commodity.getCid()%>">delete</a>
                     <% } %>
                 </div>
                 <div class="item_mid_box">
@@ -242,7 +242,7 @@
                 if (person.getType()==0){
             %>
             <div class="create_button">
-                <a href="commodity_admin.jsp">
+                <a href="create_commodity.jsp">
                     <img src="img/add.png" alt="create" height="50" width="50">
                 </a>
             </div>
