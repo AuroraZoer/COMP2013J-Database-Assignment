@@ -69,7 +69,6 @@
 
 <%--parameters invalid--%>
 <%
-  if (type!=0 && type!=1) {
 
 %>
 
