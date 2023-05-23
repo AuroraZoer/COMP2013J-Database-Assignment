@@ -138,7 +138,7 @@
   <div class="line">
     <input type="hidden" name="second" value="true">
   </div>
-  <div class="line">
+  <div class="button">
     <input type="submit" value="modify">
   </div>
 </form>

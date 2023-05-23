@@ -153,9 +153,8 @@
         <input type="text" name="stock" value="<%=stock==-1?"":stock%>">
     </label>
         <input type="hidden" name="second" value="true">
-    <br>
-    <input type="submit" value="modify">
     </div>
+    <input type="submit" value="modify">
 </form>
 </div>
 </body>

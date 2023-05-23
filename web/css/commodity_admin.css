@@ -19,3 +19,14 @@ body {
     padding: 5px;
 }
 
+.button {
+    display: flex;
+    justify-self: center;
+    align-content: center;
+    text-align: center;
+}
+
+.button input[type="submit"] {
+    font-size: 20px;
+}
+

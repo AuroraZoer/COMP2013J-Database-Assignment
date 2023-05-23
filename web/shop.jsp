@@ -243,7 +243,7 @@
             %>
             <div class="create_button">
                 <a href="commodity_admin.jsp">
-                    <img src="img/add.png" alt="create">
+                    <img src="img/add.png" alt="create" height="50" width="50">
                 </a>
             </div>
             <%

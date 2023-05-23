@@ -183,7 +183,7 @@
     <div class="pagination_box">
       <div class="create_button">
         <a href="change_user.jsp">
-          <img src="img/add.png" alt="add" width="200" height="50">
+          <img src="img/add.png" alt="add" height="50" width="50">
         </a>
       </div>
       <div class="page">
