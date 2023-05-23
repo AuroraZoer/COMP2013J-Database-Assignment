@@ -5,15 +5,13 @@ public class Transaction {
     private int uid; // User ID
     private int cid; // Customer ID
     private int quantity; // Quantity of items
-    private float total; // Total amount
     private boolean isPaid; // Payment status: 1 if paid, 0 otherwise
 
-    public Transaction(int tid, int uid, int cid, int quantity, float total, boolean isPaid) {
+    public Transaction(int tid, int uid, int cid, int quantity, boolean isPaid) {
         this.tid = tid;
         this.uid = uid;
         this.cid = cid;
         this.quantity = quantity;
-        this.total = total;
         this.isPaid = isPaid;
     }
 
@@ -49,14 +47,6 @@ public class Transaction {
         this.quantity = quantity;
     }
 
-    public float getTotal() {
-        return total;
-    }
-
-    public void setTotal(float total) {
-        this.total = total;
-    }
-
     public boolean isPaid() {
         return isPaid;
     }
@@ -65,4 +55,3 @@ public class Transaction {
         isPaid = paid;
     }
 }
-

@@ -17,14 +17,12 @@ public class TransactionDAO {
      * @param quantity Quantity of items
      */
     public static void addTransaction(int cid, int uid, int quantity) {
-        String sql = "INSERT INTO `transaction` (cid, uid, quantity, total, is_paid) VALUES (?, ?, ?, ?, 0)";
-        float total = calculateTotal(cid, quantity); // 计算交易总额
+        String sql = "INSERT INTO `transaction` (cid, uid, quantity, is_paid) VALUES (?, ?, ?, 0)";
         try (Connection conn = JDBCTool.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, cid);
             pstmt.setInt(2, uid);
             pstmt.setInt(3, quantity);
-            pstmt.setFloat(4, total);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -66,9 +64,8 @@ public class TransactionDAO {
                     int tid = rs.getInt("tid");
                     int cid = rs.getInt("cid");
                     int quantity = rs.getInt("quantity");
-                    float total = rs.getFloat("total");
                     boolean isPaid = rs.getBoolean("is_paid");
-                    Transaction transaction = new Transaction(tid, uid, cid, quantity, total, isPaid);
+                    Transaction transaction = new Transaction(tid, uid, cid, quantity, isPaid);
                     transactions.add(transaction);
                 }
             }
@@ -80,13 +77,13 @@ public class TransactionDAO {
     }
 
     /**
-     * Updates the quantity and total amount of a transaction.
+     * Updates the quantity of items in a transaction.
      *
      * @param tid      Transaction ID
      * @param quantity New quantity of items
      */
     public static void updateTransactionQuantity(int tid, int quantity) {
-        String sql = "UPDATE `transaction` SET quantity = ?, total = ? WHERE tid = ?";
+        String sql = "UPDATE `transaction` SET quantity = ? WHERE tid = ?";
         try (Connection conn = JDBCTool.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             // Retrieve the original transaction information
@@ -94,13 +91,8 @@ public class TransactionDAO {
             if (transaction == null) {
                 return; // Transaction does not exist, no updates needed
             }
-
-            // Calculate the new total amount
-            float newTotal = calculateTotal(transaction.getCid(), quantity);
-
             pstmt.setInt(1, quantity);
-            pstmt.setFloat(2, newTotal);
-            pstmt.setInt(3, tid);
+            pstmt.setInt(2, tid);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -123,9 +115,8 @@ public class TransactionDAO {
                     int uid = rs.getInt("uid");
                     int cid = rs.getInt("cid");
                     int quantity = rs.getInt("quantity");
-                    float total = rs.getFloat("total");
                     boolean isPaid = rs.getBoolean("is_paid");
-                    return new Transaction(tid, uid, cid, quantity, total, isPaid);
+                    return new Transaction(tid, uid, cid, quantity, isPaid);
                 }
             }
         } catch (SQLException e) {
@@ -166,29 +157,4 @@ public class TransactionDAO {
             e.printStackTrace();
         }
     }
-
-    /**
-     * Calculates the total amount of a transaction based on the commodity price and quantity.
-     *
-     * @param cid      Commodity ID
-     * @param quantity Quantity of items
-     * @return Total amount of the transaction
-     */
-    private static float calculateTotal(int cid, int quantity) {
-        String sql = "SELECT price FROM commodity WHERE cid = ?";
-        try (Connection conn = JDBCTool.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, cid);
-            ResultSet resultSet = pstmt.executeQuery();
-
-            if (resultSet.next()) {
-                float price = resultSet.getFloat("price");
-                return price * quantity;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
 }
-
