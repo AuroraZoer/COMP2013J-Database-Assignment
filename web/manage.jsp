@@ -178,6 +178,9 @@
         </div>
       </div>
       <% } %>
+
+      <a href="shop.jsp">Click here to manage commodities</a>
+
     </div>
 
     <div class="pagination_box">
