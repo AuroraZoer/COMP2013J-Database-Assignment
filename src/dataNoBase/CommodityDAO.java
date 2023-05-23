@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class CommodityDAO {
     /**
      * Inserts a new commodity into the database.
@@ -15,13 +14,14 @@ public class CommodityDAO {
      * @param commodity The Commodity object representing the commodity to be inserted.
      */
     public static void insertCommodity(Commodity commodity) {
-        String sql = "INSERT INTO commodity (itemName, category, price, stock) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO commodity (itemName, category, price, stock, isAvailable) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = JDBCTool.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, commodity.getItemName());
             pstmt.setString(2, commodity.getCategory());
             pstmt.setFloat(3, commodity.getPrice());
             pstmt.setInt(4, commodity.getStock());
+            pstmt.setBoolean(5, commodity.isAvailable());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -45,7 +45,8 @@ public class CommodityDAO {
                 String category = rs.getString("category");
                 float price = rs.getFloat("price");
                 int stock = rs.getInt("stock");
-                commodities.add(new Commodity(cid, itemName, category, price, stock));
+                boolean isAvailable = rs.getBoolean("isAvailable");
+                commodities.add(new Commodity(cid, itemName, category, price, stock, isAvailable));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,14 +60,15 @@ public class CommodityDAO {
      * @param commodity The Commodity object representing the updated commodity.
      */
     public static void updateCommodity(Commodity commodity) {
-        String sql = "UPDATE commodity SET itemName = ?, category = ?, price = ?, stock = ? WHERE cid = ?";
+        String sql = "UPDATE commodity SET itemName = ?, category = ?, price = ?, stock = ?, isAvailable = ? WHERE cid = ?";
         try (Connection conn = JDBCTool.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, commodity.getItemName());
             pstmt.setString(2, commodity.getCategory());
             pstmt.setFloat(3, commodity.getPrice());
             pstmt.setInt(4, commodity.getStock());
-            pstmt.setInt(5, commodity.getCid());
+            pstmt.setBoolean(5, commodity.isAvailable());
+            pstmt.setInt(6, commodity.getCid());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -109,7 +111,8 @@ public class CommodityDAO {
                     String itemName = rs.getString("itemName");
                     float price = rs.getFloat("price");
                     int stock = rs.getInt("stock");
-                    commodities.add(new Commodity(cid, itemName, category, price, stock));
+                    boolean isAvailable = rs.getBoolean("isAvailable");
+                    commodities.add(new Commodity(cid, itemName, category, price, stock, isAvailable));
                 }
             }
         } catch (SQLException e) {
@@ -135,13 +138,88 @@ public class CommodityDAO {
                     String category = rs.getString("category");
                     float price = rs.getFloat("price");
                     int stock = rs.getInt("stock");
-                    return new Commodity(cid, itemName, category, price, stock);
+                    boolean isAvailable = rs.getBoolean("isAvailable");
+                    return new Commodity(cid, itemName, category, price, stock, isAvailable);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * Retrieves available commodities from the database.
+     *
+     * @return A List of Commodity objects representing the available commodities.
+     */
+    public static List<Commodity> getAvailableCommodities() {
+        List<Commodity> commodities = new ArrayList<>();
+        String sql = "SELECT * FROM commodity WHERE isAvailable = ?";
+        try (Connection conn = JDBCTool.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setBoolean(1, true);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    int cid = rs.getInt("cid");
+                    String itemName = rs.getString("itemName");
+                    String category = rs.getString("category");
+                    float price = rs.getFloat("price");
+                    int stock = rs.getInt("stock");
+                    boolean isAvailable = rs.getBoolean("isAvailable");
+                    commodities.add(new Commodity(cid, itemName, category, price, stock, isAvailable));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return commodities;
+    }
+
+    /**
+     * Retrieves unavailable commodities from the database.
+     *
+     * @return A List of Commodity objects representing the unavailable commodities.
+     */
+    public static List<Commodity> getUnavailableCommodities() {
+        List<Commodity> commodities = new ArrayList<>();
+        String sql = "SELECT * FROM commodity WHERE isAvailable = ?";
+        try (Connection conn = JDBCTool.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setBoolean(1, false);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    int cid = rs.getInt("cid");
+                    String itemName = rs.getString("itemName");
+                    String category = rs.getString("category");
+                    float price = rs.getFloat("price");
+                    int stock = rs.getInt("stock");
+                    boolean isAvailable = rs.getBoolean("isAvailable");
+                    commodities.add(new Commodity(cid, itemName, category, price, stock, isAvailable));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return commodities;
+    }
+
+    /**
+     * Updates the availability of a commodity in the database.
+     *
+     * @param cid        The ID of the commodity to update.
+     * @param isAvailable The availability status of the commodity.
+     */
+    public static void updateCommodityAvailability(int cid, boolean isAvailable) {
+        String sql = "UPDATE commodity SET isAvailable = ? WHERE cid = ?";
+        try (Connection conn = JDBCTool.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setBoolean(1, isAvailable);
+            pstmt.setInt(2, cid);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 

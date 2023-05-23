@@ -154,7 +154,9 @@
     </label>
         <input type="hidden" name="second" value="true">
     </div>
-    <input type="submit" value="modify">
+    <div class="button">
+        <input type="submit" value="modify">
+    </div>
 </form>
     <a href="<%=referenced%>">Click here to return</a>
 </div>
