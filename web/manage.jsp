@@ -124,6 +124,7 @@
           <button type="submit"><span>Customer</span><br></button>
         </form>
       </div>
+      <a href="shop.jsp">Click here to manage commodities</a>
     </div>
   </div>
 
@@ -156,7 +157,7 @@
           <%=each.getId()%> <br>
           <a href="change_user.jsp?name=<%=each.getName()%>&email=<%=each.getEmail()%>&password=<%=each.getPassword()%>&type=<%=each.getType()%>">edit</a>
           <br>
-          <a href="change_user.jsp?delete_cid=<%=each.getName()%>&type=<%=each.getType()%>">delete</a>
+          <a href="change_user.jsp?delete_name=<%=each.getName()%>&type=<%=each.getType()%>">delete</a>
         </div>
         <div class="item_mid_box">
           <div class="item_top_box">
@@ -178,9 +179,6 @@
         </div>
       </div>
       <% } %>
-
-      <a href="shop.jsp">Click here to manage commodities</a>
-
     </div>
 
     <div class="pagination_box">

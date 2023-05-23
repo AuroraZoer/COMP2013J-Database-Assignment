@@ -63,7 +63,7 @@
   int type = -1;
   try {
     type = Integer.parseInt(type_str);
-  }catch (Exception e){
+  }catch (Exception ignored){
   }
 %>
 
