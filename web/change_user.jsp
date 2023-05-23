@@ -141,6 +141,7 @@
   <div class="button">
     <input type="submit" value="modify">
   </div>
+  <a href="<%=referenced%>">Click here to return</a>
 </form>
 </div>
 </body>
