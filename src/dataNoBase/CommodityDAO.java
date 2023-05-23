@@ -122,6 +122,35 @@ public class CommodityDAO {
     }
 
     /**
+     * Retrieves available commodities by category from the database.
+     *
+     * @param category   The category to filter the commodities.
+     * @return A List of Commodity objects representing the available commodities in the specified category.
+     */
+    public static List<Commodity> getAvailableCommoditiesByCategory(String category) {
+        List<Commodity> commodities = new ArrayList<>();
+        String sql = "SELECT * FROM commodity WHERE category = ? AND isAvailable = ? LIMIT 10";
+        try (Connection conn = JDBCTool.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, category);
+            pstmt.setBoolean(2, true);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    int cid = rs.getInt("cid");
+                    String itemName = rs.getString("itemName");
+                    float price = rs.getFloat("price");
+                    int stock = rs.getInt("stock");
+                    boolean isAvailable = rs.getBoolean("isAvailable");
+                    commodities.add(new Commodity(cid, itemName, category, price, stock, isAvailable));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return commodities;
+    }
+
+    /**
      * Retrieves a commodity by its ID.
      *
      * @param cid The ID of the commodity to retrieve.

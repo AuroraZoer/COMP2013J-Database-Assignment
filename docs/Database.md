@@ -56,14 +56,13 @@ CREATE TABLE categories ( category VARCHAR ( 100 ) NOT NULL UNIQUE PRIMARY KEY )
 
 # items
 CREATE TABLE commodity (
-    cid INT NOT NULL AUTO_INCREMENT,
-    itemName VARCHAR(100) NOT NULL,
-    category VARCHAR(100) NOT NULL,
-    price FLOAT NOT NULL,
-    stock INT NOT NULL,
-    isAvailable TINYINT(1) NOT NULL DEFAULT 1,
-    PRIMARY KEY (cid),
-    FOREIGN KEY (category) REFERENCES categories(category)
+	cid INT NOT NULL AUTO_INCREMENT,
+	itemName VARCHAR ( 100 ) NOT NULL,
+	category VARCHAR ( 100 ) NOT NULL,
+	price FLOAT NOT NULL,
+	stock INT NOT NULL,
+	PRIMARY KEY ( cid ),
+	FOREIGN KEY (category) REFERENCES categories(category) 
 );
 
 # history of transaction.
@@ -72,7 +71,6 @@ CREATE TABLE transaction (
 	uid INT NOT NULL,
 	cid INT NOT NULL,
 	quantity INT NOT NULL,
-	total FLOAT NOT NULL,
 	is_paid BOOLEAN NOT NULL DEFAULT 0,
 	PRIMARY KEY ( tid ),
 	FOREIGN KEY ( uid ) REFERENCES user	( uid ),
