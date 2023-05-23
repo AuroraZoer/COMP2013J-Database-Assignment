@@ -6,13 +6,15 @@ public class Commodity {
     private String category;
     private float price;
     private int stock;
+    private boolean isAvailable;
 
-    public Commodity(int cid, String itemName, String category, float price, int stock) {
+    public Commodity(int cid, String itemName, String category, float price, int stock, boolean isAvailable) {
         this.cid = cid;
         this.itemName = itemName;
         this.category = category;
         this.price = price;
         this.stock = stock;
+        this.isAvailable = isAvailable;
     }
 
     public int getCid() {
@@ -53,5 +55,13 @@ public class Commodity {
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
     }
 }
