@@ -116,6 +116,7 @@
 
 <%--pre-action--%>
 <%
+    session.setAttribute("referenced","shop.jsp");
 //    类别列表
     List<Category> categories = CategoryDAO.getAllCategories();
     
@@ -200,6 +201,8 @@
                     <%=commodity.getCategory()%> <br>
                     <% if (person.getType() == 0) { %>
                     <a href="commodity_admin.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>">edit</a>
+                    <br>
+                    <a href="commodity_admin.jsp?delete_cid=<%=commodity.getCid()%>">delete</a>
                     <% } %>
                 </div>
                 <div class="item_mid_box">
@@ -235,9 +238,17 @@
         </div>
 
         <div class="pagination_box">
+            <%
+                if (person.getType()==0){
+            %>
             <div class="create_button">
-                create
+                <a href="commodity_admin.jsp">
+                    <img src="img/add.png" alt="create" height="50" width="50">
+                </a>
             </div>
+            <%
+                }
+            %>
             <div class="page">
             <div class="last_page">
                 <form action="shop.jsp" method="post">

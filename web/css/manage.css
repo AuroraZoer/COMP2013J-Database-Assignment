@@ -172,9 +172,20 @@ img {
 
 .pagination_box {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+}
+
+.create_button {
+    display: flex;
+    justify-content: flex-end;
     align-items: center;
     margin-top: 20px;
+}
+
+.page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .last_page,
@@ -182,7 +193,7 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 .last_page input[type="submit"],

@@ -59,15 +59,15 @@
 <%--check session msg--%>
 <%
   if (person == null) {
-    session.setAttribute("referenced", "manage");
+    session.setAttribute("referenced", "manage.jsp");
     response.sendRedirect("login.jsp");
     return;
-  } else if (!login_status) {
-    session.setAttribute("referenced", "manage");
+  } else if (login_status==null || !login_status) {
+    session.setAttribute("referenced", "manage.jsp");
     response.sendRedirect("login.jsp");
     return;
   } else if (person.getType() != 0 && person.getType() != 1) {
-    session.setAttribute("referenced", "manage");
+    session.setAttribute("referenced", "manage.jsp");
     response.sendRedirect("login.jsp");
     return;
   }
@@ -75,6 +75,8 @@
 
 <%--pre-action--%>
 <%
+  session.setAttribute("referenced", "manage.jsp");
+
   List<Person> persons = new ArrayList<>();
   if (keyword==null) {
     if (type.equals("customer")) {
@@ -153,6 +155,8 @@
         <div class="item_left_box">
           <%=each.getId()%> <br>
           <a href="change_user.jsp?name=<%=each.getName()%>&email=<%=each.getEmail()%>&password=<%=each.getPassword()%>&type=<%=each.getType()%>">edit</a>
+          <br>
+          <a href="change_user.jsp?delete_cid=<%=each.getName()%>&type=<%=each.getType()%>">delete</a>
         </div>
         <div class="item_mid_box">
           <div class="item_top_box">
@@ -177,26 +181,33 @@
     </div>
 
     <div class="pagination_box">
-      <div class="last_page">
-        <form action="manage.jsp" method="post">
-          <input type="hidden" name="type" value="<%=type%>">
-          <input type="hidden" name="page_num" value="<%=page_num<=1?1:page_num-1 %>">
-          <%if (keyword != null) {%>
-          <input type="hidden" name="keyword" value="<%=keyword%>">
-          <%}%>
-          <input type="submit" value="last page">
-        </form>
+      <div class="create_button">
+        <a href="change_user.jsp">
+          <img src="img/add.png" alt="add" height="50" width="50">
+        </a>
       </div>
+      <div class="page">
+        <div class="last_page">
+          <form action="manage.jsp" method="post">
+            <input type="hidden" name="type" value="<%=type%>">
+            <input type="hidden" name="page_num" value="<%=page_num<=1?1:page_num-1 %>">
+            <%if (keyword != null) {%>
+            <input type="hidden" name="keyword" value="<%=keyword%>">
+            <%}%>
+            <input type="submit" value="last page">
+          </form>
+        </div>
 
-      <div class="next_page">
-        <form action="manage.jsp" method="post">
-          <input type="hidden" name="type" value="<%=type%>">
-          <input type="hidden" name="page_num" value="<%=persons.size()<10?page_num:page_num+1 %>">
-          <%if (keyword != null) {%>
-          <input type="hidden" name="keyword" value="<%=keyword%>">
-          <%}%>
-          <input type="submit" value="next page">
-        </form>
+        <div class="next_page">
+          <form action="manage.jsp" method="post">
+            <input type="hidden" name="type" value="<%=type%>">
+            <input type="hidden" name="page_num" value="<%=persons.size()<10?page_num:page_num+1 %>">
+            <%if (keyword != null) {%>
+            <input type="hidden" name="keyword" value="<%=keyword%>">
+            <%}%>
+            <input type="submit" value="next page">
+          </form>
+        </div>
       </div>
     </div>
   </div>
