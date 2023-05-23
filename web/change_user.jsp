@@ -105,29 +105,36 @@
 
 <html>
 <head>
-  <title>Title</title>
+  <title>Edit User</title>
+  <link rel="stylesheet" href="css/commodity_admin.css">
 </head>
 <body>
-
+<div class="container">
 <form action="change_user.jsp">
+  <div class="line">
   <label>New Name
     <input type="text" name="new_name" value="<%=name%>">
   </label>
-  <br>
+  </div>
+  <div class="line">
   <label>Type
     <input type="text" name="type" value="<%=type%>">
   </label>
-  <br>
+  </div>
+  <div class="line">
   <label>Email
     <input type="text" name="email" value="<%=email%>">
   </label>
-  <br>
+  </div>
+  <div class="line">
   <label>Password
     <input type="text" name="password" value="<%=password%>">
   </label>
-  <br>
+  </div>
+  <div class="line">
   <input type="submit" value="modify">
+  </div>
 </form>
-
+</div>
 </body>
 </html>
