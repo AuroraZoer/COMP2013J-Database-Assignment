@@ -222,7 +222,7 @@
       <img src="img/user_icon.jpg" alt="用户" height="50" width="50">
     </a>
   </div>
-  <%=person.getType()%>
+  <%=person.getType()==1?"customer":"admin"%>
 
 </div>
 </div>
