@@ -165,11 +165,6 @@
     </div>
 </form>
     <a href="<%=referenced%>">Click here to return</a>
-    <%=cid%>
-    <%=price%>
-    <%=once%>
-    <%=isvisable%>
-    <%=stock%>
 
 </div>
 </body>

@@ -70,15 +70,14 @@
 
 <%--parameters react--%>
 <%
-  if (confirm!=null && password!=null && confirm.equals("password")) {
+  if (confirm!=null && confirm.equals(password)) {
     if (person.getType() == 0) {
-      AdminDAO.deleteAdminByUsername(person.getName());
-      AdminDAO.insertAdmin(new Admin(1, person.getName(), password, person.getEmail(), person.getCreateTime()));
+      AdminDAO.updateAdminPassword(person.getName(), password);
       session.setAttribute("person", AdminDAO.getAdminByUsername(person.getName()));
     }else {
-      UserDAO.deleteUserByUsername(person.getName());
-      UserDAO.insertUser(new User(1, person.getName(), password, person.getEmail(), person.getCreateTime()));
+      UserDAO.updateUserPassword(person.getName(), password);
       session.setAttribute("person", UserDAO.getUserByUsername(person.getName()));
+//      return;
     }
     session.setAttribute("referenced", "change_password.jsp");
     response.sendRedirect("userMain.jsp");
@@ -119,6 +118,9 @@
     </form>
   </div>
 </div>
+<%=password%>
+<%=confirm%>
+<%=person.getName()%>
 
 
 </body>
