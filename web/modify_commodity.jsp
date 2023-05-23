@@ -89,30 +89,37 @@
 //    转换
     try {
         price = Float.parseFloat(price_str);
-        cid = Integer.parseInt(cid_str);
         stock = Integer.parseInt(stock_str);
-        isvisable = Integer.parseInt(isvisable_str);
     }catch (Exception ignored){}
     try{
         delete_cid = Integer.parseInt(delete_cid_str);
+    }catch (Exception ignored){}
+    try{
+        isvisable = Integer.parseInt(isvisable_str);
+    }catch (Exception ignored){}
+    try{
+        cid = Integer.parseInt(cid_str);
     }catch (Exception ignored){}
 %>
 
 <%--parameters react--%>
 <%
-    if (price>0 && cid>0 && stock>0 && name!=null && category!=null && isvisable!=-1 && once==null){
+    if (price>0 && cid>0 && stock>0 && name!=null && category!=null && isvisable!=-1){
         CommodityDAO.updateCommodity(new Commodity(cid, name, category, price, stock, isvisable==1));
         session.setAttribute("referenced", "modify_commodity.jsp");
         response.sendRedirect(referenced);
         return;
     }
-    else if (delete_cid >0 && once!=null && once.equals("modify")){
+    else if (delete_cid >0 && once!=null && once.equals("delete")){
         CommodityDAO.deleteCommodity(delete_cid);
         session.setAttribute("referenced", "modify_commodity.jsp");
         response.sendRedirect(referenced);
         return;
-    }else if (cid>0 && isvisable_str != null && once!=null && once.equals("delete")){
-        CommodityDAO.updateCommodityAvailability(cid, isvisable==1);
+    }else if (cid>0 && isvisable!=-1 && once!=null && once.equals("modify")){
+        CommodityDAO.updateCommodityAvailability(cid, isvisable!=1);
+        session.setAttribute("referenced", "modify_commodity.jsp");
+        response.sendRedirect(referenced);
+        return;
     }
 %>
 
@@ -158,6 +165,12 @@
     </div>
 </form>
     <a href="<%=referenced%>">Click here to return</a>
+    <%=cid%>
+    <%=price%>
+    <%=once%>
+    <%=isvisable%>
+    <%=stock%>
+
 </div>
 </body>
 </html>
