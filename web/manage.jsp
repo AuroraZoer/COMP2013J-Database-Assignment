@@ -2,7 +2,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="dataNoBase.*" %>
 <%@ page import="java.sql.Timestamp" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
 
 <%--session事件--%>
 <%--=========================================================================================================================================--%>
@@ -100,8 +101,8 @@
 
 <html>
 <head>
-  <title>Shop</title>
-  <link rel="stylesheet" href="css/shop.css">
+  <title>Manage User</title>
+  <link rel="stylesheet" href="css/manage.css">
 </head>
 <body>
 
@@ -159,16 +160,16 @@
 
           </div>
           <div class="item_bottom_box">
-            Cid:<%=each.getType()==1?"Customer":"Admin"%> <br>
+            User type: <%=each.getType()==1?"Customer":"Admin"%> <br>
           </div>
         </div>
         <div class="item_right_box">
-          <span class="price">
-            <%=each.getEmail()%> <br>
+          <span class="stock">
+            Email: <%=each.getEmail()%> <br><br>
           </span>
 
           <span class="stock">
-              <%=each.getCreateTime()%> <br>
+             Create time: <%=each.getCreateTime()%> <br>
           </span>
         </div>
       </div>
@@ -200,20 +201,17 @@
     </div>
   </div>
 
-
+  <div class="right_box">
   <%--    用户界面--%>
-  <div>
+    <div class="user">
     <a href="userMain.jsp">
       <img src="img/user_icon.jpg" alt="用户" height="50" width="50">
     </a>
   </div>
-
-  <%--    购物车--%>
-  usertype:
   <%=type%>
 
 </div>
-
+</div>
 
 </body>
 </html>

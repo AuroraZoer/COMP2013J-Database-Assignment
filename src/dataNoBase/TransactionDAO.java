@@ -145,6 +145,23 @@ public class TransactionDAO {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, tid);
             pstmt.executeUpdate();
+
+            // Retrieve the transaction information
+            Transaction transaction = getTransactionById(tid);
+            if (transaction == null || !transaction.isPaid()) {
+                return; // Transaction does not exist or is not paid, no updates needed
+            }
+
+            // Update commodity stock based on the transaction quantity
+            int cid = transaction.getCid();
+            int quantity = transaction.getQuantity();
+            Commodity commodity = CommodityDAO.getCommodityByCid(cid);
+            if (commodity != null) {
+                int updatedStock = commodity.getStock() - quantity;
+                commodity.setStock(updatedStock);
+                CommodityDAO.updateCommodity(commodity);
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

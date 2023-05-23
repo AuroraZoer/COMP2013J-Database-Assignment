@@ -22,6 +22,14 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+.right_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
 img {
     max-width: 100%;
     height: auto;
@@ -29,15 +37,16 @@ img {
 
 .user,
 .shopping_car {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 30px;
+    margin-top: 15px;
 }
 
 .user img,
 .shopping_car img {
     cursor: pointer;
+}
+
+.user_type {
+    margin-top: 5px;
 }
 
 .main_box {
@@ -77,6 +86,8 @@ img {
 
 .item_bottom_box {
     padding: 5px;
+    display: flex;
+    flex-direction: column;
 }
 
 .item_admin_box {
