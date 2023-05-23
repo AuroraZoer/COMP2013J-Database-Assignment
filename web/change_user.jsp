@@ -28,7 +28,6 @@
   Admin admin = (Admin) session.getAttribute("person");
   Boolean login_status = (Boolean) session.getAttribute("login_status");
   String referenced = (String) session.getAttribute("referenced");
-  boolean status = true;
 %>
 
 <%--session invalid--%>
@@ -38,7 +37,7 @@
     response.sendRedirect("login.jsp");
     return;
   }
-  if (admin.getType()!=1){
+  if (admin.getType()!=0){
     session.setAttribute("referenced", "change_user.jsp");
     response.sendRedirect(referenced);
   }
@@ -52,7 +51,6 @@
 <%--recv parameters--%>
 <%
   String name = request.getParameter("name");
-  String action = request.getParameter("action");
   String type_str = request.getParameter("type");
   String email = request.getParameter("email");
   String password = request.getParameter("password");
@@ -83,30 +81,14 @@
 
 <%--parameters react--%>
 <%
-  if (action!=null && (action.equals("delete") || action.equals("modify") || action.equals("create"))) {
-    switch (action) {
-      case "create":
-        if (type == 0)
-          AdminDAO.insertAdmin(new Admin(1, new_name, password, email, new Timestamp(new Date().getTime())));
-        else
-          UserDAO.insertUser(new User(1, new_name, password, email, new Timestamp(new Date().getTime())));
-        break;
-      case "delete":
-        if (type == 0) {
-          AdminDAO.deleteAdminByUsername(name);
-        } else {
-          UserDAO.deleteUserByUsername(name);
-        }
-        break;
-      case "modify":
-        if (type == 0) {
-          AdminDAO.deleteAdminByUsername(name);
-          AdminDAO.insertAdmin(new Admin(1, new_name, password, email, new Timestamp(new Date().getTime())));
-        } else {
-          UserDAO.deleteUserByUsername(name);
-          UserDAO.insertUser(new User(1, new_name, password, email, new Timestamp(new Date().getTime())));
-        }
-        break;
+  if (!new_name.equals("") && !password.equals("") && !email.equals("")) {
+    if (type==1){
+      UserDAO.deleteUserByUsername(name);
+      UserDAO.insertUser(new User(1, new_name, password, email, null));
+    }
+    if (type==0){
+      AdminDAO.deleteAdminByUsername(name);
+      AdminDAO.insertAdmin(new Admin(1, new_name, password, email, null));
     }
     session.setAttribute("referenced", "change_user.jsp");
     response.sendRedirect("manage.jsp");
@@ -144,17 +126,7 @@
     <input type="text" name="password" value="<%=password%>">
   </label>
   <br>
-  <label>Delete
-    <input type="radio" name="action" value="delete">
-  </label>
-  <label>Create
-    <input type="radio" name="action" value="create">
-  </label>
-  <label>Modify
-    <input type="radio" name="action" value="modify">
-  </label>
-  <input type="hidden" name="name" value="<%=name%>">
-  <input type="submit" value="confirm">
+  <input type="submit" value="modify">
 </form>
 
 </body>
