@@ -125,15 +125,17 @@ public class CommodityDAO {
      * Retrieves available commodities by category from the database.
      *
      * @param category   The category to filter the commodities.
-     * @return A List of Commodity objects representing the available commodities in the specified category.
+     * @param pageNumber The page number for pagination (starting from 1).
+     * @return A List of Commodity objects representing the filtered commodities.
      */
-    public static List<Commodity> getAvailableCommoditiesByCategory(String category) {
+    public static List<Commodity> getAvailableCommoditiesByCategory(String category, int pageNumber) {
         List<Commodity> commodities = new ArrayList<>();
-        String sql = "SELECT * FROM commodity WHERE category = ? AND isAvailable = ? LIMIT 10";
+        String sql = "SELECT * FROM commodity WHERE category = ? AND isAvailable = ? LIMIT 10 OFFSET ?";
         try (Connection conn = JDBCTool.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, category);
             pstmt.setBoolean(2, true);
+            pstmt.setInt(3, (pageNumber - 1) * 10);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     int cid = rs.getInt("cid");
@@ -149,6 +151,7 @@ public class CommodityDAO {
         }
         return commodities;
     }
+
 
     /**
      * Retrieves a commodity by its ID.
