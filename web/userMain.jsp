@@ -59,8 +59,9 @@
 //    退出登录操作
     if (user_logout!=null){
         session.removeAttribute("login_status");
-        response.sendRedirect("login.jsp");
         session.removeAttribute("person");
+        session.removeAttribute("referenced");
+        response.sendRedirect("login.jsp");
         return;
     }
 //    删除账户操作
@@ -68,6 +69,7 @@
         UserDAO.deleteUserByUsername(person.getName());
         session.removeAttribute("login_status");
         session.removeAttribute("person");
+        session.removeAttribute("referenced");
         response.sendRedirect("login.jsp");
         return;
     }
