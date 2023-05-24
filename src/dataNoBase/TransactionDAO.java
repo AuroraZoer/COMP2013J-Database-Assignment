@@ -157,4 +157,20 @@ public class TransactionDAO {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Deletes all transaction records associated with a specific user ID.
+     *
+     * @param uid User ID
+     */
+    public static void deleteTransactionsByUserId(int uid) {
+        String sql = "DELETE FROM `transaction` WHERE uid = ?";
+        try (Connection conn = JDBCTool.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, uid);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

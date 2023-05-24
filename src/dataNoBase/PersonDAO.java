@@ -130,6 +130,17 @@ public class PersonDAO {
      * @param name the name of the person to delete
      */
     public static void deletePersonByName(String name) {
+        // Get the person by name
+        Person person = getPersonByName(name);
+        if (person == null) {
+            // Person does not exist, no further action needed
+            return;
+        }
+
+        // Delete transactions associated with the person
+        TransactionDAO.deleteTransactionsByUserId(person.getId());
+
+        // Delete the person's account
         String sql = "DELETE FROM " + tableName + " WHERE " + nameColumnName + " = ?";
         try (Connection conn = JDBCTool.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
