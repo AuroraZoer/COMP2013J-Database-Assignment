@@ -15,12 +15,11 @@
 #these commands will
 delete all tables
 USE zoe;
-DROP TABLE user;
 DROP TABLE admin;
+DROP TABLE transaction;
+DROP TABLE user;
 DROP TABLE commodity;
 DROP TABLE categories;
-DROP TABLE transaction;
-
 ```
 
 ### Create tables
@@ -31,25 +30,27 @@ USE zoe;
 # if warning: SHOW WARNINGS;
 # users to this application
 CREATE TABLE user (
-	uid INT NOT NULL AUTO_INCREMENT,
-	username VARCHAR ( 100 ) NOT NULL UNIQUE,
+	uid INT ( 11 ) NOT NULL AUTO_INCREMENT,
+	username VARCHAR ( 100 ) NOT NULL,
 	password VARCHAR ( 100 ) NOT NULL,
 	email VARCHAR ( 255 ) NOT NULL,
 	create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY ( uid ),
-	UNIQUE KEY user_unique ( username, email )
-) ;
+	UNIQUE KEY `username_unique` ( `username` ),
+	UNIQUE KEY `email_unique` ( `email` ) 
+) ENGINE = INNODB DEFAULT CHARSET = utf8;
 
 # admins that have privileges such as increasing stock, etc
 CREATE TABLE admin (
-	aid INT NOT NULL AUTO_INCREMENT,
+	aid INT ( 11 ) NOT NULL AUTO_INCREMENT,
 	admin_name VARCHAR ( 255 ) NOT NULL,
 	password VARCHAR ( 255 ) NOT NULL,
 	email VARCHAR ( 255 ) NOT NULL,
 	create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY ( aid ),
-	UNIQUE KEY admin_unique( admin_name, email )
-) ;
+	UNIQUE KEY `admin_name_unique` ( `admin_name` ),
+	UNIQUE KEY `email_unique` ( `email` ) 
+) ENGINE = INNODB DEFAULT CHARSET = utf8;
 
 # representing the commodity stored in warehouses.
 CREATE TABLE categories ( category VARCHAR ( 100 ) NOT NULL UNIQUE PRIMARY KEY );
@@ -57,13 +58,15 @@ CREATE TABLE categories ( category VARCHAR ( 100 ) NOT NULL UNIQUE PRIMARY KEY )
 # items
 CREATE TABLE commodity (
 	cid INT NOT NULL AUTO_INCREMENT,
-	itemName VARCHAR ( 100 ) NOT NULL,
-	category VARCHAR ( 100 ) NOT NULL,
+	itemName VARCHAR(100) NOT NULL,
+	category VARCHAR(100) NOT NULL,
 	price FLOAT NOT NULL,
 	stock INT NOT NULL,
-	PRIMARY KEY ( cid ),
-	FOREIGN KEY (category) REFERENCES categories(category) 
+	isAvailable BOOLEAN NOT NULL DEFAULT true,
+	PRIMARY KEY (cid),
+	FOREIGN KEY (category) REFERENCES categories(category)
 );
+
 
 # history of transaction.
 CREATE TABLE transaction (
@@ -82,14 +85,19 @@ CREATE TABLE transaction (
 ### Insert data
 
 ```mysql
-INSERT INTO admin ( admin_name, password, email ) 
-VALUES 
-    ('Suri', '123456', 'shuqi.dai@ucdconnect.ie');
-    
+INSERT INTO admin (admin_name, password, email)
+VALUES
+    ('Suri', '123456', 'shuqi.dai@ucdconnect.ie'),
+    ('John', 'password123', 'john@example.com'),
+    ('Emma', 'hello123', 'emma@example.com'),
+    ('David', 'qwerty', 'david@example.com');    
     
 INSERT INTO user (username, password, email)
 VALUES
-    ('Zoe', '123456', ' yiran.zhao3@ucdconnect.ie');
+    ('Zoe', '123456', 'yiran.zhao3@ucdconnect.ie'),
+    ('Alex', 'password123', 'alex@example.com'),
+    ('Sophia', 'hello123', 'sophia@example.com'),
+    ('Daniel', 'qwerty', 'daniel@example.com');
 
 INSERT INTO categories ( category )
 VALUES
@@ -205,5 +213,4 @@ VALUES
 	( 'lemon tea', 'Drink', 3, 80 ),
 	( 'sour plum juice', 'Drink', 8, 30 ),
 	( 'water soluble c', 'Drink', 6, 50 );
-	
 ```
