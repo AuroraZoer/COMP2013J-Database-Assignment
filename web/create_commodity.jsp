@@ -45,7 +45,7 @@
 <%
     //登录状态不正常，重新登陆
     if (login_status==null || !login_status){
-        session.setAttribute("referenced", "create_commodity");
+        session.setAttribute("referenced", "create_commodity.jsp");
         response.sendRedirect("login.jsp");
         return;
     }

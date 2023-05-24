@@ -72,11 +72,6 @@
     String isvisable_str = request.getParameter("isvisable");
 %>
 
-<%--parameters invalid--%>
-<%
-
-%>
-
 <%--NullPointerException && NumberFormatException--%>
 <%
 //    声明变量
@@ -100,6 +95,11 @@
     try{
         cid = Integer.parseInt(cid_str);
     }catch (Exception ignored){}
+%>
+
+<%--parameters invalid--%>
+<%
+
 %>
 
 <%--parameters react--%>
