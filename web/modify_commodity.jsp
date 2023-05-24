@@ -38,7 +38,7 @@
 <%
     //登录状态不正常，重新登陆
     if (login_status==null || !login_status){
-        session.setAttribute("referenced", "commodity_admin");
+        session.setAttribute("referenced", "modify_commodity.jsp");
         response.sendRedirect("login.jsp");
         return;
     }
@@ -72,11 +72,6 @@
     String isvisable_str = request.getParameter("isvisable");
 %>
 
-<%--parameters invalid--%>
-<%
-
-%>
-
 <%--NullPointerException && NumberFormatException--%>
 <%
 //    声明变量
@@ -100,6 +95,11 @@
     try{
         cid = Integer.parseInt(cid_str);
     }catch (Exception ignored){}
+%>
+
+<%--parameters invalid--%>
+<%
+
 %>
 
 <%--parameters react--%>
