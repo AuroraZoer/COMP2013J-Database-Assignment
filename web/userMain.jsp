@@ -6,7 +6,6 @@
 <%--no session--%>
 <%
     if (session.isNew()){
-        session.setAttribute("referenced", "userMain.jsp");
         response.sendRedirect("login.jsp");
         return;
     }
@@ -15,7 +14,6 @@
 <%--session outdate--%>
 <%
     if (session.getMaxInactiveInterval()<0){
-        session.setAttribute("referenced", "userMain.jsp");
         response.sendRedirect("login.jsp");
         return;
     }
@@ -37,12 +35,10 @@
 <%
 //    用户信息错误，重新登陆
     if (person == null){
-        session.setAttribute("referenced", "userMain.jsp");
         response.sendRedirect("login.jsp");
         return;
     }
     if (login_status==null || !login_status){
-        session.setAttribute("referenced", "userMain.jsp");
         response.sendRedirect("login.jsp");
         return;
     }
