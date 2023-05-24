@@ -104,7 +104,7 @@
 
 <%--parameters react--%>
 <%
-    if (price>0 && cid>0 && stock>0 && name!=null && category!=null && isvisable!=-1){
+    if (price>0 && cid>0 && stock>0 && name!=null && category!=null){
         CommodityDAO.updateCommodity(new Commodity(cid, name, category, price, stock, isvisable==1));
         session.setAttribute("referenced", "modify_commodity.jsp");
         response.sendRedirect(referenced);
