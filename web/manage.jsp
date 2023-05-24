@@ -10,6 +10,7 @@
 <%--no session--%>
 <%
   if (session.isNew()) {
+    session.setAttribute("referenced", "manage.jsp");
     response.sendRedirect("login.jsp");
   }
 %>
@@ -17,6 +18,7 @@
 <%--session outdate--%>
 <%
   if (session.getMaxInactiveInterval() < 0) {
+    session.setAttribute("referenced", "manage.jsp");
     response.sendRedirect("login.jsp");
   }
 %>
@@ -31,6 +33,23 @@
   Person person = (Person) session.getAttribute("person");
   Boolean login_status = (Boolean) session.getAttribute("login_status");
   String referenced = (String) session.getAttribute("referenced");
+%>
+
+<%--session invalid--%>
+<%
+  if (person == null) {
+    session.setAttribute("referenced", "manage.jsp");
+    response.sendRedirect("login.jsp");
+    return;
+  } else if (login_status==null || !login_status) {
+    session.setAttribute("referenced", "manage.jsp");
+    response.sendRedirect("login.jsp");
+    return;
+  } else if (person.getType() != 0 && person.getType() != 1) {
+    session.setAttribute("referenced", "manage.jsp");
+    response.sendRedirect("login.jsp");
+    return;
+  }
 %>
 
 <%--recv parameters--%>
@@ -51,31 +70,16 @@
 
 <%--parameters react--%>
 <%
-  if (type==null){
-    type = "admin";
-  }
-%>
 
-<%--check session msg--%>
-<%
-  if (person == null) {
-    session.setAttribute("referenced", "manage.jsp");
-    response.sendRedirect("login.jsp");
-    return;
-  } else if (login_status==null || !login_status) {
-    session.setAttribute("referenced", "manage.jsp");
-    response.sendRedirect("login.jsp");
-    return;
-  } else if (person.getType() != 0 && person.getType() != 1) {
-    session.setAttribute("referenced", "manage.jsp");
-    response.sendRedirect("login.jsp");
-    return;
-  }
 %>
 
 <%--pre-action--%>
 <%
   session.setAttribute("referenced", "manage.jsp");
+
+  if (type==null){
+    type = "admin";
+  }
 
   List<Person> persons = new ArrayList<>();
   if (keyword==null) {
