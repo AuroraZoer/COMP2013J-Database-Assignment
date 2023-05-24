@@ -104,7 +104,7 @@
 
 <%--parameters react--%>
 <%
-    if (price>0 && cid>0 && stock>0 && name!=null && category!=null){
+    if (price>0 && cid>0 && stock>0 && name!=null && category!=null && once!=null && once.equals("modify")){
         CommodityDAO.updateCommodity(new Commodity(cid, name, category, price, stock, isvisable==1));
         session.setAttribute("referenced", "modify_commodity.jsp");
         response.sendRedirect(referenced);
@@ -159,6 +159,7 @@
     <label>Stock:
         <input type="text" name="stock" value="<%=stock==-1?"":stock%>">
     </label>
+        <input type="hidden" name="once" value="modify">
     </div>
     <div class="button">
         <input type="submit" value="modify">
