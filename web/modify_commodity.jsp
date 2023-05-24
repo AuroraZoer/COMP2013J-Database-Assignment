@@ -107,18 +107,18 @@
     if (price>0 && cid>0 && stock>0 && name!=null && category!=null && once!=null && once.equals("modify")){
         CommodityDAO.updateCommodity(new Commodity(cid, name, category, price, stock, isvisable==1));
         session.setAttribute("referenced", "modify_commodity.jsp");
-        response.sendRedirect(referenced);
+        response.sendRedirect("shop.jsp");
         return;
     }
     else if (delete_cid >0 && once!=null && once.equals("delete")){
         CommodityDAO.deleteCommodity(delete_cid);
         session.setAttribute("referenced", "modify_commodity.jsp");
-        response.sendRedirect(referenced);
+        response.sendRedirect("shop.jsp");
         return;
     }else if (cid>0 && isvisable!=-1 && once!=null && once.equals("modify")){
         CommodityDAO.updateCommodityAvailability(cid, isvisable!=1);
         session.setAttribute("referenced", "modify_commodity.jsp");
-        response.sendRedirect(referenced);
+        response.sendRedirect("shop.jsp");
         return;
     }
 %>
@@ -160,6 +160,7 @@
         <input type="text" name="stock" value="<%=stock==-1?"":stock%>">
     </label>
         <input type="hidden" name="once" value="modify">
+        <input type="hidden" name="cid" value="<%=cid%>">
     </div>
     <div class="button">
         <input type="submit" value="modify">
