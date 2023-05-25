@@ -52,7 +52,7 @@
 
 <%--parameters react--%>
 <%
-    //    退出登录操作
+    // Log out.
     if (user_logout != null) {
         session.removeAttribute("login_status");
         session.removeAttribute("person");
@@ -60,7 +60,7 @@
         response.sendRedirect("login.jsp");
         return;
     }
-//    删除账户操作
+    // Delete account.
     if (delete_account != null && delete_account.equals("true")) {
         UserDAO.deleteUserByUsername(person.getName());
         session.removeAttribute("login_status");
@@ -104,18 +104,18 @@
             Cid: <%=person.getId()%>
         </div>
     </div>
-    <%--    修改密码--%>
+    <%--Change password--%>
     <div class="line">
         <a href="change_password.jsp">Click here to modify password</a>
     </div>
-    <%--    退出登录按钮--%>
+    <%--Log out button--%>
     <div class="user_button">
         <form action="userMain.jsp" method="post">
             <input type="hidden" name="user_logout">
             <button type="submit">Log Out</button>
         </form>
     </div>
-    <%--    删除账户按钮--%>
+    <%--Delete account button--%>
     <div class="delete_button">
         <%if (person.getType() == 1) {%>
         <form action="userMain.jsp" method="post">
