@@ -129,7 +129,7 @@
 
 <html>
 <head>
-    <title>Shopping Car</title>
+    <title>Shopping Cart</title>
     <link rel="stylesheet" href="css/shopping_car.css">
 
 </head>
@@ -217,7 +217,7 @@
     </div>
 
     <div class="right_box">
-        <%--    用户界面--%>
+        <%--User interface--%>
         <div class="user">
             <a href="userMain.jsp">
                 <img src="img/user_icon.jpg" alt="用户" height="50" width="50">
@@ -226,7 +226,7 @@
         <div class="user_type">
             <%=person.getType() == 1 ? "customer" : "admin"%>
         </div>
-        <%--    购物车--%>
+        <%--Shopping cart--%>
         <div class="shopping_car">
             <a href="shop.jsp">
                 <img src="img/shop.jpg" alt="商城" width="50" height="50">
