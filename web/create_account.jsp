@@ -33,8 +33,8 @@
 
 <%--session invalid--%>
 <%
-    //默认登录shop.jsp
-    if (referenced == null){
+    // The default login is shop.jsp
+    if (referenced == null) {
         referenced = "shop.jsp";
     }
 %>
@@ -60,8 +60,8 @@
 
 <%--parameters react--%>
 <%
-    if (username != null && confirm != null && email != null && confirm.equals(password)){
-//        参数正常，注册
+    if (username != null && confirm != null && email != null && confirm.equals(password)) {
+        // Parameters are normal, register.
         UserDAO.insertUser(new User(1, username, password, email, new Timestamp(new java.util.Date().getTime())));
     }
 %>

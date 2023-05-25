@@ -1,11 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: zzy13
-  Date: 2023/5/23
-  Time: 14:07
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page import="dataNoBase.Admin" %>
 <%@ page import="dataNoBase.CommodityDAO" %>
 <%@ page import="dataNoBase.Commodity" %>
 <%@ page import="dataNoBase.Person" %>
@@ -43,22 +35,22 @@
 
 <%--session invalid--%>
 <%
-    //登录状态不正常，重新登陆
-    if (login_status==null || !login_status){
+    // The login status is abnormal. Log in again.
+    if (login_status == null || !login_status) {
         session.setAttribute("referenced", "create_commodity.jsp");
         response.sendRedirect("login.jsp");
         return;
     }
 
-//    session获取不到用户信息，重新登录
-    if (admin == null){
+    // Session failed to obtain user information. Log in again.
+    if (admin == null) {
         session.setAttribute("referenced", "create_commodity.jsp");
         response.sendRedirect("login.jsp");
         return;
     }
 
-//    用户权限不足，返回原界面
-    if (admin.getType()!=0){
+    // If the user has insufficient rights, return to the original page.
+    if (admin.getType() != 0) {
         session.setAttribute("referenced", "create_commodity.jsp");
         response.sendRedirect(referenced);
         return;
@@ -71,7 +63,7 @@
     String name = request.getParameter("name");
     String second = request.getParameter("second");
 
-//    以下参数需要转换类型
+    //The following parameters need to be converted.
     String price_str = request.getParameter("price");
     String cid_str = request.getParameter("cid");
     String stock_str = request.getParameter("stock");
@@ -94,14 +86,16 @@
         price = Float.parseFloat(price_str);
         cid = Integer.parseInt(cid_str);
         stock = Integer.parseInt(stock_str);
-    }catch (Exception ignored){}
-    try{
-    }catch (Exception ignored){}
+    } catch (Exception ignored) {
+    }
+    try {
+    } catch (Exception ignored) {
+    }
 %>
 
 <%--parameters react--%>
 <%
-    if (price>0 && cid>0 && stock>0 && name!=null && category!=null && second!=null){
+    if (price > 0 && cid > 0 && stock > 0 && name != null && category != null && second != null) {
         CommodityDAO.insertCommodity(new Commodity(cid, name, category, price, stock, true));
         session.setAttribute("referenced", "create_commodity.jsp");
         response.sendRedirect(referenced);
