@@ -77,7 +77,6 @@
     }else {
       UserDAO.updateUserPassword(person.getName(), password);
       session.setAttribute("person", UserDAO.getUserByUsername(person.getName()));
-//      return;
     }
     session.setAttribute("referenced", "change_password.jsp");
     response.sendRedirect("userMain.jsp");
@@ -121,7 +120,6 @@
 <%=password%>
 <%=confirm%>
 <%=person.getName()%>
-
 
 </body>
 </html>
