@@ -35,19 +35,19 @@
 
 <%--session invalid--%>
 <%
-    //    用户不存在,返回登陆
+    // If the user does not exist, return to login page.
     if (person == null) {
         session.setAttribute("referenced", "shop.jsp");
         response.sendRedirect("login.jsp");
         return;
     }
-//    用户信息异常,返回登录
+    // If the user information is abnormal, return to login page.
     if (person.getType() != 1 && person.getType() != 0) {
         session.setAttribute("referenced", "shop.jsp");
         response.sendRedirect("login.jsp");
         return;
     }
-//    登录状态异常,返回登录
+    // If login status is abnormal, return to login page.
     if (login_status == null || !login_status) {
         session.setAttribute("referenced", "shop.jsp");
         response.sendRedirect("login.jsp");
@@ -117,10 +117,10 @@
 <%--pre-action--%>
 <%
     session.setAttribute("referenced", "shop.jsp");
-//    类别列表
+    // Category list.
     List<Category> categories = CategoryDAO.getAllCategories();
 
-//    商品列表
+    // Commodity list.
     List<Commodity> commodities = null;
     if (keyword == null) {
         if (person.getType() == 0) {
@@ -290,7 +290,7 @@
 
 
     <div class="right_box">
-        <%--    用户界面--%>
+        <%--User interface--%>
         <div class="user">
             <a href="userMain.jsp">
                 <img src="img/user_icon.jpg" alt="用户" height="50" width="50">
@@ -299,7 +299,7 @@
         <div class="user_type">
             <%=person.getType() == 1 ? "customer" : "admin"%>
         </div>
-        <%--    购物车--%>
+        <%--Shopping cart--%>
         <div class="shopping_car">
             <%
                 if (person.getType() == 1) {

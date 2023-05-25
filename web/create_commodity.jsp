@@ -81,7 +81,7 @@
     int cid = -1;
     int stock = -1;
 
-    // Switch.
+    // Converts the string type to the corresponding type.
     try {
         price = Float.parseFloat(price_str);
         cid = Integer.parseInt(cid_str);

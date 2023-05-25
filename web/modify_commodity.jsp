@@ -1,4 +1,3 @@
-<%@ page import="dataNoBase.Admin" %>
 <%@ page import="dataNoBase.CommodityDAO" %>
 <%@ page import="dataNoBase.Commodity" %>
 <%@ page import="dataNoBase.Person" %>
@@ -36,21 +35,21 @@
 
 <%--session invalid--%>
 <%
-    //登录状态不正常，重新登陆
+    // The login status is abnormal. Log in again.
     if (login_status == null || !login_status) {
         session.setAttribute("referenced", "modify_commodity.jsp");
         response.sendRedirect("login.jsp");
         return;
     }
 
-//    session获取不到用户信息，重新登录
+    // Session fails to obtain the user information. Log in again.
     if (admin == null) {
         session.setAttribute("referenced", "modify_commodity.jsp");
         response.sendRedirect("login.jsp");
         return;
     }
 
-//    用户权限不足，返回原界面
+    // If the user has insufficient permissions, return to the original page.
     if (admin.getType() != 0) {
         session.setAttribute("referenced", "modify_commodity.jsp");
         response.sendRedirect(referenced);
@@ -64,7 +63,7 @@
     String name = request.getParameter("name");
     String once = request.getParameter("once");
 
-//    以下参数需要转换类型
+    // The following parameters need to be converted.
     String price_str = request.getParameter("price");
     String cid_str = request.getParameter("cid");
     String stock_str = request.getParameter("stock");
@@ -74,14 +73,14 @@
 
 <%--NullPointerException && NumberFormatException--%>
 <%
-    //    声明变量
+    // Declare variables.
     float price = -1F;
     int cid = -1;
     int stock = -1;
     int delete_cid = -1;
     int isvisable = -1;
 
-//    转换
+    // Converts the string type to the corresponding type.
     try {
         price = Float.parseFloat(price_str);
         stock = Integer.parseInt(stock_str);
