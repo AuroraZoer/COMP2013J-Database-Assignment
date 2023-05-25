@@ -35,20 +35,20 @@
 
 <%--session invalid--%>
 <%
-//    用户不存在,返回登陆
-    if (person == null){
+    //    用户不存在,返回登陆
+    if (person == null) {
         session.setAttribute("referenced", "shop.jsp");
         response.sendRedirect("login.jsp");
         return;
     }
 //    用户信息异常,返回登录
-    if (person.getType()!= 1 && person.getType()!=0){
+    if (person.getType() != 1 && person.getType() != 0) {
         session.setAttribute("referenced", "shop.jsp");
         response.sendRedirect("login.jsp");
         return;
     }
 //    登录状态异常,返回登录
-    if (login_status==null || !login_status){
+    if (login_status == null || !login_status) {
         session.setAttribute("referenced", "shop.jsp");
         response.sendRedirect("login.jsp");
         return;
@@ -108,27 +108,27 @@
         CategoryDAO.deleteCategory(delete_category_name);
     }
 
-    if (add_transaction_cid>0 && add_transaction_number>0){
-        TransactionDAO.addTransaction(add_transaction_cid,person.getId(), add_transaction_number);
+    if (add_transaction_cid > 0 && add_transaction_number > 0) {
+        TransactionDAO.addTransaction(add_transaction_cid, person.getId(), add_transaction_number);
     }
 
 %>
 
 <%--pre-action--%>
 <%
-    session.setAttribute("referenced","shop.jsp");
+    session.setAttribute("referenced", "shop.jsp");
 //    类别列表
     List<Category> categories = CategoryDAO.getAllCategories();
-    
+
 //    商品列表
     List<Commodity> commodities = null;
-    if (keyword == null){
-        if (person.getType()==0) {
+    if (keyword == null) {
+        if (person.getType() == 0) {
             commodities = CommodityDAO.getCommoditiesByCategory(categories.get(category_num - 1).getName(), page_num);
-        }else {
+        } else {
             commodities = CommodityDAO.getAvailableCommoditiesByCategory(categories.get(category_num - 1).getName(), page_num);
         }
-    }else {
+    } else {
         if (person.getType() == 0) {
             commodities = CommodityDAO.getCommoditiesByCategory(keyword, page_num);
         } else {
@@ -178,7 +178,7 @@
                 <button type="submit">add</button>
             </form>
             <div class="manageUser">
-            <a href="manage.jsp">Click here to manage users</a>
+                <a href="manage.jsp">Click here to manage users</a>
             </div>
             <%}%>
         </div>
@@ -211,7 +211,8 @@
                     <% if (person.getType() == 0) { %>
                     <a href="modify_commodity.jsp?category=<%=commodity.getCategory()%>&cid=<%=commodity.getCid()%>&name=<%=commodity.getItemName()%>&price=<%=commodity.getPrice()%>&stock=<%=commodity.getStock()%>">edit</a>
                     <br>
-                    <a href="modify_commodity.jsp?cid=<%=commodity.getCid()%>&once=modify&isvisable=<%=commodity.isAvailable()?1:0%>"><%=commodity.isAvailable()?"on shelve":"off shelve"%></a>
+                    <a href="modify_commodity.jsp?cid=<%=commodity.getCid()%>&once=modify&isvisable=<%=commodity.isAvailable()?1:0%>"><%=commodity.isAvailable() ? "on shelve" : "off shelve"%>
+                    </a>
                     <br>
                     <a href="modify_commodity.jsp?delete_cid=<%=commodity.getCid()%>&once=delete">delete</a>
                     <% } %>
@@ -233,7 +234,8 @@
                     </span>
                     <% } else { %>
                     <form class="stock" action="shop.jsp" method="post">
-                        <input type="number" name="add_transaction_number" min="1" max="<%=commodity.getStock()%>" step="1" placeholder="0">
+                        <input type="number" name="add_transaction_number" min="1" max="<%=commodity.getStock()%>"
+                               step="1" placeholder="0">
                         <input type="hidden" name="category_str" value="<%=category_num%>">
                         <input type="hidden" name="page_num" value="<%=page_num%>">
                         <%if (keyword != null) {%>
@@ -250,7 +252,7 @@
 
         <div class="pagination_box">
             <%
-                if (person.getType()==0){
+                if (person.getType() == 0) {
             %>
             <div class="create_button">
                 <a href="create_commodity.jsp">
@@ -261,41 +263,41 @@
                 }
             %>
             <div class="page">
-            <div class="last_page">
-                <form action="shop.jsp" method="post">
-                    <input type="hidden" name="category_str" value="<%=category_num%>">
-                    <input type="hidden" name="page_num" value="<%=page_num<=1?1:page_num-1 %>">
-                    <%if (keyword != null) {%>
-                    <input type="hidden" name="keyword" value="<%=keyword%>">
-                    <%}%>
-                    <input type="submit" value="last page">
-                </form>
-            </div>
+                <div class="last_page">
+                    <form action="shop.jsp" method="post">
+                        <input type="hidden" name="category_str" value="<%=category_num%>">
+                        <input type="hidden" name="page_num" value="<%=page_num<=1?1:page_num-1 %>">
+                        <%if (keyword != null) {%>
+                        <input type="hidden" name="keyword" value="<%=keyword%>">
+                        <%}%>
+                        <input type="submit" value="last page">
+                    </form>
+                </div>
 
-            <div class="next_page">
-                <form action="shop.jsp" method="post">
-                    <input type="hidden" name="category_str" value="<%=category_num%>">
-                    <input type="hidden" name="page_num" value="<%=commodities.size()<10?page_num:page_num+1 %>">
-                    <%if (keyword != null) {%>
-                    <input type="hidden" name="keyword" value="<%=keyword%>">
-                    <%}%>
-                    <input type="submit" value="next page">
-                </form>
-            </div>
+                <div class="next_page">
+                    <form action="shop.jsp" method="post">
+                        <input type="hidden" name="category_str" value="<%=category_num%>">
+                        <input type="hidden" name="page_num" value="<%=commodities.size()<10?page_num:page_num+1 %>">
+                        <%if (keyword != null) {%>
+                        <input type="hidden" name="keyword" value="<%=keyword%>">
+                        <%}%>
+                        <input type="submit" value="next page">
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
 
     <div class="right_box">
-    <%--    用户界面--%>
+        <%--    用户界面--%>
         <div class="user">
             <a href="userMain.jsp">
                 <img src="img/user_icon.jpg" alt="用户" height="50" width="50">
             </a>
         </div>
         <div class="user_type">
-            <%=person.getType()==1?"customer":"admin"%>
+            <%=person.getType() == 1 ? "customer" : "admin"%>
         </div>
         <%--    购物车--%>
         <div class="shopping_car">

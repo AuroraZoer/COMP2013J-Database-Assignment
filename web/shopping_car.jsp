@@ -37,16 +37,16 @@
 
 <%--session invalid--%>
 <%
-    if (user == null){
+    if (user == null) {
         session.setAttribute("referenced", "shopping_car.jsp");
         response.sendRedirect("login.jsp");
         return;
     }
-    if (user.getType()!=1){
+    if (user.getType() != 1) {
         session.setAttribute("referenced", "shopping_car.jsp");
         response.sendRedirect(referenced);
     }
-    if (login_status==null || !login_status){
+    if (login_status == null || !login_status) {
         session.setAttribute("referenced", "shopping_car.jsp");
         response.sendRedirect("login.jsp");
         return;
@@ -69,35 +69,41 @@
     int page_num = 1;
     try {
         page_num = Integer.parseInt(page_str);
-    } catch (Exception ignored) {}
+    } catch (Exception ignored) {
+    }
     int delete_tid = -1;
     try {
         delete_tid = Integer.parseInt(delete_tid_str);
-    } catch (Exception ignored) {}
+    } catch (Exception ignored) {
+    }
     int modify_tid = -1;
     try {
         modify_tid = Integer.parseInt(modify_tid_str);
-    } catch (Exception ignored) {}
+    } catch (Exception ignored) {
+    }
     int modify_num = -1;
     try {
         modify_num = Integer.parseInt(modify_str);
-    } catch (Exception ignored) {}
+    } catch (Exception ignored) {
+    }
     int keyword = -1;
     try {
         keyword = Integer.parseInt(keyword_str);
-    } catch (Exception ignored) {}
+    } catch (Exception ignored) {
+    }
     int paid_tid = -1;
     try {
         paid_tid = Integer.parseInt(paid_tid_str);
-    } catch (Exception ignored) {}
+    } catch (Exception ignored) {
+    }
 %>
 
 <%--parameters react--%>
 <%
-    if (delete_tid != -1){
+    if (delete_tid != -1) {
         TransactionDAO.deleteTransaction(delete_tid);
     }
-    if (modify_tid != -1 && modify_num >0){
+    if (modify_tid != -1 && modify_num > 0) {
         TransactionDAO.updateTransactionQuantity(modify_tid, modify_num);
     }
     if (paid_tid != -1) {
@@ -108,10 +114,10 @@
 <%--pre-action--%>
 <%
     List<Transaction> transactions;
-    
-    if (keyword==-1){
+
+    if (keyword == -1) {
         transactions = TransactionDAO.getUserTransactions(user.getId(), page_num);
-    }else {
+    } else {
         transactions = new ArrayList<Transaction>();
         transactions.add(TransactionDAO.getTransactionById(keyword));
     }
@@ -135,7 +141,7 @@
         <div class="main_box">
             <% for (Transaction transaction : transactions) {
                 Commodity commodity = CommodityDAO.getCommodityByCid(transaction.getCid());
-                if (commodity == null){
+                if (commodity == null) {
                     continue;
                 }
             %>
@@ -148,7 +154,7 @@
                         <%=commodity.getItemName()%> <br>
                     </div>
                     <div class="item_bottom_box">
-                        <span><%=transaction.isPaid()?"is paid":"not paid"%></span>
+                        <span><%=transaction.isPaid() ? "is paid" : "not paid"%></span>
                         <form action="shopping_car.jsp" method="post">
                             <input type="hidden" name="page_num" value="<%=page_num%>">
                             <%if (keyword_str != null) {%>
@@ -192,22 +198,22 @@
                         <%if (keyword_str != null) {%>
                         <input type="hidden" name="keyword" value="<%=keyword%>">
                         <%}%>
-                    <input type="submit" value="last page">
+                        <input type="submit" value="last page">
 
-                </form>
-            </div>
+                    </form>
+                </div>
 
-            <div class="next_page">
-                <form action="shopping_car.jsp" method="post">
-                    <input type="hidden" name="page_num" value="<%=transactions.size()<10?page_num:page_num+1 %>">
-                    <%if (keyword_str != null) {%>
-                    <input type="hidden" name="keyword" value="<%=keyword%>">
-                    <%}%>
-                    <input type="submit" value="next page">
-                </form>
+                <div class="next_page">
+                    <form action="shopping_car.jsp" method="post">
+                        <input type="hidden" name="page_num" value="<%=transactions.size()<10?page_num:page_num+1 %>">
+                        <%if (keyword_str != null) {%>
+                        <input type="hidden" name="keyword" value="<%=keyword%>">
+                        <%}%>
+                        <input type="submit" value="next page">
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 
     <div class="right_box">
@@ -218,7 +224,7 @@
             </a>
         </div>
         <div class="user_type">
-                <%=person.getType()==1?"customer":"admin"%>
+            <%=person.getType() == 1 ? "customer" : "admin"%>
         </div>
         <%--    购物车--%>
         <div class="shopping_car">
@@ -226,9 +232,9 @@
                 <img src="img/shop.jpg" alt="商城" width="50" height="50">
             </a>
         </div>
-            <div class="user_type">
-                shopping
-            </div>
+        <div class="user_type">
+            shopping
+        </div>
     </div>
 </div>
 

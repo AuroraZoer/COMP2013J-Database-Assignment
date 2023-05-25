@@ -27,7 +27,7 @@
 <%--session invalid--%>
 <%
     // Default jump shop.jsp
-    if (referenced==null){
+    if (referenced == null) {
         referenced = "shop.jsp";
     }
 %>
@@ -51,7 +51,7 @@
 
 <%--parameters react--%>
 <%
-    if (user_type != null){
+    if (user_type != null) {
         // Administrator login.
         if (user_type.equals("admin")) {
             // Password correct.

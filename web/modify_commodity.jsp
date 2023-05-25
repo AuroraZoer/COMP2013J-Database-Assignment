@@ -37,21 +37,21 @@
 <%--session invalid--%>
 <%
     //登录状态不正常，重新登陆
-    if (login_status==null || !login_status){
+    if (login_status == null || !login_status) {
         session.setAttribute("referenced", "modify_commodity.jsp");
         response.sendRedirect("login.jsp");
         return;
     }
 
 //    session获取不到用户信息，重新登录
-    if (admin == null){
+    if (admin == null) {
         session.setAttribute("referenced", "modify_commodity.jsp");
         response.sendRedirect("login.jsp");
         return;
     }
 
 //    用户权限不足，返回原界面
-    if (admin.getType()!=0){
+    if (admin.getType() != 0) {
         session.setAttribute("referenced", "modify_commodity.jsp");
         response.sendRedirect(referenced);
         return;
@@ -74,7 +74,7 @@
 
 <%--NullPointerException && NumberFormatException--%>
 <%
-//    声明变量
+    //    声明变量
     float price = -1F;
     int cid = -1;
     int stock = -1;
@@ -85,16 +85,20 @@
     try {
         price = Float.parseFloat(price_str);
         stock = Integer.parseInt(stock_str);
-    }catch (Exception ignored){}
-    try{
+    } catch (Exception ignored) {
+    }
+    try {
         delete_cid = Integer.parseInt(delete_cid_str);
-    }catch (Exception ignored){}
-    try{
+    } catch (Exception ignored) {
+    }
+    try {
         isvisable = Integer.parseInt(isvisable_str);
-    }catch (Exception ignored){}
-    try{
+    } catch (Exception ignored) {
+    }
+    try {
         cid = Integer.parseInt(cid_str);
-    }catch (Exception ignored){}
+    } catch (Exception ignored) {
+    }
 %>
 
 <%--parameters invalid--%>
@@ -104,19 +108,18 @@
 
 <%--parameters react--%>
 <%
-    if (price>0 && cid>0 && stock>0 && name!=null && category!=null && once!=null && once.equals("modify")){
-        CommodityDAO.updateCommodity(new Commodity(cid, name, category, price, stock, isvisable==1));
+    if (price > 0 && cid > 0 && stock > 0 && name != null && category != null && once != null && once.equals("modify")) {
+        CommodityDAO.updateCommodity(new Commodity(cid, name, category, price, stock, isvisable == 1));
         session.setAttribute("referenced", "modify_commodity.jsp");
         response.sendRedirect("shop.jsp");
         return;
-    }
-    else if (delete_cid >0 && once!=null && once.equals("delete")){
+    } else if (delete_cid > 0 && once != null && once.equals("delete")) {
         CommodityDAO.deleteCommodity(delete_cid);
         session.setAttribute("referenced", "modify_commodity.jsp");
         response.sendRedirect("shop.jsp");
         return;
-    }else if (cid>0 && isvisable!=-1 && once!=null && once.equals("modify")){
-        CommodityDAO.updateCommodityAvailability(cid, isvisable!=1);
+    } else if (cid > 0 && isvisable != -1 && once != null && once.equals("modify")) {
+        CommodityDAO.updateCommodityAvailability(cid, isvisable != 1);
         session.setAttribute("referenced", "modify_commodity.jsp");
         response.sendRedirect("shop.jsp");
         return;
@@ -139,33 +142,33 @@
 </head>
 <body>
 <div class="container">
-<form action="modify_commodity.jsp">
-    <div class="line">
-    <label>Category:
-        <input type="text" name="category" value="<%=category==null?"":category%>">
-    </label>
-    </div>
-    <div class="line">
-    <label>Name:
-        <input type="text" name="name" value="<%=name==null?"":name%>">
-    </label>
-    </div>
-    <div class="line">
-    <label>Price:
-        <input type="text" name="price" value="<%=price==-1F?"":price%>">
-    </label>
-    </div>
-    <div class="line">
-    <label>Stock:
-        <input type="text" name="stock" value="<%=stock==-1?"":stock%>">
-    </label>
-        <input type="hidden" name="once" value="modify">
-        <input type="hidden" name="cid" value="<%=cid%>">
-    </div>
-    <div class="button">
-        <input type="submit" value="modify">
-    </div>
-</form>
+    <form action="modify_commodity.jsp">
+        <div class="line">
+            <label>Category:
+                <input type="text" name="category" value="<%=category==null?"":category%>">
+            </label>
+        </div>
+        <div class="line">
+            <label>Name:
+                <input type="text" name="name" value="<%=name==null?"":name%>">
+            </label>
+        </div>
+        <div class="line">
+            <label>Price:
+                <input type="text" name="price" value="<%=price==-1F?"":price%>">
+            </label>
+        </div>
+        <div class="line">
+            <label>Stock:
+                <input type="text" name="stock" value="<%=stock==-1?"":stock%>">
+            </label>
+            <input type="hidden" name="once" value="modify">
+            <input type="hidden" name="cid" value="<%=cid%>">
+        </div>
+        <div class="button">
+            <input type="submit" value="modify">
+        </div>
+    </form>
     <a href="<%=referenced%>">Click here to return</a>
 
 </div>
