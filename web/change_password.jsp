@@ -1,9 +1,6 @@
-<%@ page import="dataNoBase.PersonDAO" %>
 <%@ page import="dataNoBase.Person" %>
 <%@ page import="dataNoBase.AdminDAO" %>
-<%@ page import="dataNoBase.Admin" %>
 <%@ page import="dataNoBase.UserDAO" %>
-<%@ page import="dataNoBase.User" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 
@@ -96,7 +93,7 @@
 <html>
 <head>
   <link rel="stylesheet" href="css/login.css">
-  <title>Login</title>
+  <title>Change password</title>
 </head>
 <body>
 
