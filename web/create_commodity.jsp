@@ -63,7 +63,7 @@
     String name = request.getParameter("name");
     String second = request.getParameter("second");
 
-    //The following parameters need to be converted.
+    // The following parameters need to be converted.
     String price_str = request.getParameter("price");
     String cid_str = request.getParameter("cid");
     String stock_str = request.getParameter("stock");
@@ -76,12 +76,12 @@
 
 <%--NullPointerException && NumberFormatException--%>
 <%
-    //    声明变量
+    // Declare variables.
     float price = -1F;
     int cid = -1;
     int stock = -1;
 
-//    转换
+    // Switch.
     try {
         price = Float.parseFloat(price_str);
         cid = Integer.parseInt(cid_str);
