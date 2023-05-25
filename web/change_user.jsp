@@ -1,5 +1,3 @@
-<%@ page import="java.sql.Timestamp" %>
-<%@ page import="java.util.Date" %>
 <%@ page import="dataNoBase.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
