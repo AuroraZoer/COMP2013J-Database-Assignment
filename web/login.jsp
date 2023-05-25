@@ -1,5 +1,3 @@
-<%@ page import="java.sql.Timestamp" %>
-<%@ page import="java.sql.Date" %>
 <%@ page import="dataNoBase.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
@@ -28,7 +26,7 @@
 
 <%--session invalid--%>
 <%
-//    默认跳转shop.jsp
+    // Default jump shop.jsp
     if (referenced==null){
         referenced = "shop.jsp";
     }
@@ -54,9 +52,9 @@
 <%--parameters react--%>
 <%
     if (user_type != null){
-//        管理员登陆
+        // Administrator login.
         if (user_type.equals("admin")) {
-//            密码正确
+            // Password correct.
             if (AdminDAO.isPasswordCorrect(username, password)) {
                 session.setAttribute("person", AdminDAO.getAdminByUsername(username));
                 session.setAttribute("login_status", true);
@@ -65,9 +63,9 @@
                 return;
             }
         }
-//        用户登录
+        // User login.
         else if (user_type.equals("customer")) {
-//            密码正确
+            // Password correct.
             if (UserDAO.isPasswordCorrect(username, password)) {
                 session.setAttribute("person", UserDAO.getUserByUsername(username));
                 session.setAttribute("login_status", true);
