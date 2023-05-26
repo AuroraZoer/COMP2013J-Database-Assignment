@@ -1,9 +1,13 @@
-# COMP2013JDatabase-Assigment
+# COMP2013J-Database-Assigment
 
 ## Developer Documentation
 
+### Github
+
+[The github repository address](https://github.com/AuroraZoer/COMP2013J-Database-Assigment)
+
 ### Overleaf Report
-[Use this link to edit the overleaf report](https://cn.overleaf.com/project/642bfe14efb96a354b3f2ce5)
+[Use this link to look the overleaf report](https://cn.overleaf.com/read/gvfssvbgydkq)
 
 ### Java
 - Use JDK-17
