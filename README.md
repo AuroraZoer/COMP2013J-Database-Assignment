@@ -1,12 +1,16 @@
 # COMP2013J-Database-Assigment
 
+## Project Report
+The detailed report for this project can be found in the following location: [COMP2013J Assignment Report.pdf](./docs/COMP2013J%20Assignment%20Report.pdf).
+
+Note: The report is in PDF format and can be accessed by clicking the provided link.
+
 ## Developer Documentation
 
 ### Github
 
 [The github repository address](https://github.com/AuroraZoer/COMP2013J-Database-Assigment)
 
-### Overleaf Report
 ### Java
 - Use JDK-17
 
