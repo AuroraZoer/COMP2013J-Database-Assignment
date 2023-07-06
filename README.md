@@ -1,4 +1,4 @@
-# COMP2013J-Database-Assigment
+# COMP2013J-Database-Assignment
 
 ## Project Report
 The detailed report for this project can be found in the following location: [COMP2013J Assignment Report.pdf](./docs/COMP2013J%20Assignment%20Report.pdf).
