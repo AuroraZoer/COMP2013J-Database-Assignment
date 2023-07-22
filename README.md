@@ -5,6 +5,8 @@ The detailed report for this project can be found in the following location: [CO
 
 Note: The report is in PDF format and can be accessed by clicking the provided link.
 
+- Click [here](https://youtu.be/NPIImijeXUE) to see a video presentation of the project. 
+
 ## Developer Documentation
 
 ### Github
